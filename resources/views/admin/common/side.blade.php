@@ -8,7 +8,7 @@
             <li><a href="{{ route('admin.post.create') }}"><i class="fa fa-plus"></i> <span>Thêm phim</span></a></li>
             <li><a href="{{ route('admin.posttype.index') }}"><i class="fa fa-list"></i> <span>Thể loại</span></a></li>
             <li><a href="{{ route('admin.postseri.index') }}"><i class="fa fa-list"></i> <span>Seri phim</span></a></li>
-            <li><a href="{{ route('admin.posttag.index') }}"><i class="fa fa-tags"></i> <span>Hãng/Diễn viên</span></a></li>
+            <li><a href="{{ route('admin.posttag.index') }}"><i class="fa fa-tags"></i> <span>Hãng phim</span></a></li>
             <li><a href="{{ route('admin.page.index') }}"><i class="fa fa-file-text-o"></i> <span>Pages</span></a></li>
             <li><a href="{{ route('admin.slider.index') }}"><i class="fa fa-list"></i> <span>Slider</span></a></li>
             @if(Auth::guard('admin')->user()->role_id == ADMIN)
