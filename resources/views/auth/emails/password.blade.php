@@ -1,0 +1,1 @@
+Click here to reset your password (Mời bạn click vào đường dẫn sau để đặt lại mật khẩu): <a href="{{ $link = url(Request::segment(1) . '/password/reset', $token).'?email='.urlencode($user->getEmailForPasswordReset()) }}"> {{ $link }} </a>

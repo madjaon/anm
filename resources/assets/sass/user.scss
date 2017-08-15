@@ -1,0 +1,148 @@
+@import 'scss/bootstrap';
+
+// fix font size heading
+h1 {font-size: 1.5rem;}
+h2 {font-size: 1.375rem;}
+h3 {font-size: 1.25rem;}
+h4 {font-size: 1.125rem;}
+h5 {font-size: 1rem;}
+h6 {font-size: .875rem;}
+
+a {
+  color: $white;
+}
+a:active,
+a:hover {
+  color: $green;
+  text-decoration: none;
+}
+
+button,
+input[type="submit"] {
+  cursor: pointer;
+}
+
+body {
+  background: $color-1a;
+  color: $white;
+}
+
+header {
+  background: $black;
+  border-bottom: 1px solid #ccc;
+  a {
+    color: $white;
+  }
+}
+
+// FOOTER
+
+footer {
+  background: $black;
+  padding: .625rem 0;
+  text-align: center;
+  p {
+    margin: 0;
+    padding: 0;
+    font-size: .813rem;
+  }
+}
+
+// END FOOTER
+
+// BOX STYLE
+
+.box-style {
+  border-bottom: 3px solid $table-border-color;
+  .title,
+  h1 {
+    border-bottom: 3px solid $green;
+    color: $green;
+    text-transform: uppercase;
+    margin-bottom: -3px;
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+}
+
+// END BOX STYLE
+
+// TABLE
+
+.table {
+  // border: 1px solid #ccc;
+  h3 {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+}
+
+.table-bordered {
+  border: 1px solid transparent;
+}
+
+.table-bordered td, .table-bordered th {
+  border: none;
+  border-left: 1px dashed $table-border-color;
+}
+
+.overflow {
+  height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.shelf {
+  height: 290px;
+}
+
+// Extra small devices (portrait phones, less than 576px)
+// No media query since this is the default in Bootstrap
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) {}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {}
+
+//
+
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575px) {}
+
+// Small devices (landscape phones, less than 768px)
+@media (max-width: 767px) {}
+
+// Medium devices (tablets, less than 992px)
+@media (max-width: 991px) {}
+
+// Large devices (desktops, less than 1200px)
+@media (max-width: 1199px) {}
+
+// Extra large devices (large desktops)
+// No media query since the extra-large breakpoint has no upper bound on its width
+
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575px) {}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767px) {}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px) {}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px) {}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {}
+
+// Example
+// Apply styles starting from medium devices and up to extra large devices
+@media (min-width: 768px) and (max-width: 1199px) {}

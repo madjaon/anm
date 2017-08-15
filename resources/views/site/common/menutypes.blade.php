@@ -1,0 +1,1 @@
+<div class="dropdown-menu dropdown-mega animated fadeInDownNew" aria-labelledby="navbarDropdownMenuLink"><div class="row">@foreach($data as $value)<div class="col-md-3"><a class="dropdown-item" href="{!! CommonUrl::getUrlPostType($value->slug) !!}" title="Thể loại {!! $value->name !!}">{!! $value->name !!}</a></div>@endforeach</div></div>
