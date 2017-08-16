@@ -9,10 +9,14 @@ use App\Http\Requests;
 use DB;
 use App\Models\Post;
 
+use Sunra\PhpSimple\HtmlDomParser;
+
 class TestController extends Controller
 {
     public function index()
     {
+        // return view('site.test');
+
         dd('no permission');
         ////////////////////////////////////////
         //check posts va post_type_relations co trung du lieu hay ko
@@ -30,6 +34,70 @@ class TestController extends Controller
         // dd($count_post_type_relations);
         //END
         ////////////////////////////////////////
+    }
+
+    /**
+
+    CREATE TABLE `ani_anilists` (
+      `id` int(11) NOT NULL,
+      `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+      `name2` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+      `year` int(11) NOT NULL,
+      `season` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+      `episode` int(11) NOT NULL,
+      `type` int(11) NOT NULL,
+      `kind` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+      `tag` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+      `genre` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+    ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='test';
+
+    ALTER TABLE `ani_anilists` ADD PRIMARY KEY (`id`);
+
+    ALTER TABLE `ani_anilists` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+    **/
+
+    public function animeSteal(Request $request)
+    {
+        trimRequest($request);
+
+        $html = HtmlDomParser::str_get_html($request->htmlstring); // Create DOM from URL or file
+
+        $genres = [];
+        $titles = [];
+        $producers = [];
+        $eps = [];
+
+        foreach($html->find('.seasonal-anime') as $element) {
+            $genres[] = trim($element->getAttribute('data-genre'));
+        }
+        foreach($html->find('.title-text') as $element) {
+            $titles[] = trim($element->plaintext);
+        }
+        foreach($html->find('span.producer') as $element) {
+            $producers[] = trim($element->plaintext);
+        }
+        foreach($html->find('div.eps') as $element) {
+            $eps[] = str_replace(' eps', '', trim($element->plaintext));
+        }
+
+        if(count($titles) > 0) {
+            foreach($titles as $key => $value) {
+                DB::table('anilists')->insert([
+                    'name' => $value, // ten phim
+                    // 'name2' => '', // ten khac
+                    'year' => $request->year, // nam
+                    'season' => $request->season, // mua
+                    'episode' => $eps[$key], // so tap
+                    'type' => $request->type, // loai phim
+                    'kind' => $request->kind, // tinh trang
+                    'tag' => $producers[$key], // hang phim
+                    'genre' => $genres[$key] // the loai
+                ]);
+            }
+        }
+        return redirect('test')->with('success', 'Thành công');
+        // dd('success!');
     }
 
     // warning: this function is dangerous

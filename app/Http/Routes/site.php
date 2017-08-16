@@ -1,5 +1,6 @@
 <?php
 
+// Route::post('test/animeSteal', 'TestController@animeSteal');
 // Route::resource('test', 'TestController');
 // Route::get('mixdb/{typeId}', 'TestController@mixdb');
 

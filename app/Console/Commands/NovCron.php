@@ -42,20 +42,22 @@ class NovCron extends Command
 	*/
 	public function handle()
 	{
+        // kiem tra xem trong truyen co anh hay khong, neu co tao folder theo id truyen
 		// $rs = self::hasfolderimage();
 		// if(isset($rs)) {
 		// 	$this->info('Command Run successfully!');
 		// } else {
 		// 	$this->info('Error!');
 		// }
-		$postContinue = self::getPostContinue();
-		if(!empty($postContinue)) {
-			CommonCrawler::insertChapsByPosts($postContinue);
-		} else {
-			$this->info('Nov:Cron No Data Found!');
-		}
-		Cache::flush();
-		$this->info('Nov:Cron Command Run successfully!');
+
+		// $postContinue = self::getPostContinue();
+		// if(!empty($postContinue)) {
+		// 	CommonCrawler::insertChapsByPosts($postContinue);
+		// } else {
+		// 	$this->info('Nov:Cron No Data Found!');
+		// }
+		// Cache::flush();
+		// $this->info('Nov:Cron Command Run successfully!');
 	}
 
 	private function getPostContinue()
