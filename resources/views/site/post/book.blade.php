@@ -115,7 +115,7 @@
     </div>--}}
 
     @if(isset($post->epFirst) || isset($post->epLast))
-      @if(($post->epFirst->id == $post->epLast->id) || $post->type == POST_MOVIE)
+      @if(($post->epFirst->id == $post->epLast->id) || $post->type != POST_TV)
         <div class="row">
           <div class="col-sm-6">
             <a class="btn btn-danger mb-3 w-100 book-full" href="{!! CommonUrl::getUrl2($post->slug, $post->epFirst->slug) !!}">Xem Ngay</a>
