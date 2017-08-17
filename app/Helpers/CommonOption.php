@@ -45,7 +45,7 @@ class CommonOption
     //type
     static function typePostArray()
     {
-        return array(POST_TV=>'TV Series', POST_MOVIE=>'Movie', POST_OVA=>'OVA', POST_TRAILER=>'Trailer');
+        return array(POST_TV=>'TV Series', POST_MOVIE=>'Movie', POST_OVA=>'OVA', POST_ONA=>'ONA');
     }
     static function getTypePost($key=POST_TV)
     {
