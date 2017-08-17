@@ -14,8 +14,8 @@
     <form action="{{ url('test/animeSteal') }}" method="post">
       {!! csrf_field() !!}
       <textarea name="htmlstring" class="form-control" rows="8" cols="60"></textarea>
-      {!! Form::select('kind', CommonOption::kindPostArray(), old('kind')) !!}
-      {!! Form::select('type', CommonOption::typePostArray(), old('type')) !!}
+      <!-- {!! Form::select('kind', CommonOption::kindPostArray(), old('kind')) !!} -->
+      <!-- {!! Form::select('type', CommonOption::typePostArray(), old('type')) !!} -->
       {!! Form::select('year', CommonOption::yearArray(), old('year')) !!}
       {!! Form::select('season', CommonOption::seasonArray(), old('season')) !!}
       <br>
