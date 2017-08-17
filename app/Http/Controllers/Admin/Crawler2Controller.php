@@ -136,8 +136,7 @@ class Crawler2Controller extends Controller
     }
 
     private function insertPost($key, $link, $title, $typeMainId) {
-        $slug = CommonMethod::convert_string_vi_to_en($title);
-        $slug = strtolower(preg_replace('/[^a-zA-Z0-9]+/i', '-', $slug));
+        $slug = CommonMethod::buildSlug($title);
         $post = Post::where('slug', $slug)->first();
         if(!isset($post)) {
             // get content
@@ -197,8 +196,7 @@ class Crawler2Controller extends Controller
                         if(isset($aut)) {
                             $authorIds[] = $aut->id;
                         } else {
-                            $authorSlug = CommonMethod::convert_string_vi_to_en($author);
-                            $authorSlug = strtolower(preg_replace('/[^a-zA-Z0-9]+/i', '-', $authorSlug));
+                            $authorSlug = CommonMethod::buildSlug($author);
                             //insert 
                             $tag = PostTag::create([
                                 'name' => $author,
@@ -290,8 +288,7 @@ class Crawler2Controller extends Controller
             $title = trim($element->plaintext);
         }
         if(!empty($title)) {
-            $slug = CommonMethod::convert_string_vi_to_en($title);
-            $slug = strtolower(preg_replace('/[^a-zA-Z0-9]+/i', '-', $slug));
+            $slug = CommonMethod::buildSlug($title);
             $post = Post::where('slug', $slug)->first();
             if(isset($post)) {
                 return redirect()->route('admin.crawler2.index')->with('warning', 'Đã thêm trước đó, mời kiểm tra lại');
@@ -348,8 +345,7 @@ class Crawler2Controller extends Controller
                     if(isset($aut)) {
                         $authorIds[] = $aut->id;
                     } else {
-                        $authorSlug = CommonMethod::convert_string_vi_to_en($author);
-                        $authorSlug = strtolower(preg_replace('/[^a-zA-Z0-9]+/i', '-', $authorSlug));
+                        $authorSlug = CommonMethod::buildSlug($author);
                         //insert 
                         $tag = PostTag::create([
                             'name' => $author,

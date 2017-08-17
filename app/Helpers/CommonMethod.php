@@ -93,6 +93,13 @@ class CommonMethod
 	    $u = explode('.', $ur[count($ur)-1]);
 	    return $u[0];
 	}
+	// build slug form name
+	static function buildSlug($name='')
+	{
+		$slug = self::convert_string_vi_to_en($name);
+        $slug = strtolower(preg_replace('/[^a-zA-Z0-9]+/i', '-', str_replace('.', '', $slug)));
+        return $slug;
+	}
 
 	// CURRENT FILE
 	static function startDateLabel($startDate = null)
@@ -214,8 +221,7 @@ class CommonMethod
 		$file = self::getFilename($filename);
 		//vietnamese to none vietnamese & replace space %20
 		$file = str_replace('%20', '-', $file);
-		$file = self::convert_string_vi_to_en($file);
-        $file = strtolower(preg_replace('/[^a-zA-Z0-9]+/i', '-', $file));
+        $file = self::buildSlug($file);
 		//add time
 		if($time == null) {
 			$str_time = strtotime(date('YmdHis'));

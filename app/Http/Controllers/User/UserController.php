@@ -95,8 +95,7 @@ class UserController extends Controller
         if($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        $slug = CommonMethod::convert_string_vi_to_en($request->name);
-        $slug = strtolower(preg_replace('/[^a-zA-Z0-9]+/i', '-', $slug));
+        $slug = CommonMethod::buildSlug($request->name);
         $data = Post::create([
                 'name' => $request->name,
                 'slug' => $slug,
@@ -114,8 +113,7 @@ class UserController extends Controller
             if(isset($tag)) {
                 $tag_id = [$tag->id];
             } else {
-                $slugTag = CommonMethod::convert_string_vi_to_en($this->name);
-                $slugTag = strtolower(preg_replace('/[^a-zA-Z0-9]+/i', '-', $slugTag));
+                $slugTag = CommonMethod::buildSlug($this->name);
                 $dataTag = PostTag::create([
                     'name' => $this->name,
                     'slug' => $slugTag,
@@ -205,8 +203,7 @@ class UserController extends Controller
             $name = $ep;
         }
         // post ep
-        $slug = CommonMethod::convert_string_vi_to_en($ep);
-        $slug = strtolower(preg_replace('/[^a-zA-Z0-9]+/i', '-', $slug));
+        $slug = CommonMethod::buildSlug($ep);
         $data = PostEp::create([
                 'name' => $name,
                 'slug' => $slug,

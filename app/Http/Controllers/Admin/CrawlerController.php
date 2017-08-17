@@ -337,8 +337,7 @@ class CrawlerController extends Controller
                         $slug = CommonMethod::getSlugFromUrl($link);
                     }
                 } else {
-                    $slug = CommonMethod::convert_string_vi_to_en($postName);
-                    $slug = strtolower(preg_replace('/[^a-zA-Z0-9]+/i', '-', $slug));
+                    $slug = CommonMethod::buildSlug($postName);
                 }
                 //check slug post
                 $checkSlug = Post::where('slug', $slug)->first();

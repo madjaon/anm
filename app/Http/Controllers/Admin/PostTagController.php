@@ -37,8 +37,7 @@ class PostTagController extends Controller
     {
         $data = DB::table('post_tags')->where(function ($query) use ($request) {
             if ($request->name != '') {
-                $slug = CommonMethod::convert_string_vi_to_en($request->name);
-                $slug = strtolower(preg_replace('/[^a-zA-Z0-9]+/i', '-', $slug));
+                $slug = CommonMethod::buildSlug($request->name);
                 $query = $query->where('slug', 'like', '%'.$slug.'%');
                 $query = $query->orWhere('name', 'like', '%'.$request->name.'%');
             }
