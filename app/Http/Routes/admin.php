@@ -67,20 +67,24 @@ Route::group(['middleware' => ['auth:admin']], function ($router) {
     // clear all cache & views
     Route::get('clearallstorage', 'UtilityController@clearallstorage');
     // gdrive upload image
-    Route::get('gdriveimage', 'UtilityController@gdriveimage');
-    Route::post('gdriveimageAction', 'UtilityController@gdriveimageAction');
+    // Route::get('gdriveimage', 'UtilityController@gdriveimage');
+    // Route::post('gdriveimageAction', 'UtilityController@gdriveimageAction');
     // crawler
     // Route::post('crawler/save', 'CrawlerController@save');
     // Route::post('crawler/steal', 'CrawlerController@steal');
     // Route::resource('crawler', 'CrawlerController');
     // crawler 2 for novel
-    Route::get('crawler2/stealagain', 'Crawler2Controller@stealagain');
-    Route::post('crawler2/stealchapterspattern', 'Crawler2Controller@stealchapterspattern');
-    Route::post('crawler2/stealchapters', 'Crawler2Controller@stealchapters');
-    Route::post('crawler2/truyenfullpostchap', 'Crawler2Controller@truyenfullpostchap');
-    Route::post('crawler2/truyenfullchap', 'Crawler2Controller@truyenfullchap');
-    Route::post('crawler2/truyenfullpost', 'Crawler2Controller@truyenfullpost');
-    Route::resource('crawler2', 'Crawler2Controller');
+    // Route::get('crawler2/stealagain', 'Crawler2Controller@stealagain');
+    // Route::post('crawler2/stealchapterspattern', 'Crawler2Controller@stealchapterspattern');
+    // Route::post('crawler2/stealchapters', 'Crawler2Controller@stealchapters');
+    // Route::post('crawler2/truyenfullpostchap', 'Crawler2Controller@truyenfullpostchap');
+    // Route::post('crawler2/truyenfullchap', 'Crawler2Controller@truyenfullchap');
+    // Route::post('crawler2/truyenfullpost', 'Crawler2Controller@truyenfullpost');
+    // Route::resource('crawler2', 'Crawler2Controller');
+    // crawler 3 for anime
+    Route::post('crawler3/steallinkvideo2', 'Crawler3Controller@steallinkvideo2');
+    Route::post('crawler3/steallinkvideo', 'Crawler3Controller@steallinkvideo');
+    Route::resource('crawler3', 'Crawler3Controller');
 });
 Route::get('login', ['uses' => 'AuthController@index', 'as' => 'admin.auth.index']);
 Route::post('login', ['uses' => 'AuthController@login', 'as' => 'admin.auth.login', 'middleware' => 'checkstatus']);

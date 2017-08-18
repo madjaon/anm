@@ -20,15 +20,20 @@
               <p>Trong cặp dấu ngoặc vuông [] là giá trị thay đổi.</p>
               <p>[quoc-gia]: {{ SLUG_NATION_JAPAN }}, {{ SLUG_NATION_USA }}, {{ SLUG_NATION_KOREAN }}, {{ SLUG_NATION_CHINA }}, {{ SLUG_NATION_VIETNAM }}, {{ SLUG_NATION_OTHER }}</p>
               <p>[tinh-trang]: {{ SLUG_POST_KIND_FULL }}, {{ SLUG_POST_KIND_UPDATING }}</p>
+              <p>[mùa]: dong,xuan,ha,thu</p>
+              <p>[năm]: 1984,1988...</p>
               <ul>
                 <li><strong>Trang thể loại: </strong>/the-loai/[ten-the-loai]</li>
-                <li><strong>Trang chi tiết truyen: </strong>/[ten-truyen]</li>
-                <li><strong>Trang xem truyen: </strong>/[ten-truyen]/[ten-ep]</li>
-                <li><strong>Trang danh sách theo quốc gia: </strong>/doc-truyen-[quoc-gia]</li>
-                <li><strong>Trang danh sách tác giả: </strong>/tac-gia</li>
+                <li><strong>Trang chi tiết: </strong>/[ten-phim]</li>
+                <li><strong>Trang xem: </strong>/[ten-phim]/[ten-ep]</li>
+                <li><strong>Trang danh sách theo quốc gia: </strong>/xem-phim-hoat-hinh-[quoc-gia]</li>
+                <li><strong>Trang danh sách hãng phim: </strong>/hang-phim</li>
                 <li><strong>Trang tác giả: </strong>/tag/[tac-gia]</li>
-                <li><strong>Trang seri truyen: </strong>/seri/[ten-seri]</li>
-                <li><strong>Trang danh sách tình trạng truyen: </strong>/danh-sach-truyen-[tinh-trang]</li>
+                <li><strong>Trang seri: </strong>/seri/[ten-seri]</li>
+                <li><strong>Trang danh sách tình trạng: </strong>/danh-sach-phim-[tinh-trang]</li>
+                <li><strong>Trang danh sách theo năm: </strong>/xem-anime-nam-[năm]</li>
+                <li><strong>Trang danh sách theo năm trước: </strong>/xem-anime-truoc-nam-[năm]</li>
+                <li><strong>Trang danh sách theo mùa: </strong>/danh-sach-anime-mua-[mùa]-nam-[năm]</li>
               </ul>
             </div>
             <!-- /.tab-pane -->
@@ -46,11 +51,8 @@
                     <li><a href="/admin/genthumb">Tạo Thumbnail cho ảnh đại diện avatar (chỉ những ảnh chưa có thumbnail)</a></li>
                     <li><a href="/admin/genwatermark">Gắn Watermark vào ảnh</a></li>
                     <li><a href="/admin/gensitemap">Tạo mới sitemap.xml</a></li>
-                    <li><a href="/admin/crawler2">Crawler</a></li>
+                    <li><a href="/admin/crawler3">Crawler</a></li>
                 </ul>
-                <p><span class="label label-warning">Chú ý về chức năng Xóa Cache Website!</span> Hiếm khi sử dụng (ấn nhiều gây ảnh hưởng tới tốc độ load trang). Sử dụng khi có thay đổi về source code hoặc database trên host.</p>
-                <p><span class="label label-warning">Chú ý về chức năng tạo Thumbnail!</span> Có thể mất thời gian để tạo Thumbnail.</p>
-                <p>Sử dụng khi Ảnh avatar (ảnh đại diện) có thể bị lỗi do file PNG, GIF có thể không tạo được thumbnail khi upload bằng trình upload ảnh.</p>
             </div>
             <!-- /.tab-pane -->
           </div>
