@@ -17,7 +17,7 @@ class TestController extends Controller
     {
         dd('no permission');
 
-        // return view('site.test');
+        return view('site.test');
         
         // $array1 = [
         //     'Xebec',
@@ -76,7 +76,7 @@ class TestController extends Controller
         //     '50' => 'Hoods Entertainment',
         //     '51' => 'ILCA',
         //     '52' => 'Imagin',
-        //     '53' => 'ixtl, LIDENFILMS',
+        //     '53' => 'Will Palette',
         //     '54' => 'J.C.Staff',
         //     '55' => 'Kinema Citrus',
         //     '56' => 'KOO-KI',
@@ -186,6 +186,21 @@ class TestController extends Controller
         //     '160' => 'Think Corporation',
         //     '161' => 'Oh! Production',
         //     '162' => 'The Answer Studio',
+        //     '163' => 'APPP',
+        //     '164' => 'LandQ studios',
+        //     '165' => 'Arcs Create',
+        //     '166' => 'Shinkuukan',
+        //     '167' => 'Chaos Project',
+        // '168' => 'Studio Fantasia',
+        // '169' => 'Gathering',
+        // '170' => 'Anpro',
+        // '171' => 'Studio Animal',
+        // '172' => 'Kamikaze Douga',
+        // '173' => 'Studio PuYUKAI',
+        // '174' => 'An DerCen',
+        // '175' => 'Felix Film',
+
+
         // ];
 
         // $result = [];
@@ -275,25 +290,39 @@ class TestController extends Controller
             $member[] = str_replace(',', '', trim($element->plaintext));
         }
         foreach($html->find('div.scormem span.score') as $element) {
-            $score[] = round(trim($element->plaintext));
+            $score[] = round(trim($element->plaintext)); // lam tron tren duoi .5
+            // $score[] = floor(trim($element->plaintext)); // lam tron giam xuong phan so nguyen
         }
 
         if(count($titles) > 0) {
             foreach($titles as $key => $value) {
-                if($score[$key] > 6 && $member[$key] > 6000) {
-                    DB::table('anilists')->insert([
-                        'name' => $value, // ten phim
-                        // 'name2' => '', // ten khac
-                        'year' => $request->year, // nam
-                        'season' => $request->season, // mua
-                        'episode' => $eps[$key], // so tap
-                        // 'type' => $request->type, // loai phim
-                        // 'kind' => $request->kind, // tinh trang
-                        'type' => 2, // loai phim
-                        'kind' => 'da-hoan-thanh', // tinh trang
-                        'tag' => $producers[$key], // hang phim
-                        'genre' => $genres[$key] // the loai
-                    ]);
+                if($score[$key] > 6 && $member[$key] > 25000) {
+                    $check = DB::table('anilists')->where('name', $value)->first();
+                    if(strpos($genres[$key], '12') !== false || strpos($genres[$key], '33') !== false || strpos($genres[$key], '34') !== false ) {
+                        $checkGenre = 1;
+                    } else {
+                        $checkGenre = null;
+                    }
+                    // if($eps[$key] == 1) {
+                        $kind = 'da-hoan-thanh';
+                    // } else {
+                    //     $kind = 'con-tiep-tuc';
+                    // }
+                    if(!isset($check) && !isset($checkGenre)) {
+                        DB::table('anilists')->insert([
+                            'name' => $value, // ten phim
+                            // 'name2' => '', // ten khac
+                            'year' => $request->year, // nam
+                            'season' => $request->season, // mua
+                            'episode' => $eps[$key], // so tap
+                            // 'type' => $request->type, // loai phim
+                            // 'kind' => $request->kind, // tinh trang
+                            'type' => 3, // loai phim
+                            'kind' => $kind, // tinh trang
+                            'tag' => $producers[$key], // hang phim
+                            'genre' => $genres[$key] // the loai
+                        ]);
+                    }
                 }
             }
         }
@@ -357,7 +386,7 @@ class TestController extends Controller
             '50' => 'Hoods Entertainment',
             '51' => 'ILCA',
             '52' => 'Imagin',
-            '53' => 'ixtl, LIDENFILMS',
+            '53' => 'Will Palette',
             '54' => 'J.C.Staff',
             '55' => 'Kinema Citrus',
             '56' => 'KOO-KI',
@@ -467,6 +496,19 @@ class TestController extends Controller
             '160' => 'Think Corporation',
             '161' => 'Oh! Production',
             '162' => 'The Answer Studio',
+            '163' => 'APPP',
+            '164' => 'LandQ studios',
+            '165' => 'Arcs Create',
+            '166' => 'Shinkuukan',
+            '167' => 'Chaos Project',
+            '168' => 'Studio Fantasia',
+            '169' => 'Gathering',
+            '170' => 'Anpro',
+            '171' => 'Studio Animal',
+            '172' => 'Kamikaze Douga',
+            '173' => 'Studio PuYUKAI',
+            '174' => 'An DerCen',
+            '175' => 'Felix Film',
 
         ];
 
