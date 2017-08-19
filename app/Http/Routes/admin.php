@@ -8,10 +8,10 @@ Route::group(['middleware' => ['auth:admin']], function ($router) {
     Route::post('account/{id}/password', ['uses' => 'AccountController@doPassword', 'as' => 'admin.account.password']);
     Route::resource('account', 'AccountController');
     // account
-    Route::post('user/updateStatus', 'UserController@updateStatus');
-    Route::get('user/{id}/password', ['uses' => 'UserController@password', 'as' => 'admin.user.password']);
-    Route::post('user/{id}/password', ['uses' => 'UserController@doPassword', 'as' => 'admin.user.password']);
-    Route::resource('user', 'UserController');
+    // Route::post('user/updateStatus', 'UserController@updateStatus');
+    // Route::get('user/{id}/password', ['uses' => 'UserController@password', 'as' => 'admin.user.password']);
+    // Route::post('user/{id}/password', ['uses' => 'UserController@doPassword', 'as' => 'admin.user.password']);
+    // Route::resource('user', 'UserController');
     // menu
     Route::post('menu/updateParentIdSelectBox', 'MenuController@updateParentIdSelectBox');
     Route::post('menu/updateStatus', 'MenuController@updateStatus');
