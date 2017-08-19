@@ -21,7 +21,7 @@
 
     <div class="online mx-auto mb-4">
       <div class="embed-responsive embed-responsive-16by9">
-        <iframe id="player" class="embed-responsive-item" src="{!! $data->server1 !!}" allowfullscreen scrolling="no" seamless></iframe>
+        <iframe id="player" class="embed-responsive-item" src="{!! $data->firstServer !!}" allowfullscreen scrolling="no" seamless></iframe>
       </div>
       <div style="width: 80px; height: 80px; position: absolute; opacity: 0; right: 0px; top: 0px;"></div>
     </div>

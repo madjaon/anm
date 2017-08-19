@@ -25,14 +25,18 @@ class SiteController extends Controller
         //seo meta
         $seo = DB::table('configs')->where('status', ACTIVE)->first();
 
-        if(!empty($seo->top_trending)) {
-            $trending = explode(',', $seo->top_trending);
-            // moi nhat
-            $data = $this->getPosts()->whereNotIn('id', $trending)->take(PAGINATE_LATEST)->get();
-        } else {
-            // moi nhat
-            $data = $this->getPosts()->take(PAGINATE_LATEST)->get();
-        }
+        // neu de box trending phia tren, thi box moi nhat khong can hien thi post da co trong box trending. Neu box trending phia duoi thi comment code.
+        // if(!empty($seo->top_trending)) {
+        //     $trending = explode(',', $seo->top_trending);
+        //     // moi nhat
+        //     $data = $this->getPosts()->whereNotIn('id', $trending)->take(PAGINATE_LATEST)->get();
+        // } else {
+        //     // moi nhat
+        //     $data = $this->getPosts()->take(PAGINATE_LATEST)->get();
+        // }
+
+        // moi nhat
+        $data = $this->getPosts()->take(PAGINATE_LATEST)->get();
 
         // view
         // $data2 = $this->getPosts('view')->take(PAGINATE_HOT)->get();
@@ -95,9 +99,9 @@ class SiteController extends Controller
                 $tag->h1 = 'Hãng phim ' . $tagName;
                 if(empty($tag->meta_title)) {
                     if($page > 1) {
-                        $tag->meta_title = 'Xem anime của ' . $tagName.' trang '.$page;
+                        $tag->meta_title = 'Xem anime hãng ' . $tagName.' trang '.$page;
                     } else {
-                        $tag->meta_title = 'Xem anime của ' . $tagName;
+                        $tag->meta_title = 'Xem anime hãng ' . $tagName;
                     }
                 }
                 if(empty($tag->meta_keyword)) {
@@ -112,7 +116,8 @@ class SiteController extends Controller
                     $tag->meta_image = '/img/img600x315.jpg';
                 }
 
-                $authors = $this->getTagsByPosts($data);
+                // $authors = $this->getTagsByPosts($data);
+                $authors = null;
 
                 // return view
                 return view('site.post.tag', ['data' => $data, 'tag' => $tag, 'authors' => $authors]);
@@ -162,7 +167,8 @@ class SiteController extends Controller
                     $type->meta_image = '/img/img600x315.jpg';
                 }
 
-                $authors = $this->getTagsByPosts($data);
+                // $authors = $this->getTagsByPosts($data);
+                $authors = null;
 
                 // return view
                 return view('site.post.type', ['data' => $data, 'type' => $type, 'authors' => $authors]);
@@ -212,7 +218,8 @@ class SiteController extends Controller
                     $seri->meta_image = '/img/img600x315.jpg';
                 }
 
-                $authors = $this->getTagsByPosts($data);
+                // $authors = $this->getTagsByPosts($data);
+                $authors = null;
 
                 // return view
                 return view('site.post.seri', ['data' => $data, 'seri' => $seri, 'authors' => $authors]);
@@ -252,7 +259,8 @@ class SiteController extends Controller
             $seo->meta_description = 'Danh sách anime ' . CommonOption::getNation($slug) . ' hay nhất';
             $seo->meta_image = '/img/img600x315.jpg';
 
-            $authors = $this->getTagsByPosts($data);
+            // $authors = $this->getTagsByPosts($data);
+            $authors = null;
 
             // return view
             return view('site.post.box', ['data' => $data, 'seo' => $seo, 'authors' => $authors]);
@@ -291,7 +299,8 @@ class SiteController extends Controller
             $seo->meta_description = 'Danh sách anime ' . CommonOption::getKindPost($slug);
             $seo->meta_image = '/img/img600x315.jpg';
 
-            $authors = $this->getTagsByPosts($data);
+            // $authors = $this->getTagsByPosts($data);
+            $authors = null;
 
             // return view
             return view('site.post.box', ['data' => $data, 'seo' => $seo, 'authors' => $authors]);
@@ -629,22 +638,28 @@ class SiteController extends Controller
                 // server
                 $serverArray = [];
                 if(!empty($data->server0)) {
-                    $serverArray[$data->server0] = 'Fast';
+                    $serverArray[$data->server0] = 'VIP';
+                    $data->firstServer = $data->server0;
                 }
                 if(!empty($data->server1)) {
                     $serverArray[$data->server1] = 'Server 1';
+                    $data->firstServer = isset($data->firstServer)?$data->firstServer:$data->server1;
                 }
                 if(!empty($data->server2)) {
                     $serverArray[$data->server2] = 'Server 2';
+                    $data->firstServer = isset($data->firstServer)?$data->firstServer:$data->server2;
                 }
                 if(!empty($data->server3)) {
                     $serverArray[$data->server3] = 'Server 3';
+                    $data->firstServer = isset($data->firstServer)?$data->firstServer:$data->server3;
                 }
                 if(!empty($data->server4)) {
                     $serverArray[$data->server4] = 'Server 4';
+                    $data->firstServer = isset($data->firstServer)?$data->firstServer:$data->server4;
                 }
                 if(!empty($data->server5)) {
                     $serverArray[$data->server5] = 'Server 5';
+                    $data->firstServer = isset($data->firstServer)?$data->firstServer:$data->server5;
                 }
                 $data->serverArray = $serverArray;
 
@@ -687,8 +702,10 @@ class SiteController extends Controller
 
         $authors = $this->getTagsByPosts($data);
 
+        $genres = $this->getTypesByPosts($data);
+
         // return view
-        return view('site.post.search', ['data' => $data->appends($request->except('page')), 'seo' => $seo, 'authors' => $authors, 'request' => $request]);
+        return view('site.post.search', ['data' => $data->appends($request->except('page')), 'seo' => $seo, 'authors' => $authors, 'genres' => $genres, 'request' => $request]);
     }
     public function livesearch(Request $request)
     {
@@ -706,19 +723,28 @@ class SiteController extends Controller
         if(!empty($data)) {
             foreach($data as $value) {
                 // neu search theo ten post & ten tac gia thi them authors!
-                $authors = '';
-                // list tags
-                $tags = $this->getRelationsByPostQuery('tag', $value->id);
-                if(!empty($tags)) {
-                    foreach($tags as $k => $v) {
-                        if($k > 0) {
-                            $authors .= ' - ';
-                        }
-                        $authors .= $v->name;
-                    }
+                // $authors = '';
+                // // list tags
+                // $tags = $this->getRelationsByPostQuery('tag', $value->id);
+                // if(!empty($tags)) {
+                //     foreach($tags as $k => $v) {
+                //         if($k > 0) {
+                //             $authors .= ' - ';
+                //         }
+                //         $authors .= $v->name;
+                //     }
+                // }
+                $image = ($value->image)?CommonMethod::getThumbnail($value->image, 3):'/img/img3.jpg';
+                $kind = CommonOption::getKindPost($value->kind);
+                if($value->kind == SLUG_POST_KIND_UPDATING) {
+                    $badge = 'secondary';
+                } else {
+                    $badge = 'success';
                 }
+                $sgg = '<div class="media poies"><div class="pr-2"><img class="d-flex img-fluid" src="'.url($image).'" alt="'.$value->name.'"><span class="badge badge-'.$badge.' d-block mt-1">'.$value->episode.'</span></div><div class="media-body"><strong>'.$value->name.'</strong><span class="ml-1 text-muted">('.$value->year.')</span><span class="d-block mt-1">'.str_limit($value->name2, 30).'</span></div></div>';
                 $array[] = [
-                    'suggestion' => $value->name.'<br>'.'<small>Hãng phim: '.$authors.'</small>',
+                    // 'suggestion' => $value->name.'<br>'.'<small>Hãng phim: '.$authors.'</small>',
+                    'suggestion' => $sgg,
                     'url' => url($value->slug),
                     // "attr" => [["class" => "suggestion"]]
                 ];
@@ -896,6 +922,26 @@ class SiteController extends Controller
         }
         return $authors;
     }
+    // $data post
+    private function getTypesByPosts($data)
+    {
+        $authors = array();
+        if(!empty($data)) {
+            foreach($data as $value) {
+                $genre = '';
+                // list types
+                $types = $this->getRelationsByPostQuery('type', $value->id);
+                if(!empty($types)) {
+                    foreach($types as $k => $v) {
+                        $genre .= '<a href="'.url('the-loai/'.$v->slug).'" title="'.$v->name.'" class="badge badge-dark mr-1 mb-2 mb-lg-0">'.$v->name.'</a>';
+                    }
+                }
+                $genres[] = $genre;
+            }
+        }
+        return $genres;
+    }
+
     /* 
     * contact
     */

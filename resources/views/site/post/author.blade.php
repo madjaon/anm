@@ -27,7 +27,7 @@
   <h1 class="d-inline-flex py-2">{!! $h1 !!}</h1>
 </div>
 
-<p class="mb-3">Tìm nhanh tên hãng phim, bạn ấn CTRL + F để sử dụng ô tìm kiếm.</p>
+<p class="mb-3 d-none d-md-block">Tìm nhanh tên hãng phim, bạn ấn CTRL + F để sử dụng ô tìm kiếm.</p>
 
 <div class="row">
   <div class="col">

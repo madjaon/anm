@@ -8,7 +8,7 @@
     'meta_image' => $post->meta_image,
     'isPost' => true
   );
-  $image = ($post->image)?CommonMethod::getThumbnail($post->image, 3):'/img/img3.jpg';
+  $image = ($post->image)?CommonMethod::getThumbnail($post->image, 1):'/img/img.jpg';
   $ratingCookieName = 'rating' . $post->id;
   $ratingCookie = isset($_COOKIE[$ratingCookieName])?$_COOKIE[$ratingCookieName]:null;
   $ratingValue = round($post->rating_value, 1, PHP_ROUND_HALF_UP);
@@ -31,7 +31,7 @@
 @include('site.common.breadcrumb', $breadcrumb)
 
 <div class="row book mb-3" itemscope itemtype="{!! $schemaUrl !!}">
-  <div class="col-sm-5">
+  <div class="col-6 col-sm-3 mx-auto">
 
     <img src="{!! url($image) !!}" class="img-fluid mb-3 w-100" alt="{!! $post->name !!}" itemprop="image">
 
@@ -64,76 +64,79 @@
       <span class="badge badge-{!! $badge !!}">{!! $badgeText !!}</span>
     </div>
    
-    <div class="book-info mb-3">Lượt xem: {!! CommonMethod::numberFormatDot($post->view) !!}</div>
+    <div class="book-info mb-3"><span class="mr-1">Lượt xem:</span>{!! CommonMethod::numberFormatDot($post->view) !!}</div>
 
-    <div class="book-info mb-3">Năm: 
-      @if($post->year > 0)
-        <a href="{!! CommonUrl::getUrlPostYear($post->year) !!}" title="{!! $post->year !!}" itemprop="copyrightYear">{!! $post->year !!}</a>
-      @else
-        Không rõ
-      @endif
+    <div class="book-info mb-3">
+      <div class="d-inline-block">
+        <span class="mr-1">Năm:</span>
+        @if($post->year > 0)
+          <a href="{!! CommonUrl::getUrlPostYear($post->year) !!}" title="{!! $post->year !!}" itemprop="copyrightYear">{!! $post->year !!}</a>
+        @else
+          <em>Không rõ</em>
+        @endif
+      </div>
+      <div class="d-inline-block">
+        <span class="ml-1 ml-sm-3 mr-1"><i class="fa fa-angle-right mr-2" aria-hidden="true"></i>Season:</span>
+        @if(!empty($post->seasonYearName))
+          <a href="{!! CommonUrl::getUrlPostSeasonYear($post->season, $post->year) !!}" title="{!! $post->seasonYearName !!}">{!! $post->seasonYearName !!}</a>
+        @else
+          <em>Không rõ</em>
+        @endif
+      </div>
+      <div class="d-inline-block mt-3 mt-md-0">
+        <span class="ml-md-3 mr-1"><i class="fa fa-angle-right mr-2 d-none d-md-inline-block" aria-hidden="true"></i>Quốc Gia:</span>
+        @if(!empty($post->nation))
+          <a href="{!! CommonUrl::getUrlPostNation($post->nation) !!}" title="{!! $post->nationName !!}" itemprop="countryOfOrigin" itemscope itemtype="http://schema.org/Country"><span itemprop="name" content="{!! CommonOption::nationCode($post->nation) !!}">{!! $post->nationName !!}</span></a>
+        @else 
+          <em>Không rõ</em>
+        @endif
+      </div>
     </div>
 
-    <div class="book-info mb-3">Season: 
-      @if(!empty($post->seasonYearName))
-        <a href="{!! CommonUrl::getUrlPostSeasonYear($post->season, $post->year) !!}" title="{!! $post->seasonYearName !!}">{!! $post->seasonYearName !!}</a>
-      @else
-        Không rõ
-      @endif  
-    </div>
-
-    <div class="book-info mb-3">Quốc Gia: 
-      @if(!empty($post->nation))
-        <a href="{!! CommonUrl::getUrlPostNation($post->nation) !!}" title="{!! $post->nationName !!}" itemprop="countryOfOrigin" itemscope itemtype="http://schema.org/Country"><span itemprop="name" content="{!! CommonOption::nationCode($post->nation) !!}">{!! $post->nationName !!}</span></a>
-      @else 
-        Không rõ
-      @endif
-    </div>
-
-    <div class="book-info mb-3">Hãng phim: 
+    <div class="book-info mb-3"><span class="mr-1">Hãng phim:</span>
       @if(!empty($post->tags))
         @foreach($post->tags as $key => $value)
-          <?php echo ($key > 0)?' - ':''; ?><a href="{!! CommonUrl::getUrlPostTag($value->slug) !!}" title="{!! $value->name !!}" itemprop="productionCompany" itemscope itemtype="http://schema.org/Organization"><span itemprop="name">{!! $value->name !!}</span></a>
+          <?php echo ($key > 0)?'<span class="mx-2">-</span>':''; ?><a href="{!! CommonUrl::getUrlPostTag($value->slug) !!}" title="{!! $value->name !!}" itemprop="productionCompany" itemscope itemtype="http://schema.org/Organization"><span itemprop="name">{!! $value->name !!}</span></a>
         @endforeach
       @else
-        Không rõ
+        <em>Không rõ</em>
       @endif
     </div>
 
-    <div class="book-info mb-3">Thể Loại: 
+    <div class="book-info mb-3"><span class="mr-1">Thể Loại:</span>
       @foreach($post->types as $key => $value)
-        <?php echo ($key > 0)?' - ':''; ?><a href="{!! CommonUrl::getUrlPostType($value->slug) !!}" title="{!! $value->name !!}" itemprop="genre">{!! $value->name !!}</a>
+        <a href="{!! CommonUrl::getUrlPostType($value->slug) !!}" title="{!! $value->name !!}" itemprop="genre" class="badge badge-dark mr-1 mb-2 mb-lg-0">{!! $value->name !!}</a>
       @endforeach
     </div>
 
-    {{--<div class="book-info mb-3">Nguồn: 
+    {{--<div class="book-info mb-3"><span class="mr-1">Nguồn:</span>
       @if(!empty($post->source))
         {!! $post->source !!}
       @else 
-        Không rõ
+        <em>Không rõ</em>
       @endif
     </div>--}}
 
     @if(isset($post->epFirst) || isset($post->epLast))
       @if(($post->epFirst->id == $post->epLast->id) || $post->type != POST_TV)
         <div class="row">
-          <div class="col-sm-6">
-            <a class="btn btn-danger mb-3 w-100 book-full" href="{!! CommonUrl::getUrl2($post->slug, $post->epFirst->slug) !!}">Xem Ngay</a>
+          <div class="col-md-6">
+            <a class="btn btn-danger mb-3 w-100 book-full" href="{!! CommonUrl::getUrl2($post->slug, $post->epFirst->slug) !!}"><i class="fa fa-video-camera mr-2" aria-hidden="true"></i>Xem Ngay</a>
           </div>
         </div>
       @else
         <div class="row">
-          <div class="col">
+          <div class="col-md-6">
             <a class="btn btn-info mb-3 w-100 book-first" href="{!! CommonUrl::getUrl2($post->slug, $post->epFirst->slug) !!}">Xem Từ Tập Đầu</a>
           </div>
-          <div class="col">
+          <div class="col-md-6">
             <a class="btn btn-danger mb-3 w-100 book-last" href="{!! CommonUrl::getUrl2($post->slug, $post->epLast->slug) !!}">Xem Tập Mới Nhất</a>
           </div>
         </div>
       @endif
     @else
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-md-6">
         <a class="btn btn-secondary mb-3 w-100 book-comming">Phim Sắp Có Nhé</a>
       </div>
     </div>

@@ -30,17 +30,17 @@
 
 <!--history-->
 
+<div class="box-style mb-3">
+  <div class="d-inline-flex py-2 title">Mới Nhất</div>
+</div>
+@include('site.post.grid', array('data' => $data))
+
 @if($configtoptrending)
 <div class="box-style mb-3">
   <div class="d-inline-flex py-2 title">Xu Hướng</div>
 </div>
 @include('site.post.grid', array('data' => $configtoptrending))
 @endif
-
-<div class="box-style mb-3">
-  <div class="d-inline-flex py-2 title">Mới Nhất</div>
-</div>
-@include('site.post.grid', array('data' => $data))
 
 @include('site.common.ad', ['posPc' => 9, 'posMobile' => 10])
 

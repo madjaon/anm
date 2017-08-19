@@ -30,8 +30,7 @@
 						<th>Image</th>
 						<th>Name</th>
 						<!-- <th>Thể loại chính</th> -->
-						<!-- <th>Loại post</th> -->
-						<!-- <th>Xem</th> -->
+						<th>Xem</th>
 						<!-- <th>Nguồn</th> -->
 						<th>Ngày đăng</th>
 						<th>Status</th>
@@ -39,17 +38,18 @@
 					</tr>
 					@foreach($data as $key => $value)
 					<?php 
-						$thumbnail = str_replace('/images/', '/thumbs/', $value->image);
-						$thumbnail = str_replace('/thumb/', '/', $thumbnail);
+						$thumbnail = ($value->image)?CommonMethod::getThumbnail($value->image, 0):'';
 					?>
 					<tr>
 						<td><input type="checkbox" class="id" name="id[]" value="{{ $value->id }}"></td>
 						<td>{{ $value->id }}</td>
 						<td><img height="30px" src="{{ $thumbnail }}" /></td>
-						<td>{{ $value->name }}</td>
+						<td>
+							<p>{{ $value->name }}</p>
+							<em class="text-success">Tập: {{ $value->episode }} - {{ CommonOption::getTypePost($value->type) }} - Năm: {{ $value->year }} - {{ CommonOption::getSeason($value->season) }} / {{ CommonOption::getKindPost($value->kind) }}</em>
+						</td>
 						<!-- <td>{{-- CommonQuery::getFieldById('post_types', $value->type_main_id, 'name') --}}</td> -->
-						<!-- <td>{{-- CommonOption::getTypePost($value->type) --}}</td> -->
-						<!-- <td>{{-- CommonMethod::getZero($value->view) --}}</td> -->
+						<td>{{ CommonMethod::getZero($value->view) }}</td>
 						<!-- <td><a href="{{-- $value->source_url --}}" target="_blank" rel="nofollow">{{-- $value->source --}}</a></td> -->
 						<td>{!! CommonMethod::startDateLabel($value->start_date) !!}</td>
 						<td><a id="status_{{ $value->id }}" onclick="updateStatus({{ $value->id }}, 'status')" style="cursor: pointer;" title="Click to change">{!! CommonOption::getStatus($value->status) !!}</a></td>

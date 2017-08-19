@@ -59,7 +59,7 @@ define('MENUTYPE4', 4);
 // pagination
 define('PAGINATION', 30);
 define('PAGINATE', 32);
-define('PAGINATE_LATEST', 24);
+define('PAGINATE_LATEST', 36);
 define('PAGINATE_HOT', 12);
 define('PAGINATE_RELATED', 6);
 define('PAGINATE_BOX', 36);
@@ -95,13 +95,13 @@ define('TITLETYPE3', 3); // Lấy tiêu đề theo danh sách tiêu đề tươn
 define('WATERMARK_MINWIDTH', 160);
 define('WATERMARK_MINHEIGHT', 150);
 // thumbnail image size
-define('THUMB_DIMENSIONS', '465x310 / 330x220 / 80x80');
-define('IMAGE_WIDTH', 330);
-define('IMAGE_HEIGHT', 220);
+define('THUMB_DIMENSIONS', '225x300 / 80x80 / 45x60');
+define('IMAGE_WIDTH', 225);
+define('IMAGE_HEIGHT', 300);
 define('IMAGE_WIDTH_2', 80);
 define('IMAGE_HEIGHT_2', 80);
-define('IMAGE_WIDTH_3', 465);
-define('IMAGE_HEIGHT_3', 310);
+define('IMAGE_WIDTH_3', 45);
+define('IMAGE_HEIGHT_3', 60);
 define('SLIDE_HEADER_DIMENSIONS', '775x380');
 define('SLIDE_FOOTER_DIMENSIONS', '200x120');
 // SLUG

@@ -3,7 +3,7 @@
   @foreach($data as $key => $value)
     <?php 
       $url = url($value->slug);
-      $image = ($value->image)?CommonMethod::getThumbnail($value->image, 1):'/img/img3.jpg';
+      $image = ($value->image)?CommonMethod::getThumbnail($value->image, 1):'/img/img.jpg';
       $kind = CommonOption::getKindPost($value->kind);
       if($value->kind == SLUG_POST_KIND_UPDATING) {
         $badge = 'primary';

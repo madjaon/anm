@@ -193,6 +193,11 @@ return [
         'type_id' => [
             'required' => 'Bắt buộc phải chọn thể loại',
         ],
+        'episode' => [
+            'required' => 'Bắt buộc phải có số tập',
+            'max' => 'Số tập không được nhập quá :max ký tự',
+            'numeric' => 'Số tập phải là một số',
+        ],
     ],
 
     /*

@@ -33,7 +33,7 @@
 					</tr>
 					@foreach($data as $key => $value)
 					<?php 
-						$thumbnail = str_replace('/images/', '/thumbs/', $value->image);
+						$thumbnail = ($value->image)?CommonMethod::getThumbnail($value->image, 0):'';
 					?>
 					<tr>
 						<td><input type="checkbox" class="id" name="id[]" value="{{ $value->id }}"></td>

@@ -18,15 +18,20 @@
       <li class="media mb-3 pb-3 card-item">
         <a href="{!! $url !!}" title="{!! $value->name !!}">
           <img class="d-flex mr-3 img-fluid" src="{!! url($image) !!}" alt="{!! $value->name !!}">
+          <span class="badge badge-success mt-2">{!! $value->year !!}</span>
         </a>
         <div class="media-body">
-          <h2 class="mt-0 mb-2 card-item-title"><a href="{!! $url !!}" title="{!! $value->name !!}">{!! $value->name !!}</a></h2>
-          @if(!empty($authors[$key]))
-          <div class="mb-2 authors">Hãng phim: {!! $authors[$key] !!}</div>
+          <h2 class="mt-0 mb-1 card-item-title"><a href="{!! $url !!}" title="{!! $value->name !!}">{!! $value->name !!}</a></h2>
+          <em class="d-block mb-1 text-muted">{!! $value->name2 !!}</em>
+          @if(!empty($genres[$key]))
+          <div class="mb-2 text-muted">{!! $genres[$key] !!}</div>
           @endif
-          <div class="d-flex align-items-center">
+          <div class="d-block d-sm-flex align-items-center">
             <span class="badge badge-{!! $badge !!}">{!! $badgeText !!}</span>
             <small class="ml-2 text-muted">{!! CommonMethod::numberFormatDot($value->view) !!} lượt xem</small>
+            @if(!empty($authors[$key]))
+            <small class="ml-0 ml-sm-2 mt-2 mt-lg-0 text-muted d-block d-sm-inline-block"><i class="fa fa-angle-right mr-2 d-none d-sm-inline-block" aria-hidden="true"></i>Hãng sản xuất: {!! $authors[$key] !!}</small>
+            @endif
           </div>
         </div>
       </li>
