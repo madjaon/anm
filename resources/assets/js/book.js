@@ -1,6 +1,7 @@
 $(function () {
   $("input[name=rating]").change(function(event) {
     var postId = document.getElementById('postId').value;
+    if(!postId) {return false;}
     var cookieName = 'rating' + postId;
     $.ajax(
     {
