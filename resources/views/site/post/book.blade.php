@@ -178,6 +178,7 @@
         @endpush
       </form>
       @if(!isset($ratingCookie))
+        <input type="hidden" id="postId" value="{!! $post->id !!}">
         @push('book')
           <script src="{!! asset('js/book.js') !!}"></script>
         @endpush
@@ -227,7 +228,5 @@
 <div class="comment mb-5">
   <div class="fb-comments" data-numposts="10" data-colorscheme="dark" data-width="100%" data-href="{!! url($post->slug) !!}"></div>
 </div>
-
-<input type="hidden" id="postId" value="{!! $post->id !!}">
 
 @endsection
