@@ -34,6 +34,12 @@ body {
   background: transparent;
   &-item {
     font-size: .813rem;
+    a {
+      color: $gray-500;
+      &:hover {
+        color: $green;
+      }
+    }
   }
 }
 
@@ -254,12 +260,6 @@ footer {
 .box {
   background: $box-color;
   color: $gray-600;
-  a {
-    color: $gray-600;
-    &:hover {
-      color: $green;
-    }
-  }
   h1 {
     color: $white;
   }

@@ -72,7 +72,7 @@
       
       <div class="mb-3" id="errormessage">
         <div class="spinner ml-2"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
-        <button class="btn btn-danger btn-sm" onclick="errorreporting()" id="errorreporting"><i class="fa fa-exclamation-triangle mr-2" aria-hidden="true"></i>Báo lỗi</button>
+        <button class="btn-danger badge badge-danger py-1 px-2 border-0" onclick="errorreporting()" id="errorreporting"><i class="fa fa-exclamation-triangle mr-2" aria-hidden="true"></i>Báo lỗi</button>
       </div>
 
       @if(!empty($post->epchapArray))

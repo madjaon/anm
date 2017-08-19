@@ -191,8 +191,6 @@ class CachingMiddleware
                         ->where('start_date', '<=', date('Y-m-d H:i:s'))
                         ->first();
                     if(isset($data)) {
-                        $data->url = url($cookie);
-                        $data->epchapName = 'Tập ' . $data->epchap;
                         if(CACHE == 1) {
                             // put cache
                             $html = view('site.common.history', ['data' => $data, 'post' => $post])->render();
