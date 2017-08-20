@@ -23,6 +23,17 @@ class Crawler3Controller extends Controller
     
     public function index()
     {
+
+        // build slug from array name
+        // $array = [
+        //     "Sayonara no Asa ni Yakusoku no Hana wo Kazarou",
+        // ];
+        // $result = '';
+        // foreach($array as $value) {
+        //     $result .= CommonMethod::buildSlug($value) . '<br>';
+        // }
+        // echo($result); exit();
+
         $linksource = array(
             'https://openload.co/embed/' => 'Openload',
             'https://streamango.com/embed/' => 'Streamango',
