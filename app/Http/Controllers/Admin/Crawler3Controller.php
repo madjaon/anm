@@ -20,10 +20,18 @@ class Crawler3Controller extends Controller
             dd('Permission denied! Please back!');
         }
     }
+
+    private function linksource()
+    {
+        return array(
+            'https://openload.co/embed/',
+            'https://streamango.com/embed/',
+            'https://drive.google.com/file/d/',
+        );
+    }
     
     public function index()
     {
-
         // build slug from array name
         // $array = [
         //     "Sayonara no Asa ni Yakusoku no Hana wo Kazarou",
@@ -34,11 +42,7 @@ class Crawler3Controller extends Controller
         // }
         // echo($result); exit();
 
-        $linksource = array(
-            'https://openload.co/embed/' => 'Openload',
-            'https://streamango.com/embed/' => 'Streamango',
-            'https://drive.google.com/file/d/' => 'GoogleDrive',
-        );
+        $linksource = self::linksource();
         return view('admin.crawler3.index', ['linksource' => $linksource]);
     }
 
@@ -46,7 +50,6 @@ class Crawler3Controller extends Controller
     {
         trimRequest($request);
         $validator = Validator::make($request->all(), [
-            'linksource' => 'required',
             'links' => 'required',
         ]);
         if($validator->fails()) {
@@ -55,7 +58,7 @@ class Crawler3Controller extends Controller
         // result
         $result = '';
         // linksource
-        $linksources = $request->linksource;
+        $linksources = self::linksource();
         // explode links
         $links = explode(',', $request->links);
         foreach($links as $link) {
@@ -83,7 +86,6 @@ class Crawler3Controller extends Controller
     {
         trimRequest($request);
         $validator = Validator::make($request->all(), [
-            'linksource' => 'required',
             'source' => 'required',
         ]);
         if($validator->fails()) {
@@ -92,7 +94,7 @@ class Crawler3Controller extends Controller
         // result
         $result = '<p style="margin-bottom:10px;display:block;text-align:center;color:red;" id="result">Result</p>';
         // linksource
-        $linksources = $request->linksource;
+        $linksources = self::linksource();
         // source
         foreach($linksources as $key => $linksource) {
             if(strpos($request->source, $linksource) !== false) {

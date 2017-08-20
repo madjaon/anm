@@ -31,14 +31,6 @@
 									{!! csrf_field() !!}
 									<div class="box-body">
 										<div class="form-group">
-											<label>Linksource - Mẫu Link cần lấy</label>
-											<div class="row">
-												<div class="col-sm-12">
-													{!! Form::select('linksource[]', $linksource, old('linksource'), array('class' =>'form-control', 'multiple' => true)) !!}
-												</div>
-											</div>
-										</div>
-										<div class="form-group">
 											<label>Links - Danh sách links nguồn</label>
 											<p>Cách nhau bởi dấu phẩy</p>
 											<div class="row">
@@ -64,14 +56,6 @@
 									{!! csrf_field() !!}
 									<div class="box-body">
 										<div class="form-group">
-											<label>Linksource - Mẫu Link cần lấy</label>
-											<div class="row">
-												<div class="col-sm-12">
-													{!! Form::select('linksource[]', $linksource, old('linksource'), array('class' =>'form-control', 'multiple' => true)) !!}
-												</div>
-											</div>
-										</div>
-										<div class="form-group">
 											<label>Source - mã nguồn trang</label>
 											<p>Copy mã nguồn chứa link video cần lấy</p>
 											<div class="row">
@@ -91,6 +75,14 @@
 										</div>
 									</div>
 								</form>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<label>Danh sách dạng link hỗ trợ lấy</label>
+								@foreach($linksource as $value)
+								<p>{{ $value }}</p>
+								@endforeach
 							</div>
 						</div>
 					</div>
