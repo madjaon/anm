@@ -10,13 +10,12 @@
       <?php 
         $url = url($value->slug);
         $image = ($value->image)?CommonMethod::getThumbnail($value->image, 2):'/img/img2.jpg';
-        $kind = CommonOption::getKindPost($value->kind);
         if($value->kind == SLUG_POST_KIND_UPDATING) {
           $badge = 'primary';
           $badgeText = 'Tập ' . $value->episode;
         } else {
           $badge = 'success';
-          $badgeText = $kind . ' ' . $value->episode;
+          $badgeText = 'Full ' . $value->episode;
         }
       ?>
       <li class="media mb-3 pb-3 side-item">

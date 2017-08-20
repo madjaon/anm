@@ -493,6 +493,9 @@ class SiteController extends Controller
                 $post->meta_image = '/img/img600x315.jpg';
             }
 
+            // type name
+            $post->typeName = CommonOption::getTypePost($post->type);
+
             // nation
             $post->nationName = CommonOption::getNation($post->nation);
 
@@ -735,7 +738,6 @@ class SiteController extends Controller
                 //     }
                 // }
                 $image = ($value->image)?CommonMethod::getThumbnail($value->image, 3):'/img/img3.jpg';
-                $kind = CommonOption::getKindPost($value->kind);
                 if($value->kind == SLUG_POST_KIND_UPDATING) {
                     $badge = 'secondary';
                 } else {

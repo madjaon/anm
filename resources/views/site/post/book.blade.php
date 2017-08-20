@@ -51,17 +51,17 @@
     @endif
 
     <?php 
-      $kind = CommonOption::getKindPost($post->kind);
       if($post->kind == SLUG_POST_KIND_UPDATING) {
         $badge = 'primary';
         $badgeText = 'Tập ' . $post->episode;
       } else {
         $badge = 'success';
-        $badgeText = $kind . ' ' . $post->episode;
+        $badgeText = 'Full ' . $post->episode;
       }
     ?>
-    <div class="book-info mb-3">
+    <div class="book-info mb-3 d-flex align-items-center">
       <span class="badge badge-{!! $badge !!}">{!! $badgeText !!}</span>
+      <span class="badge badge-secondary ml-2">{!! $post->typeName !!}</span>
     </div>
    
     <div class="book-info mb-3"><span class="mr-1">Lượt xem:</span>{!! CommonMethod::numberFormatDot($post->view) !!}</div>
@@ -93,7 +93,7 @@
       </div>
     </div>
 
-    <div class="book-info mb-3"><span class="mr-1">Hãng phim:</span>
+    <div class="book-info mb-3"><span class="mr-1">Hãng sản xuất:</span>
       @if(!empty($post->tags))
         @foreach($post->tags as $key => $value)
           <?php echo ($key > 0)?'<span class="mx-2">-</span>':''; ?><a href="{!! CommonUrl::getUrlPostTag($value->slug) !!}" title="{!! $value->name !!}" itemprop="productionCompany" itemscope itemtype="http://schema.org/Organization"><span itemprop="name">{!! $value->name !!}</span></a>
@@ -202,7 +202,7 @@
 
   @if(!empty($post->seriInfo))
     <div class="my-5">
-      <h3 class="seri mb-3"><a href="{!! CommonUrl::getUrlPostSeri($post->seriInfo->slug) !!}" title="Seri phim {!! $post->seriInfo->name !!}">Seri: {!! $post->seriInfo->name !!}</a></h3>
+      <h3 class="seri mb-3"><a href="{!! CommonUrl::getUrlPostSeri($post->seriInfo->slug) !!}" title="Seri phim {!! $post->seriInfo->name !!}">Danh sách phim cùng Seri {!! $post->seriInfo->name !!}</a></h3>
       @if(!empty($post->seriData))
       <blockquote class="blockquote">
         <ul class="list-unstyled">

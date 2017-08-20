@@ -4,13 +4,13 @@
     <?php 
       $url = url($value->slug);
       $image = ($value->image)?CommonMethod::getThumbnail($value->image, 2):'/img/img2.jpg';
-      $kind = CommonOption::getKindPost($value->kind);
+      $typePostName = CommonOption::getTypePost($value->type);
       if($value->kind == SLUG_POST_KIND_UPDATING) {
         $badge = 'primary';
         $badgeText = 'Tập ' . $value->episode;
       } else {
         $badge = 'success';
-        $badgeText = $kind . ' ' . $value->episode;
+        $badgeText = 'Full ' . $value->episode;
       }
     ?>
     <div class="col-12 col-sm-6">
@@ -19,13 +19,13 @@
           <img class="d-flex mr-3 img-fluid" src="{!! url($image) !!}" alt="{!! $value->name !!}">
         </a>
         <div class="media-body">
-          <h2 class="mt-0 mb-2 list-item-title"><a href="{!! $url !!}" title="{!! $value->name !!}">{!! $value->name !!}</a></h2>
+          <h2 class="mt-0 mb-3 list-item-title"><a href="{!! $url !!}" title="{!! $value->name !!}">{!! $value->name !!}</a></h2>
           @if(!empty($authors[$key]))
-          <div class="mb-2 authors">Hãng phim: {!! $authors[$key] !!}</div>
+          <small class="mb-2 text-muted d-block">Hãng sản xuất: {!! $authors[$key] !!}</small>
           @endif
           <div class="d-flex align-items-center">
             <span class="badge badge-{!! $badge !!}">{!! $badgeText !!}</span>
-            <small class="ml-2 text-muted">{!! CommonMethod::numberFormatDot($value->view) !!} lượt xem</small>
+            <small class="ml-2 text-muted">{!! $typePostName . '. ' . $value->year !!}</small>
           </div>
         </div>
       </div>

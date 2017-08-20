@@ -6,10 +6,6 @@
         @foreach($data as $key => $value)
         <?php 
           $url = url($value->slug);
-          if($value->kind == SLUG_POST_KIND_FULL) {
-            $kind = CommonOption::getKindPost($value->kind);
-            $badgeText = $kind . ' ' . $value->episode;
-          }
           if(isset($dataEp[$key])) {
             $url2 = CommonUrl::getUrl2($value->slug, $dataEp[$key]->slug);
             $epchap = 'Tập ' . $dataEp[$key]->epchap;
@@ -19,8 +15,8 @@
           <td class="align-middle">
             <h3 class="my-0">
               <a href="{!! $url !!}" title="{!! $value->name !!}">{!! $value->name !!}</a>
-              @if(isset($kind))
-              <span class="badge badge-success badge-pill ml-2">{!! $badgeText !!}</span>
+              @if($value->kind == SLUG_POST_KIND_FULL)
+              <span class="badge badge-success badge-pill ml-2">{!! 'Full ' . $value->episode !!}</span>
               @endif
             </h3>
           </td>

@@ -5,13 +5,12 @@
     <?php 
       $url = url($value->slug);
       $image = ($value->image)?CommonMethod::getThumbnail($value->image, 1):'/img/img.jpg';
-      $kind = CommonOption::getKindPost($value->kind);
       if($value->kind == SLUG_POST_KIND_UPDATING) {
         $badge = 'primary';
         $badgeText = 'Tập ' . $value->episode;
       } else {
         $badge = 'success';
-        $badgeText = $kind . ' ' . $value->episode;
+        $badgeText = 'Full ' . $value->episode;
       }
       if($key == count($data) - 1) {
         $objL .= 'L' . $value->id . ':"' . $value->summary . '"';
