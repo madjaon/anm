@@ -35,13 +35,16 @@ class UtilityController extends Controller
         //get all image in all table (has image field)
         $data = array();
         $images = array();
-        $images1 = DB::table('posts')->where('image', '!=', '')->lists('image');
-        $images2 = DB::table('post_types')->where('image', '!=', '')->lists('image');
-        $images3 = DB::table('post_tags')->where('image', '!=', '')->lists('image');
-        $images4 = DB::table('pages')->where('image', '!=', '')->lists('image');
-        $images1 = array_merge($images1, $images2);
-        $images1 = array_merge($images1, $images3);
-        $images = array_merge($images1, $images4);
+        // su dung danh sach file anh da luu vao database
+        // $images1 = DB::table('posts')->where('image', '!=', '')->lists('image');
+        // $images2 = DB::table('post_types')->where('image', '!=', '')->lists('image');
+        // $images3 = DB::table('post_tags')->where('image', '!=', '')->lists('image');
+        // $images4 = DB::table('pages')->where('image', '!=', '')->lists('image');
+        // $images1 = array_merge($images1, $images2);
+        // $images1 = array_merge($images1, $images3);
+        // $images = array_merge($images1, $images4);
+        // su dung danh sach file anh tren host (thu muc images)
+        $images = self::getimageswithdir('images/');
         //tim domain cua host
         $domainSource = CommonMethod::getDomainSource();
         //vong lap kiem tra anh goc neu co thi moi tao thumbnail
@@ -96,8 +99,8 @@ class UtilityController extends Controller
                         $thumb3 = '/images/'.$savePath3.'/'.$name;
                         if(!file_exists(public_path().$thumb) || !file_exists(public_path().$thumb2) || !file_exists(public_path().$thumb3)) {
                             $data[] = CommonMethod::createThumb($imageUrl, $domainSource, $savePath, IMAGE_WIDTH, IMAGE_HEIGHT);
-                            CommonMethod::createThumb($imageUrl, $domainSource, str_replace('/thumb', '/thumb2', $savePath2), IMAGE_WIDTH_2, IMAGE_HEIGHT_2);
-                            CommonMethod::createThumb($imageUrl, $domainSource, str_replace('/thumb', '/thumb3', $savePath3), IMAGE_WIDTH_3, IMAGE_HEIGHT_3);
+                            CommonMethod::createThumb($imageUrl, $domainSource, $savePath2, IMAGE_WIDTH_2, IMAGE_HEIGHT_2);
+                            CommonMethod::createThumb($imageUrl, $domainSource, $savePath3, IMAGE_WIDTH_3, IMAGE_HEIGHT_3);
                         }
                     }
                 }
@@ -125,7 +128,7 @@ class UtilityController extends Controller
         $position = !empty($request->position)?$request->position:null;
         $status = !empty($request->status)?$request->status:null;
         // get all images to gen watermark
-        $lists = self::getimagestogenwatermark($dir, $status);
+        $lists = self::getimageswithdir($dir, $status);
         // gen watermark
         foreach($lists as $value) {
             //bo /images/ phia truoc dir de lay savePath
@@ -138,7 +141,7 @@ class UtilityController extends Controller
 
     // get all images no inside thumb/ folder
     // status: tao watermark cho anh thumbnails hay khong?
-    private function getimagestogenwatermark($dir = 'images/', $status = INACTIVE)
+    private function getimageswithdir($dir = 'images/', $status = INACTIVE)
     {
         $lists = self::get_filelist_as_array($dir);
         // thay the dau \ thanh dau /

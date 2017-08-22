@@ -270,7 +270,7 @@ class CommonMethod
 	    return $imageUrl;
 	}
 	//create thumbnail, upload, resize, watermark
-	static function createThumb($imageUrl, $domainSource, $savePath, $imageWidth = null, $imageHeight = null, $mode = null, $watermark = null, $watermarkcode = null, $watermarkposition = null) {
+	static function createThumb($imageUrl, $domainSource, $savePath, $imageWidth = null, $imageHeight = null, $mode = null, $watermark = null, $watermarkcode = null, $watermarkposition = null, $imageName = null) {
 		//////////////////////////////////////
 		// make result (duong dan anh de luu vao db)
 		//////////////////////////////////////
@@ -279,6 +279,11 @@ class CommonMethod
         $name = basename(self::removeParameters($imageUrl));
         //change file name image
         $name = self::changeFileNameImage($name, 1);
+        //if $imageName isset
+        if(isset($imageName)) {
+        	$ext = self::getExtension($imageUrl);
+        	$name = $imageName . '.' . $ext;
+        }
         //result path
         $imageResult = '/images/'.$savePath.'/'.$name;
         //if exist image then return result
@@ -535,8 +540,8 @@ class CommonMethod
 	{
 		if(!empty($imageUrl)) {
 			// check image url has /thumb/ or not
-			if(strpos($imageUrl, '/images/thumb/') !== false) {
-				if($typeThumb == 0) {
+			if(strpos($imageUrl, '/thumb/') !== false) {
+				if($typeThumb === 0) {
 					$thumbnail = str_replace('/images/', '/thumbs/', $imageUrl);
 					$thumbnail = str_replace('/thumb/', '/', $thumbnail);
 					return $thumbnail;
@@ -552,9 +557,59 @@ class CommonMethod
 					$thumbnail = str_replace('/thumb/', '/', $imageUrl);
 					return $thumbnail;
 				}
+    		} elseif(strpos($imageUrl, '/thumb2/') !== false) {
+    			if($typeThumb === 0) {
+					$thumbnail = str_replace('/images/', '/thumbs/', $imageUrl);
+					$thumbnail = str_replace('/thumb2/', '/', $thumbnail);
+					return $thumbnail;
+				} elseif($typeThumb == 1) {
+					$thumbnail = str_replace('/thumb2/', '/thumb/', $imageUrl);
+					return $thumbnail;
+				} elseif($typeThumb == 2) {
+					return $imageUrl;
+				} elseif($typeThumb == 3) {
+					$thumbnail = str_replace('/thumb2/', '/thumb3/', $imageUrl);
+					return $thumbnail;
+				} else {
+					$thumbnail = str_replace('/thumb2/', '/', $imageUrl);
+					return $thumbnail;
+				}
+    		} elseif(strpos($imageUrl, '/thumb3/') !== false) {
+    			if($typeThumb === 0) {
+					$thumbnail = str_replace('/images/', '/thumbs/', $imageUrl);
+					$thumbnail = str_replace('/thumb3/', '/', $thumbnail);
+					return $thumbnail;
+				} elseif($typeThumb == 1) {
+					$thumbnail = str_replace('/thumb3/', '/thumb/', $imageUrl);
+					return $thumbnail;
+				} elseif($typeThumb == 2) {
+					$thumbnail = str_replace('/thumb3/', '/thumb2/', $imageUrl);
+					return $thumbnail;
+				} elseif($typeThumb == 3) {
+					return $imageUrl;
+				} else {
+					$thumbnail = str_replace('/thumb3/', '/', $imageUrl);
+					return $thumbnail;
+				}
+    		} else {
+    			$dirname = pathinfo($imageUrl, PATHINFO_DIRNAME);
+				$basename = pathinfo($imageUrl, PATHINFO_BASENAME);
+    			if($typeThumb === 0) {
+					$thumbnail = str_replace('/images/', '/thumbs/', $imageUrl);
+					return $thumbnail;
+				} elseif($typeThumb == 1) {
+        			$thumbnail = $dirname . '/thumb/' . $basename;
+					return $thumbnail;
+				} elseif($typeThumb == 2) {
+					$thumbnail = $dirname . '/thumb2/' . $basename;
+					return $thumbnail;
+				} elseif($typeThumb == 3) {
+					$thumbnail = $dirname . '/thumb3/' . $basename;
+					return $thumbnail;
+				} else {
+					return $imageUrl;
+				}
     		}
-    		// check image url has /thumb2/ or not
-    		// check image url has /thumb3/ or not
 
 		} else {
 			return '';

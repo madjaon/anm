@@ -160,4 +160,59 @@ class Crawler3Controller extends Controller
         exit();
     }
 
+    public function stealimages(Request $request)
+    {
+        if(app()->environment('local')) {
+            dd('Permission denied! Please back!');
+        }
+        
+        trimRequest($request);
+        $validator = Validator::make($request->all(), [
+            'links' => 'required',
+            'folder' => 'required',
+        ]);
+        if($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        $result = '';
+        if(!empty($request->links)) {
+            $links = explode(',', $request->links);
+            foreach($links as $link) {
+                $urlNoParams = CommonMethod::removeParameters($link);
+                $urlArray = explode('/', $urlNoParams);
+                $imageName = $urlArray[(count($urlArray) - 1)];
+
+                $htmlString = CommonMethod::get_remote_data($link);
+                if(!$htmlString) {
+                    break;
+                }
+                // get all link cat
+                $html = HtmlDomParser::str_get_html($htmlString); // Create DOM from URL or file
+                if(!$html) {
+                    break;
+                }
+                foreach($html->find('img.ac') as $element) {
+                    $image = trim($element->src);
+                    if($element && !empty($element->src)) {
+                        // origin image upload
+                        $e_src = CommonMethod::createThumb($element->src, 'myanimelist.net', $request->folder, null, null, null, null, null, null, $imageName);
+                        if(!empty($e_src)) {
+                            $result .= CommonMethod::getThumbnail($e_src, 1) . '<br>';
+                        } else {
+                            $result .= '<br>';
+                        }
+                    } else {
+                        $result .= '<br>';
+                    }
+                    break;
+                }
+            }
+            $result .= '<a style="margin-top:50px;padding:3px;text-decoration:none;font-size:50px;display:block;text-align:center;background:rgba(0,0,0,.3);color:#fff;" href="javascript:history.go(-1);">Back</a>';
+            echo($result);
+            exit();
+        }
+        return redirect()->route('admin.crawler2.index')->with('warning', 'Không đủ dữ liệu');
+        
+    }
+
 }

@@ -88,7 +88,46 @@
 					</div>
 					<!-- /.tab-pane -->
 					<div class="tab-pane" id="tab2">
+						@if(app()->environment('local'))
+						<div class="row">
+							<div class="col-sm-6">
+								<strong>Lấy ảnh theo đường dẫn animelists</strong>
+								<form action="{{ url('admin/crawler3/stealimages') }}" method="POST">
+									{!! csrf_field() !!}
+									<div class="box-body">
+										<div class="form-group">
+											<label>Links - Danh sách đường dẫn</label>
+											<p>Cách nhau bởi dấu phẩy</p>
+											<div class="row">
+												<div class="col-sm-12">
+													<textarea name="links" class="form-control" rows="5">{{ old('links') }}</textarea>
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<label>Tên folder chứa ảnh</label>
+											<p>Không dấu, không ký tự đặc biệt</p>
+											<div class="row">
+												<div class="col-sm-12">
+													<input type="text" name="folder" class="form-control" value="{{ old('folder') }}">
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="row">
+												<div class="col-sm-12">
+													<input type="submit" class="btn btn-primary" value="Lưu lại" />
+													<input type="reset" class="btn btn-default" value="Nhập lại" />
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+						@else
 						<p>comming soon...</p>
+						@endif
 					</div>
 					<!-- /.tab-pane -->
 				</div>
