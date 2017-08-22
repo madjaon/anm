@@ -162,7 +162,7 @@ class Crawler3Controller extends Controller
 
     public function stealimages(Request $request)
     {
-        if(app()->environment('local')) {
+        if(!app()->environment('local')) {
             dd('Permission denied! Please back!');
         }
         
