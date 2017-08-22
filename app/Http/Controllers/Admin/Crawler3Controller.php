@@ -183,28 +183,30 @@ class Crawler3Controller extends Controller
                 $imageName = $urlArray[(count($urlArray) - 1)];
 
                 $htmlString = CommonMethod::get_remote_data($link);
-                if(!$htmlString) {
-                    break;
-                }
-                // get all link cat
-                $html = HtmlDomParser::str_get_html($htmlString); // Create DOM from URL or file
-                if(!$html) {
-                    break;
-                }
-                foreach($html->find('img.ac') as $element) {
-                    $image = trim($element->src);
-                    if($element && !empty($element->src)) {
-                        // origin image upload
-                        $e_src = CommonMethod::createThumb($element->src, 'myanimelist.net', $request->folder, null, null, null, null, null, null, $imageName);
-                        if(!empty($e_src)) {
-                            $result .= CommonMethod::getThumbnail($e_src, 1) . '<br>';
-                        } else {
-                            $result .= '<br>';
+                if($htmlString) {
+                    // get all link cat
+                    $html = HtmlDomParser::str_get_html($htmlString); // Create DOM from URL or file
+                    if($html) {
+                        foreach($html->find('img.ac') as $element) {
+                            $image = trim($element->src);
+                            if($element && !empty($element->src)) {
+                                // origin image upload
+                                $e_src = CommonMethod::createThumb($element->src, 'myanimelist.net', $request->folder, null, null, null, null, null, null, $imageName);
+                                if(!empty($e_src)) {
+                                    $result .= CommonMethod::getThumbnail($e_src, 1) . '<br>';
+                                } else {
+                                    $result .= '<a style="color:red;" href="'.$link.'" target="_blank">'.$link.'</a><br>';
+                                }
+                            } else {
+                                $result .= '<a style="color:red;" href="'.$link.'" target="_blank">'.$link.'</a><br>';
+                            }
+                            break;
                         }
                     } else {
-                        $result .= '<br>';
+                        $result .= '<a style="color:red;" href="'.$link.'" target="_blank">'.$link.'</a><br>';
                     }
-                    break;
+                } else {
+                    $result .= '<a style="color:red;" href="'.$link.'" target="_blank">'.$link.'</a><br>';
                 }
             }
             $result .= '<a style="margin-top:50px;padding:3px;text-decoration:none;font-size:50px;display:block;text-align:center;background:rgba(0,0,0,.3);color:#fff;" href="javascript:history.go(-1);">Back</a>';
