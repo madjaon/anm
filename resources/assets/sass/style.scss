@@ -241,8 +241,7 @@ footer {
 }
 
 .table-bordered td, .table-bordered th {
-  border: none;
-  border-left: 1px dashed $dark333;
+  border: 1px solid $dark333;
 }
 
 // ONLINE
