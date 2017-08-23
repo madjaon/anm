@@ -151,7 +151,7 @@ class UtilityController extends Controller
             $lists[$key] = '/'.$dir.$value;
             if($status == INACTIVE) {
                 // xoa bo value co chua /thumb/ (khong watermark thumbnail)
-                if(strpos($lists[$key], '/thumb/') !== false) {
+                if((strpos($lists[$key], '/thumb/') !== false) || (strpos($lists[$key], '/thumb2/') !== false) || (strpos($lists[$key], '/thumb3/') !== false)) {
                     unset($lists[$key]);
                 }
             }

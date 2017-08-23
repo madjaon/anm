@@ -181,6 +181,7 @@ class Crawler3Controller extends Controller
                 $urlNoParams = CommonMethod::removeParameters($link);
                 $urlArray = explode('/', $urlNoParams);
                 $imageName = $urlArray[(count($urlArray) - 1)];
+                $imageName = CommonMethod::buildSlug($imageName);
 
                 $htmlString = CommonMethod::get_remote_data($link);
                 if($htmlString) {

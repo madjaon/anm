@@ -937,7 +937,7 @@ class SiteController extends Controller
     // $data post
     private function getTypesByPosts($data)
     {
-        $authors = array();
+        $genres = array();
         if(!empty($data)) {
             foreach($data as $value) {
                 $genre = '';
@@ -945,7 +945,7 @@ class SiteController extends Controller
                 $types = $this->getRelationsByPostQuery('type', $value->id);
                 if(!empty($types)) {
                     foreach($types as $k => $v) {
-                        $genre .= '<a href="'.url('the-loai/'.$v->slug).'" title="'.$v->name.'" class="badge badge-dark mr-1 mb-2 mb-lg-0">'.$v->name.'</a>';
+                        $genre .= '<a href="'.url('the-loai/'.$v->slug).'" title="'.$v->name.'" class="badge badge-dark mr-1 mb-2">'.$v->name.'</a>';
                     }
                 }
                 $genres[] = $genre;

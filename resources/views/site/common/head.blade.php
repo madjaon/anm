@@ -47,7 +47,7 @@
     <link rel="canonical" href="{!! preg_replace('/(\?|&)page=2/', '', $pageNext) !!}">
   @endif
 
-  @if($configcode)
+  @if(!empty($configcode))
     {!! $configcode !!}
   @endif
 

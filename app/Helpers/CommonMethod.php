@@ -274,16 +274,19 @@ class CommonMethod
 		//////////////////////////////////////
 		// make result (duong dan anh de luu vao db)
 		//////////////////////////////////////
-		//get image name: foo.jpg
-		//remove query ?param=.... neu co
-        $name = basename(self::removeParameters($imageUrl));
-        //change file name image
-        $name = self::changeFileNameImage($name, 1);
-        //if $imageName isset
+
+		//if $imageName isset. imageName is slug, non extension
         if(isset($imageName)) {
         	$ext = self::getExtension($imageUrl);
         	$name = $imageName . '.' . $ext;
+        } else {
+        	//get image name: foo.jpg
+			//remove query ?param=.... neu co
+	        $name = basename(self::removeParameters($imageUrl));
+	        //change file name image
+	        $name = self::changeFileNameImage($name, 1);	
         }
+        
         //result path
         $imageResult = '/images/'.$savePath.'/'.$name;
         //if exist image then return result

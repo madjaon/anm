@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use DB;
 use App\Models\Post;
+use App\Helpers\CommonMethod;
 
 use Sunra\PhpSimple\HtmlDomParser;
 
@@ -15,6 +16,8 @@ class TestController extends Controller
 {
     public function index()
     {
+        self::insertData();
+
         dd('no permission');
 
         return view('site.test');
@@ -577,6 +580,115 @@ class TestController extends Controller
         } else {
             dd('no record');
         }
+    }
+
+    private function insertData()
+    {
+        // $images = array();
+        // $images = self::getimageswithdir('images/ova/', INACTIVE);
+        // if(count($images) > 0) {
+        //     foreach($images as $key => $value) {
+        //         $filepath1 = public_path().$value;
+        //         $name = basename($value);
+        //         $name = CommonMethod::changeFileNameImage($name, 1);
+        //         $filepath2 = public_path().'/images/ova/'.$name;
+        //         rename($filepath1, $filepath2);
+        //     }
+        // }
+        // dd('ok!!!');
+
+        // [name,image,name2,year,season,episode,type,kind,genres,tags,seri,date]
+        // 2000
+        $array = [['Doraemon','/images/2000/thumb/Doraemon_1979.jpg','Mèo Máy Doraemon','1979','dong','1787','1','da-hoan-thanh','15,2,10,4,24,27','93','71','2017-08-23 00:00:00'],['Mobile Suit Gundam','/images/2000/thumb/Mobile_Suit_Gundam.jpg','Kidou Senshi Gundam','1979','xuan','43','1','da-hoan-thanh','1,38,24,29,18','103','7','2017-08-23 00:00:01'],['Captain Tsubasa','/images/2000/thumb/Captain_Tsubasa.jpg','Flash Kicker, Đội Trưởng Tsubasa','1983','thu','128','1','da-hoan-thanh','1,27,30','115','191','2017-08-23 00:00:02'],['Dragon Ball','/images/2000/thumb/Dragon_Ball.jpg','Bảy Viên Ngọc Rồng','1986','dong','153','1','da-hoan-thanh','2,4,31,17,10,27','110','2','2017-08-23 00:00:03'],['City Hunter','/images/2000/thumb/City_Hunter.jpg','Thợ Săn Thành Phố','1987','xuan','51','1','da-hoan-thanh','1,4,7,27','103','89','2017-08-23 00:00:04'],['City Hunter 2','/images/2000/thumb/City_Hunter_2.jpg','Thợ Săn Thành Phố 2','1988','xuan','63','1','da-hoan-thanh','1,4,7,27','103','89','2017-08-23 00:00:05'],['Dragon Ball Z','/images/2000/thumb/Dragon_Ball_Z.jpg','Bảy Viên Ngọc Rồng Z','1989','xuan','291','1','da-hoan-thanh','1,2,4,10,17,27,31','110','2','2017-08-23 00:00:06'],['Ranma ½','/images/2000/thumb/Ranma_%C2%BD.jpg','1 Nửa Ranma','1989','xuan','161','1','da-hoan-thanh','36,4,17,10','98','','2017-08-23 00:00:07'],['City Hunter 3','/images/2000/thumb/City_Hunter_3.jpg','Thợ Săn Thành Phố 3','1989','thu','13','1','da-hoan-thanh','1,4,7,27','103','89','2017-08-23 00:00:08'],['City Hunter 91','/images/2000/thumb/City_Hunter_91.jpg','Thợ Săn Thành Phố 91','1991','xuan','13','1','da-hoan-thanh','1,4,7,27','103','89','2017-08-23 00:00:09'],['Crayon Shin-chan','/images/2000/thumb/Crayon_Shin-chan.jpg','Shin Chan, Cậu Bé Bút Chì','1992','xuan','','1','con-tiep-tuc','36,4,15,9,23,42','93','','2017-08-23 00:00:10'],['Bishoujo Senshi Sailor Moon','/images/2000/thumb/Bishoujo_Senshi_Sailor_Moon.jpg','Thủy Thủ Mặt Trăng','1992','xuan','46','1','da-hoan-thanh','16,22,6,25','110','192','2017-08-23 00:00:11'],['Bishoujo Senshi Sailor Moon S','/images/2000/thumb/Bishoujo_Senshi_Sailor_Moon_S.jpg','Thủy Thủ Mặt Trăng S','1994','xuan','38','1','da-hoan-thanh','8,16,22,25','110','192','2017-08-23 00:00:12'],['Captain Tsubasa J','/images/2000/thumb/Captain_Tsubasa_J.jpg','Đội Trưởng Tsubasa J','1994','thu','47','1','da-hoan-thanh','1,27,30','97','191','2017-08-23 00:00:13'],['Mobile Suit Gundam Wing','/images/2000/thumb/Mobile_Suit_Gundam_Wing.jpg','','1995','xuan','49','1','da-hoan-thanh','1,38,24,29,8,18','103','7','2017-08-23 00:00:14'],['Bishoujo Senshi Sailor Moon SuperS','/images/2000/thumb/Bishoujo_Senshi_Sailor_Moon_SuperS.jpg','Thủy Thủ Mặt Trăng SuperS','1995','xuan','39','1','da-hoan-thanh','8,16,22,25','110','192','2017-08-23 00:00:15'],['Neon Genesis Evangelion','/images/2000/thumb/Neon_Genesis_Evangelion.jpg','','1995','thu','26','1','da-hoan-thanh','1,24,5,40,8,18','41105','3','2017-08-23 00:00:16'],['Dragon Ball GT','/images/2000/thumb/Dragon_Ball_GT.jpg','Bảy Viên Ngọc Rồng GT','1996','dong','64','1','da-hoan-thanh','1,2,4,10,16,24,27,31','110','2','2017-08-23 00:00:17'],['Rurouni Kenshin: Meiji Kenkaku Romantan','/images/2000/thumb/Rurouni_Kenshin__Meiji_Kenkaku_Romantan.jpg','Samurai X','1996','dong','94','1','da-hoan-thanh','1,2,4,13,22,21','99,98','6','2017-08-23 00:00:18'],['Detective Conan','/images/2000/thumb/Detective_Conan.jpg','Case Closed, Thám Tử Lừng Danh Conan','1996','dong','','1','con-tiep-tuc','2,4,7,39,27','108','5','2017-08-23 00:00:19'],['Bishoujo Senshi Sailor Moon: Sailor Stars','/images/2000/thumb/Bishoujo_Senshi_Sailor_Moon__Sailor_Stars.jpg','Thủy Thủ Mặt Trăng Stars','1996','dong','34','1','da-hoan-thanh','2,4,8,10,16,22,25','110','192','2017-08-23 00:00:20'],['Hana yori Dango','/images/2000/thumb/Hana_yori_Dango.jpg','Boys Over Flowers','1996','thu','51','1','da-hoan-thanh','8,22,23,25','110','','2017-08-23 00:00:21'],['Pokemon','/images/2000/thumb/Pokemon.jpg','Pocket Monsters, Bảo Bối Thần Kỳ','1997','xuan','276','1','da-hoan-thanh','1,2,4,15,10','72','8','2017-08-23 00:00:22'],['Kenpuu Denki Berserk','/images/2000/thumb/Kenpuu_Denki_Berserk.jpg','Sword-Wind Chronicle Berserk','1997','thu','25','1','da-hoan-thanh','1,2,6,8,10,14,38,22,42,37','72','32','2017-08-23 00:00:23'],['Dr. Slump','/images/2000/thumb/Dr_Slump.jpg','Doctor Slump','1997','thu','74','1','da-hoan-thanh','36,4,24,27','110','','2017-08-23 00:00:24'],['Cowboy Bebop','/images/2000/thumb/Cowboy_Bebop.jpg','','1998','xuan','26','1','da-hoan-thanh','1,2,4,8,24,29','103','187','2017-08-23 00:00:25'],['Trigun','/images/2000/thumb/Trigun.jpg','','1998','xuan','26','1','da-hoan-thanh','1,4,24','62','190','2017-08-23 00:00:26'],['Cardcaptor Sakura','/images/2000/thumb/Cardcaptor_Sakura.jpg','Card Captor Sakura, Thủ Lĩnh Thẻ Bài','1998','xuan','70','1','da-hoan-thanh','2,4,8,16,22,10,23,25','62','10','2017-08-23 00:00:27'],['Yu-Gi-Oh! ','/images/2000/thumb/Yu%E2%98%86Gi%E2%98%86Oh.jpg','King of Games, Vua Trò Chơi','1998','xuan','27','1','da-hoan-thanh','1,11,4,10,27','110','16','2017-08-23 00:00:28'],['Serial Experiments Lain','/images/2000/thumb/Serial_Experiments_Lain.jpg','','1998','ha','13','1','da-hoan-thanh','5,8,7,40,24,37','112','','2017-08-23 00:00:29'],['Great Teacher Onizuka','/images/2000/thumb/Great_Teacher_Onizuka.jpg','Thầy Giáo Vĩ Đại, GTO','1999','ha','43','1','da-hoan-thanh','4,8,23,27,36','102','','2017-08-23 00:00:30'],['One Piece','/images/2000/thumb/One_Piece.jpg','Vua Hải Tặc','1999','thu','','1','con-tiep-tuc','1,2,4,8,10,27,31','110','11','2017-08-23 00:00:31'],['Hunter x Hunter','/images/2000/thumb/Hunter_x_Hunter.jpg','','1999','thu','62','1','da-hoan-thanh','1,2,27,31','68','30','2017-08-23 00:00:32']];
+        // ova
+        dd($array);
+        foreach($array as $key => $value) {
+            $dirname = pathinfo($value[1], PATHINFO_DIRNAME);
+            $basename = pathinfo($value[1], PATHINFO_BASENAME);
+            $basename = CommonMethod::changeFileNameImage($basename, 1);
+            $image = $dirname . '/' . $basename;
+
+            $slug = CommonMethod::buildSlug($value[0]);
+            $checkSlug = Post::where('slug', $slug)->first();
+            if(isset($checkSlug)) {
+                $slug .= '-' . $value[3];
+            }
+
+            $genres = explode(',', $value[8]);
+            $tags = explode(',', $value[9]);
+            $kind = $value[7];
+            if($kind == SLUG_POST_KIND_FULL) {
+                $episode = $value[5] . '/' . $value[5];
+            } else {
+                $episode = '1/???';
+            }
+
+            $data = Post::create([
+                'name' => $value[0],
+                'slug' => $slug,
+                'name2' => $value[2],
+                'type_main_id' => $genres[0],
+                'seri' => $value[10],
+                'type' => $value[6],
+                'kind' => $kind,
+                'year' => $value[3],
+                'season' => $value[4],
+                'episode' => $episode,
+                'image' => $image,
+                'start_date' => $value[11],
+            ]);
+            if(isset($data)) {
+                // insert post type relation
+                $data->posttypes()->attach($genres);
+                // insert post tag relation
+                $data->posttags()->attach($tags);
+            }
+        }
+        dd('ok!');
+    }
+
+    private function getimageswithdir($dir = 'images/', $status = INACTIVE)
+    {
+        $lists = self::get_filelist_as_array($dir);
+        // thay the dau \ thanh dau /
+        $lists = str_replace('\\', '/', $lists);
+        foreach($lists as $key => $value) {
+            // sua duong dan anh
+            $lists[$key] = '/'.$dir.$value;
+            if($status == INACTIVE) {
+                // xoa bo value co chua /thumb/ (khong watermark thumbnail)
+                if((strpos($lists[$key], '/thumb/') !== false) || (strpos($lists[$key], '/thumb2/') !== false) || (strpos($lists[$key], '/thumb3/') !== false)) {
+                    unset($lists[$key]);
+                }
+            }
+        }
+        return $lists;
+    }
+
+    // list all files as array
+    private function get_filelist_as_array($dir = 'images/', $recursive = true, $basedir = '')
+    {
+        if ($dir == '') {return array();} else {$results = array(); $subresults = array();}
+        if (!is_dir($dir)) {$dir = dirname($dir);} // so a files path can be sent
+        if ($basedir == '') {$basedir = realpath($dir).DIRECTORY_SEPARATOR;}
+
+        $files = scandir($dir);
+        foreach ($files as $key => $value){
+            if ( ($value != '.') && ($value != '..') ) {
+                $path = realpath($dir.DIRECTORY_SEPARATOR.$value);
+                if (is_dir($path)) { // do not combine with the next line or..
+                    if ($recursive) { // ..non-recursive list will include subdirs
+                        $subdirresults = self::get_filelist_as_array($path,$recursive,$basedir);
+                        $results = array_merge($results,$subdirresults);
+                    }
+                } else { // strip basedir and add to subarray to separate file list
+                    $subresults[] = str_replace($basedir,'',$path);
+                }
+            }
+        }
+        // merge the subarray to give the list of files then subdirectory files
+        if (count($subresults) > 0) {$results = array_merge($subresults,$results);}
+        return $results;
     }
 
 }

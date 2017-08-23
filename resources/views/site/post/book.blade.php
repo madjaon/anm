@@ -105,7 +105,7 @@
 
     <div class="book-info mb-3"><span class="mr-1">Thể Loại:</span>
       @foreach($post->types as $key => $value)
-        <a href="{!! CommonUrl::getUrlPostType($value->slug) !!}" title="{!! $value->name !!}" itemprop="genre" class="badge badge-dark mr-1 mb-2 mb-lg-0">{!! $value->name !!}</a>
+        <a href="{!! CommonUrl::getUrlPostType($value->slug) !!}" title="{!! $value->name !!}" itemprop="genre" class="badge badge-dark mr-1 mb-2">{!! $value->name !!}</a>
       @endforeach
     </div>
 
