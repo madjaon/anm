@@ -524,42 +524,52 @@ class SiteController extends Controller
             $types = $this->getRelationsByPostQuery('type', $post->id);
             $post->types = $types;
 
-            // epchap list
-            $eps = $this->getEpchapListByPostId($post->id, 'asc')->take(PAGINATE_BOX)->get();
-            // $post->eps = $eps;
-
             // epchap list latest
             $epsLastest = $this->getEpchapListByPostId($post->id, 'desc')->take(PAGINATE_RELATED)->get();
             $post->epsLastest = $epsLastest;
 
-            // list post by type 
-            // $related = $this->getPostRelated($post->id, [$post->id], $post->type_main_id);
-
-            // first & last epchap
-            // $epFirst = $this->getEpchapListByPostId($post->id, 'asc')->first();
-            if(!empty($eps)) {
-                $post->epFirst = $eps[0];
-            }
+            // latest epchap
             // $epLast = $this->getEpchapListByPostId($post->id, 'desc')->first();
             if(!empty($epsLastest)) {
                 $post->epLast = $epsLastest[0];
             }
 
-            $countEps = $this->countEpchapListByPostId($post->id);
-            $totalPageEps = ceil($countEps / PAGINATE_BOX);
-            $currentPageEps = 1;
-            $listPageEps = null;
-            if($totalPageEps > 0) {
-                for($i = 1; $i <= $totalPageEps; $i++) {
-                    $listPageEps[$i] = 'Trang ' . $i;
-                }
+            // first epchap
+            // neu phan trang bookpaging thi comment dong ben duoi. neu khong thi lay epfirst theo dong ben duoi
+            $epFirst = $this->getEpchapListByPostId($post->id, 'asc')->first();
+            if(!empty($epFirst)) {
+                $post->epFirst = $epFirst;
             }
-            $post->countEps = $countEps;
-            $post->totalPageEps = $totalPageEps;
-            $post->currentPageEps = $currentPageEps;
-            $post->listPageEps = $listPageEps;
-            $post->prevPageEps = ($currentPageEps > 1)?($currentPageEps - 1):null;
-            $post->nextPageEps = ($currentPageEps < $totalPageEps)?($currentPageEps + 1):null;
+
+            // epchap list: lay du lieu phan trang ajax
+            // neu phan trang ajax thi bo comment (bookpaging)
+            // $eps = $this->getEpchapListByPostId($post->id, 'asc')->take(PAGINATE_BOX)->get();
+            // $post->eps = $eps;
+
+            // lay epfirst theo epchap list bookpaging ben tren. neu phan trang bookpaging
+            // if(!empty($eps)) {
+            //     $post->epFirst = $eps[0];
+            // }
+
+            // neu phan trang ajax thi bo comment (bookpaging)
+            // $countEps = $this->countEpchapListByPostId($post->id);
+            // $totalPageEps = ceil($countEps / PAGINATE_BOX);
+            // $currentPageEps = 1;
+            // $listPageEps = null;
+            // if($totalPageEps > 0) {
+            //     for($i = 1; $i <= $totalPageEps; $i++) {
+            //         $listPageEps[$i] = 'Trang ' . $i;
+            //     }
+            // }
+            // $post->countEps = $countEps;
+            // $post->totalPageEps = $totalPageEps;
+            // $post->currentPageEps = $currentPageEps;
+            // $post->listPageEps = $listPageEps;
+            // $post->prevPageEps = ($currentPageEps > 1)?($currentPageEps - 1):null;
+            // $post->nextPageEps = ($currentPageEps < $totalPageEps)?($currentPageEps + 1):null;
+
+            // list post by type: bai lien quan
+            // $related = $this->getPostRelated($post->id, [$post->id], $post->type_main_id);
 
             // return view
             return view('site.post.book', ['post' => $post]);

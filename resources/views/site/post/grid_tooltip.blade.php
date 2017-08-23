@@ -18,7 +18,7 @@
         $objL .= 'L' . $value->id . ':"' . $value->summary . '",';
       }
     ?>
-    <div class="col-6 col-sm-3">
+    <div class="col-6 col-sm-3 col-five">
       <figure class="figure text-center grid-item">
         <a href="{!! $url !!}" class="showTip L{!! $value->id !!}">
           <img src="{!! url($image) !!}" class="figure-img img-fluid" alt="{!! $value->name !!}">

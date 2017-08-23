@@ -58,9 +58,9 @@ define('MENUTYPE3', 3);
 define('MENUTYPE4', 4);
 // pagination
 define('PAGINATION', 30);
-define('PAGINATE', 32);
-define('PAGINATE_LATEST', 36);
-define('PAGINATE_HOT', 12);
+define('PAGINATE', 30);
+define('PAGINATE_LATEST', 30);
+define('PAGINATE_HOT', 15);
 define('PAGINATE_RELATED', 6);
 define('PAGINATE_BOX', 36);
 // SLIDER
