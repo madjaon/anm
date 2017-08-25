@@ -12,10 +12,12 @@
 
 @section('content')
 <div class="row">
-  <div class="col text-center">
-    <img src="{!! url('img/404.png') !!}" class="img-fluid mb-3 animated jello" alt="404 Not Found">
-    <h1 class="mb-3 pb-2">404 Not Found</h1>
-    <p class="mb-3">Đường dẫn không tồn tại hoặc đã bị xóa. Xin mời bạn theo dõi các nội dung khác <a href="/"><strong>tại đây</strong></a></p>
+  <div class="col">
+    <div class="box text-center my-5 py-5">
+      <img src="{!! url('img/404.png') !!}" class="img-fluid mb-3 animated jello" alt="404 Not Found">
+      <h1 class="mb-3 pb-2">404 Not Found</h1>
+      <p class="mb-3">Đường dẫn không tồn tại hoặc đã bị xóa. Xin mời bạn theo dõi các nội dung khác <a href="/"><strong>tại đây</strong></a></p>
+    </div>
   </div>
 </div>
 @endsection
