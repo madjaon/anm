@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Crypt;
 use DB;
+use Cache;
 
 class CachingMiddleware
 {
@@ -59,18 +60,18 @@ class CachingMiddleware
             $cacheName = $cacheName.'_mobile';
         }
 
-        if(!\Cache::has($cacheName)) {
+        if(!Cache::has($cacheName)) {
             $response = $next($this->request);
 
             $response->original = '';
 
-            // \Cache::put($cacheName, $response, $this->lifeTime);
+            // Cache::put($cacheName, $response, $this->lifeTime);
 
-            \Cache::forever($cacheName, $response);
+            Cache::forever($cacheName, $response);
 
             return $response;
         } else {
-            return \Cache::get($cacheName);
+            return Cache::get($cacheName);
         }
     }
 
@@ -172,8 +173,8 @@ class CachingMiddleware
                     // cache name
                     $cacheName = 'history_'.$cookie;
                     // get cache
-                    if(\Cache::has($cacheName)) {
-                        return \Cache::get($cacheName);
+                    if(Cache::has($cacheName)) {
+                        return Cache::get($cacheName);
                     }
                 }
                 // query
@@ -197,8 +198,8 @@ class CachingMiddleware
                         if(CACHE == 1) {
                             // put cache
                             $html = view('site.common.history', ['data' => $data, 'post' => $post])->render();
-                            // \Cache::put($cacheName, $html, $this->lifeTime);
-                            \Cache::forever($cacheName, $html);
+                            // Cache::put($cacheName, $html, $this->lifeTime);
+                            Cache::forever($cacheName, $html);
                         }
                         // return view
                         return view('site.common.history', ['data' => $data, 'post' => $post])->render();

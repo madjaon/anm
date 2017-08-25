@@ -42,7 +42,7 @@
     @include('site.common.ad', ['posPc' => 6])
   </div>
   @push('scroll')
-    <script src="{!! asset('js/scroll.js') !!}"></script>
+    <script src="{!! asset('js/s.js') !!}"></script>
     <!-- <style>@media(min-width:1200px){.container{width:1000px;}}</style> -->
   @endpush
 @endif

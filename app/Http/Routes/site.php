@@ -4,6 +4,7 @@
 Route::resource('test', 'TestController');
 // Route::get('mixdb/{typeId}', 'TestController@mixdb');
 
+Route::post('epchap', 'SiteController@epchap');
 // Route::post('bookpaging', 'SiteController@bookpaging');
 Route::post('errorreporting', 'SiteController@errorreporting');
 Route::post('rating', 'SiteController@rating');

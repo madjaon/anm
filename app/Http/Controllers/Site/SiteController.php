@@ -10,8 +10,10 @@ use DB;
 use App\Helpers\CommonMethod;
 use App\Helpers\CommonOption;
 use App\Helpers\CommonProvider;
+use App\Helpers\CommonVideo;
 use Validator;
 use App\Models\Contact;
+use Cache;
 
 class SiteController extends Controller
 {
@@ -649,33 +651,9 @@ class SiteController extends Controller
                 // END PREV & NEXT EPCHAP
 
                 // server
-                $serverArray = [];
-                if(!empty($data->server0)) {
-                    $serverArray[$data->server0] = 'VIP';
-                    $data->firstServer = $data->server0;
-                }
-                if(!empty($data->server1)) {
-                    $serverArray[$data->server1] = 'Server 1';
-                    $data->firstServer = isset($data->firstServer)?$data->firstServer:$data->server1;
-                }
-                if(!empty($data->server2)) {
-                    $serverArray[$data->server2] = 'Server 2';
-                    $data->firstServer = isset($data->firstServer)?$data->firstServer:$data->server2;
-                }
-                if(!empty($data->server3)) {
-                    $serverArray[$data->server3] = 'Server 3';
-                    $data->firstServer = isset($data->firstServer)?$data->firstServer:$data->server3;
-                }
-                if(!empty($data->server4)) {
-                    $serverArray[$data->server4] = 'Server 4';
-                    $data->firstServer = isset($data->firstServer)?$data->firstServer:$data->server4;
-                }
-                if(!empty($data->server5)) {
-                    $serverArray[$data->server5] = 'Server 5';
-                    $data->firstServer = isset($data->firstServer)?$data->firstServer:$data->server5;
-                }
-                $data->serverArray = $serverArray;
-
+                $serverArrayData = self::serverArray($data);
+                $data->serverArray = $serverArrayData[0];
+                $data->firstServer = $serverArrayData[1];
 
                 // return view
                 return response()->view('site.post.epchap', [
@@ -1061,7 +1039,7 @@ class SiteController extends Controller
         trimRequest($request);
 
         $rating = ($request->rating)?$request->rating:1;
-        $id = ($request->id)?$request->id:0;
+        $id = ($request->p)?$request->p:0;
 
         $res = [];
         
@@ -1088,6 +1066,152 @@ class SiteController extends Controller
             $res = ['ratingValue' => $ratingValue, 'ratingCount' => $ratingCount];
         }
         return response()->json($res);
+    }
+
+    public function epchap(Request $request)
+    {
+        trimRequest($request);
+
+        $post_id = ($request->p)?$request->p:0;
+        $ep_id = ($request->e)?$request->e:0;
+        $server = ($request->s)?$request->s:null;
+
+        // cache
+        if(CACHE == 1) {
+            // cache name
+            $cacheName = 'epchap_' . $post_id . '_' . $ep_id . '_' . $server;
+            // get cache
+            if(Cache::has($cacheName)) {
+                return Cache::get($cacheName);
+            }
+        }
+
+        // post
+        $post = DB::table('posts')
+            ->where('id', $post_id)
+            ->where('status', ACTIVE)
+            ->where('start_date', '<=', date('Y-m-d H:i:s'))
+            ->first();
+        if(isset($post)) {
+            $data = DB::table('post_eps')
+                ->where('id', $ep_id)
+                ->where('post_id', $post_id)
+                ->where('status', ACTIVE)
+                ->where('start_date', '<=', date('Y-m-d H:i:s'))
+                ->first();
+            if(isset($data)) {
+                // server
+                $serverArrayData = self::serverArray($data);
+                $firstServer = $serverArrayData[1];
+                $fs = $serverArrayData[2];
+                if(isset($server)) {
+                    $ds = 'server'.$server;
+                    if(in_array($server, [1,2,5,6])) {
+                        $sources = $data->$ds;
+                        $result = self::getFrame($sources);
+                    } elseif($server == 3) {
+                        $dataSources = CommonVideo::getLinkGooglePhoto($data->server3);
+                        $result = self::getJw($dataSources);
+                    } elseif($server == 4) {
+                        $sources = CommonVideo::getVideoYoutube($data->server4);
+                        $result = self::getJw($sources);
+                    } elseif($server == 7) {
+                        $sources = CommonVideo::getVideoVimeo($data->server7);
+                        $result = self::getJw($sources);
+                    } else {
+                        $sources = $firstServer;
+                        $result = self::getFrame($sources);
+                    }
+                } else {
+                    $ds = 'server'.$fs;
+                    if(in_array($fs, [1,2,5,6])) {
+                        $sources = $data->$ds;
+                        $result = self::getFrame($sources);
+                    } elseif($fs == 3) {
+                        $sources = CommonVideo::getLinkGooglePhoto($data->server3);
+                        $result = self::getJw($sources);
+                    } elseif($fs == 4) {
+                        $sources = CommonVideo::getVideoYoutube($data->server4);
+                        $result = self::getJw($sources);
+                    } elseif($fs == 7) {
+                        $sources = CommonVideo::getVideoVimeo($data->server7);
+                        $result = self::getJw($sources);
+                    } else {
+                        $sources = $firstServer;
+                        $result = self::getFrame($sources);
+                    }
+                }
+                if(CACHE == 1) {
+                    Cache::put($cacheName, $result, 60);
+                }
+                return $result;
+            }
+        }
+        return false;
+    }
+
+    private function getFrame($sources)
+    {
+        return '<div class="embed-responsive embed-responsive-16by9"><iframe id="player" class="embed-responsive-item" src="' . $sources . '" allowfullscreen scrolling="no" seamless></iframe></div><div style="width: 80px; height: 80px; position: absolute; opacity: 0; right: 0px; top: 0px;"></div>';
+    }
+
+    private function getJw($sources)
+    {
+        return '<div id="jw"><div class="loading"></div></div>
+                <script>
+                  jwplayer("jw").setup({
+                    "playlist": [{
+                      "sources": '. $sources . '
+                    }],
+                    autostart: false,
+                    width: "100%",
+                    aspectratio: "16:9",
+                  });
+                </script>';
+    }
+
+    // data: epchap data
+    private function serverArray($data)
+    {
+        $serverArray = [];
+        $firstServer = null;
+        $fs = null;
+        if(!empty($data->server1)) {
+            $serverArray[1] = 'Server 1';
+            $firstServer = $data->server1;
+            $fs = 1;
+        }
+        if(!empty($data->server2)) {
+            $serverArray[2] = 'Server 2';
+            $firstServer = isset($firstServer)?$firstServer:$data->server2;
+            $fs = isset($fs)?$fs:2;
+        }
+        if(!empty($data->server3)) {
+            $serverArray[3] = 'Server 3';
+            $firstServer = isset($firstServer)?$firstServer:$data->server3;
+            $fs = isset($fs)?$fs:3;
+        }
+        if(!empty($data->server4)) {
+            $serverArray[4] = 'Server 4';
+            $firstServer = isset($firstServer)?$firstServer:$data->server4;
+            $fs = isset($fs)?$fs:4;
+        }
+        if(!empty($data->server5)) {
+            $serverArray[5] = 'Server 5';
+            $firstServer = isset($firstServer)?$firstServer:$data->server5;
+            $fs = isset($fs)?$fs:5;
+        }
+        if(!empty($data->server6)) {
+            $serverArray[6] = 'Server 6';
+            $firstServer = isset($firstServer)?$firstServer:$data->server6;
+            $fs = isset($fs)?$fs:6;
+        }
+        if(!empty($data->server7)) {
+            $serverArray[7] = 'Server 7';
+            $firstServer = isset($firstServer)?$firstServer:$data->server7;
+            $fs = isset($fs)?$fs:7;
+        }
+        return [$serverArray, $firstServer, $fs];
     }
     
 }

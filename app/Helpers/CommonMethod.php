@@ -680,7 +680,7 @@ class CommonMethod
         curl_setopt($c, CURLOPT_MAXREDIRS, 10);
         //if SAFE_MODE or OPEN_BASEDIR is set,then FollowLocation cant be used.. so...
         $follow_allowed= ( ini_get('open_basedir') || ini_get('safe_mode')) ? false:true;  if ($follow_allowed){curl_setopt($c, CURLOPT_FOLLOWLOCATION, 1);}
-        curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 9);
+        curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 60);
         curl_setopt($c, CURLOPT_REFERER, $url);
         curl_setopt($c, CURLOPT_TIMEOUT, 60);
         curl_setopt($c, CURLOPT_AUTOREFERER, true);

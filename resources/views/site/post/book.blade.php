@@ -177,9 +177,9 @@
           <link rel="stylesheet" href="{!! asset('css/starability.css') !!}">
         @endpush
         @if(!isset($ratingCookie))
-          <input type="hidden" id="postId" value="{!! $post->id !!}">
+          <input type="hidden" id="p" value="{!! $post->id !!}">
           @push('book')
-            <script src="{!! asset('js/book.js') !!}"></script>
+            <script src="{!! asset('js/b.js') !!}"></script>
           @endpush
         @endif
       </form>

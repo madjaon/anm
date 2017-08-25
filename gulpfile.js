@@ -18,11 +18,11 @@ elixir(function(mix) {
     mix.sass([
     	// '../../../node_modules/font-awesome/css/font-awesome.min.css',
         'style.scss'
-    ], 'public/css/app.css');
+    ], 'public/css/a.css');
 
     mix.sass([
         'user.scss'
-    ], 'public/css/appp.css');
+    ], 'public/css/au.css');
 
     // Script
 
@@ -30,15 +30,15 @@ elixir(function(mix) {
         // '../../../node_modules/jquery/dist/jquery.js',
         // 'dw_tooltip_c.js',
 		'script.js'
-    ], 'public/js/app.js');
+    ], 'public/js/a.js');
 
     mix.scripts([
 		'scroll.js'
-    ], 'public/js/scroll.js');
+    ], 'public/js/s.js');
 
     mix.scripts([
 		'book.js'
-    ], 'public/js/book.js');
+    ], 'public/js/b.js');
     
   //   mix.scripts([
 		// 'bookpaging.js'
@@ -46,7 +46,7 @@ elixir(function(mix) {
 
     mix.scripts([
 		'epchap.js'
-    ], 'public/js/epchap.js');
+    ], 'public/js/e.js');
 
     // mix.scripts([
     //     'compose.js'

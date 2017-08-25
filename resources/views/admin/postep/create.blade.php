@@ -83,17 +83,9 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label>Server 0</label>
-								<p>Upload lên vps (hosting)</p>
-								<div class="row">
-									<div class="col-sm-12">
-										<input name="server0" type="text" value="{{ old('server0') }}" class="form-control">
-									</div>
-								</div>
-							</div>
-							<div class="form-group">
 								<label>Server 1</label>
 								<p>{{ SERVER1 }}</p>
+								<p>Upload lên vps (hosting)</p>
 								<div class="row">
 									<div class="col-sm-12">
 										<input name="server1" type="text" value="{{ old('server1') }}" class="form-control">
@@ -136,6 +128,25 @@
 									</div>
 								</div>
 							</div>
+							<div class="form-group">
+								<label>Server 6</label>
+								<p>{{ SERVER6 }}</p>
+								<div class="row">
+									<div class="col-sm-12">
+										<input name="server6" type="text" value="{{ old('server6') }}" class="form-control">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label>Server 7</label>
+								<p>{{ SERVER7 }}</p>
+								<div class="row">
+									<div class="col-sm-12">
+										<input name="server7" type="text" value="{{ old('server7') }}" class="form-control">
+									</div>
+								</div>
+							</div>
+
 						</div>
 					</div>
 				</div>

@@ -132,9 +132,10 @@ define('RECAPTCHASECRETKEY', '6LfA9isUAAAAALmEpMChTfpxsR6ALba9hT4v_wY4');
 define('RECAPTCHAV2SITEKEY', '6Lf1ACwUAAAAAEFI_NOzNNusy35BnI1-O_TuHsq_');
 define('RECAPTCHAV2SECRETKEY', '6Lf1ACwUAAAAANuaum0m2ciCooT-LLhyVypWsPwR');
 // server
-define('SERVER0', 'Fast');
-define('SERVER1', 'Google Drive');
-define('SERVER2', 'Openload');
-define('SERVER3', 'Youtube');
-define('SERVER4', 'Streamango');
-define('SERVER5', 'Vimeo');
+define('SERVER1', 'Fast');
+define('SERVER2', 'Google Drive');
+define('SERVER3', 'Google Photo');
+define('SERVER4', 'Youtube');
+define('SERVER5', 'Openload');
+define('SERVER6', 'Streamango');
+define('SERVER7', 'Vimeo');

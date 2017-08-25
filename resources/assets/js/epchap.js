@@ -24,6 +24,35 @@ function errorreporting() {
     }
   });
 }
+function epchap(s) {
+  var p = document.getElementById('p').value;
+  var e = document.getElementById('e').value;
+  if(!p || !e) {return false;}
+  if(!s) {s = null;}
+  $.ajax(
+  {
+    type: 'post',
+    url: '/epchap',
+    data: {
+      'p': p,
+      'e': e,
+      's': s,
+    },
+    beforeSend: function() {
+      $('.online').html('<div class="loading"></div>');
+    },
+    success: function(response)
+    {
+      $('.online').html(response);
+      return false;
+    },
+    error: function(xhr)
+    {
+      $('.online').html('Mời bạn tải lại trang');
+      return false;
+    }
+  });
+}
 $(function () {
   var prev = document.getElementById('prev').value;
   var next = document.getElementById('next').value;
@@ -37,5 +66,5 @@ $(function () {
         break;
     }
   };
-  
+  epchap();
 })

@@ -1,14 +1,14 @@
 $(function () {
   $("input[name=rating]").change(function(event) {
-    var postId = document.getElementById('postId').value;
-    if(!postId) {return false;}
-    var cookieName = 'rating' + postId;
+    var p = document.getElementById('p').value;
+    if(!p) {return false;}
+    var cookieName = 'rating' + p;
     $.ajax(
     {
       type: 'post',
       url: '/rating',
       data: {
-        'id': postId,
+        'p': p,
         'rating': document.ratingfrm.rating.value
       },
       beforeSend: function() {

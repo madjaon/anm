@@ -30,6 +30,15 @@ class CommonVideo
         return $page;
     }
 
+    private static function getJw($file, $res, $type = 'video/mp4')
+    {
+        $linkDownload = array();
+        $linkDownload['file'] = $file;
+        $linkDownload['type'] = $type;
+        $linkDownload['label'] = $res;
+        return $linkDownload;
+    }
+
     /*
     * GOOGLE PHOTO
     * link type: https://photos.google.com/share/AF1QipMzuyRjE-xZJ8g6GHdDkka3RT0i4-CN84sWCJS9oenpCPA3xc70yhQ1RxHrUOAJ7Q/photo/AF1QipOK5kRr5x-zPWdjVAIwbR08p6cGAsPKfWRWyDyA?key=Smx4T0hVNVp0dTUyUWNpckFwbU1KVGx4dHdaT2p3
@@ -42,25 +51,28 @@ class CommonVideo
         $data = explode('url\u003d', $get);
         $url = explode('%3Dm', $data[1]);
         $decode = urldecode($url[0]);
-        $count = count($data);
+        $count = count($url);
         $linkDownload = array();
-        if($count > 3) {
+        if($count > 2) {
             $v1080p = $decode.'=m37';
             $v720p = $decode.'=m22';
             $v360p = $decode.'=m18';
-            $linkDownload['1080p'] = $v1080p;
-            $linkDownload['720p'] = $v720p;
-            $linkDownload['360p'] = $v360p;
-        }
-        if($count > 2) {
-            $v720p = $decode.'=m22';
-            $v360p = $decode.'=m18';
-            $linkDownload['720p'] = $v720p;
-            $linkDownload['360p'] = $v360p;
+            $linkDownload[] = self::getJw($v1080p, '1080p');
+            $linkDownload[] = self::getJw($v720p, '720p');
+            $linkDownload[] = self::getJw($v360p, '360p');
+            return json_encode($linkDownload);
         }
         if($count > 1) {
+            $v720p = $decode.'=m22';
             $v360p = $decode.'=m18';
-            $linkDownload['360p'] = $v360p;
+            $linkDownload[] = self::getJw($v720p, '720p');
+            $linkDownload[] = self::getJw($v360p, '360p');
+            return json_encode($linkDownload);
+        }
+        if($count > 0) {
+            $v360p = $decode.'=m18';
+            $linkDownload[] = self::getJw($v360p, '360p');
+            return json_encode($linkDownload);
         }
         return $linkDownload;
     }
@@ -85,7 +97,7 @@ class CommonVideo
         $id = self::getIdYoutube($link);
         $getlink = "https://www.youtube.com/watch?v=".$id;
         if ($get = self::curl($getlink )) {
-            $return = array();
+            $linkDownload = array();
             if (preg_match('/;ytplayer\.config\s*=\s*({.*?});/', $get, $data)) {
                 $jsonData  = json_decode($data[1], true);
                 $streamMap = $jsonData['args']['url_encoded_fmt_stream_map'];
@@ -96,16 +108,89 @@ class CommonVideo
                     parse_str($url, $data);
                     $dataURL = $data['url'];
                     unset($data['url']);
-                    $return[$data['quality']."-".$data['itag']] = $dataURL.'&'.urldecode(http_build_query($data));
+                    // 37: 1080p, 22: 720p, 18: 360p
+                    // $return[$data['quality']."-".$data['itag']] = $dataURL.'&'.urldecode(http_build_query($data));
+
+                    if($data['itag'] == '37') {
+                        $v1080p = $dataURL.'&'.urldecode(http_build_query($data));
+                        $linkDownload[] = self::getJw($v1080p, '1080p');
+                    }
+                    if($data['itag'] == '22') {
+                        $v720p = $dataURL.'&'.urldecode(http_build_query($data));
+                        $linkDownload[] = self::getJw($v720p, '720p');
+                    }
+                    if($data['itag'] == '18') {
+                        $v360p = $dataURL.'&'.urldecode(http_build_query($data));
+                        $linkDownload[] = self::getJw($v360p, '360p');
+                    }
                 }
             }
-            return $return;
-        }else{
-            return 0;
+            return json_encode($linkDownload);
+        } else {
+            return null;
         }
     }
 
+    private static function getItagLabel($itag)
+    {
+        $array = [
+            '37' => '1080p',
+            '22' => '720p',
+            '44' => '480p',
+            '18' => '360p',
+        ];
+        return $array[$itag];
+    }
+
     // END YOUTUBE
+
+    // VIMEO
+
+    // All valid URLs:
+    // http://vimeo.com/6701902
+    // http://vimeo.com/670190233
+    // http://player.vimeo.com/video/67019023
+    // http://player.vimeo.com/video/6701902
+    // http://player.vimeo.com/video/67019022?title=0&byline=0&portrait=0
+    // http://player.vimeo.com/video/6719022?title=0&byline=0&portrait=0
+    // http://vimeo.com/channels/vimeogirls/6701902
+    // http://vimeo.com/channels/vimeogirls/67019023
+    // http://vimeo.com/channels/staffpicks/67019026
+    // http://vimeo.com/15414122
+    // http://vimeo.com/channels/vimeogirls/66882931
+    static function getVideoVimeo($link)
+    {
+        // get id
+        preg_match('/(https?:\/\/)?(www\.)?(player\.)?vimeo\.com\/([a-z]*\/)*([‌​0-9]{6,11})[?]?.*/', $link, $matches);
+        $id = $matches[5];
+        $getlink = 'https://player.vimeo.com/video/' . $id;
+        if ($get = self::curl($getlink )) {
+            $linkDownload = array();
+
+            // get data
+            preg_match('/"progressive":\[({.*?})\]/', $get, $data);
+            $j = '['.$data[1].']';
+            $jsonData  = json_decode($j, true);
+
+            // sort by height
+            $height = array();
+            foreach ($jsonData as $key => $row) {
+                $height[$key] = $row['height'];
+            }
+            array_multisort($height, SORT_DESC, $jsonData);
+            // end sort by height
+
+            foreach($jsonData as $value) {
+                $linkDownload[] = self::getJw($value['url'], $value['quality'], $value['mime']);
+            }
+
+            return json_encode($linkDownload);
+        } else {
+            return null;
+        }
+    }
+
+    // END VIMEO
 
     /*
     * NCT
