@@ -1106,7 +1106,7 @@ class SiteController extends Controller
                 $fs = $serverArrayData[2];
                 if(isset($server)) {
                     $ds = 'server'.$server;
-                    if(in_array($server, [1,2,5,6])) {
+                    if(in_array($server, [1,2,5,6,8,9])) {
                         $sources = $data->$ds;
                         $result = self::getFrame($sources);
                     } elseif($server == 3) {
@@ -1124,7 +1124,7 @@ class SiteController extends Controller
                     }
                 } else {
                     $ds = 'server'.$fs;
-                    if(in_array($fs, [1,2,5,6])) {
+                    if(in_array($fs, [1,2,5,6,8,9])) {
                         $sources = $data->$ds;
                         $result = self::getFrame($sources);
                     } elseif($fs == 3) {
@@ -1211,6 +1211,17 @@ class SiteController extends Controller
             $firstServer = isset($firstServer)?$firstServer:$data->server7;
             $fs = isset($fs)?$fs:7;
         }
+        if(!empty($data->server8)) {
+            $serverArray[8] = 'Server 8';
+            $firstServer = isset($firstServer)?$firstServer:$data->server8;
+            $fs = isset($fs)?$fs:8;
+        }
+        if(!empty($data->server9)) {
+            $serverArray[9] = 'Server 9';
+            $firstServer = isset($firstServer)?$firstServer:$data->server9;
+            $fs = isset($fs)?$fs:9;
+        }
+
         return [$serverArray, $firstServer, $fs];
     }
     

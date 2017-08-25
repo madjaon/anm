@@ -86,9 +86,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label>Server 1</label>
-								<p>{{ SERVER1 }}</p>
-								<p>Upload lên vps (hosting)</p>
+								<label>Server 1 ({{ SERVER1 }})</label>
 								<div class="row">
 									<div class="col-sm-12">
 										<input name="server1" type="text" value="{{ $data->server1 }}" class="form-control">
@@ -96,8 +94,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label>Server 2</label>
-								<p>{{ SERVER2 }}</p>
+								<label>Server 2 ({{ SERVER2 }})</label>
 								<div class="row">
 									<div class="col-sm-12">
 										<input name="server2" type="text" value="{{ $data->server2 }}" class="form-control">
@@ -105,8 +102,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label>Server 3</label>
-								<p>{{ SERVER3 }}</p>
+								<label>Server 3 ({{ SERVER3 }})</label>
 								<div class="row">
 									<div class="col-sm-12">
 										<input name="server3" type="text" value="{{ $data->server3 }}" class="form-control">
@@ -114,8 +110,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label>Server 4</label>
-								<p>{{ SERVER4 }}</p>
+								<label>Server 4 ({{ SERVER4 }})</label>
 								<div class="row">
 									<div class="col-sm-12">
 										<input name="server4" type="text" value="{{ $data->server4 }}" class="form-control">
@@ -123,8 +118,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label>Server 5</label>
-								<p>{{ SERVER5 }}</p>
+								<label>Server 5 ({{ SERVER5 }})</label>
 								<div class="row">
 									<div class="col-sm-12">
 										<input name="server5" type="text" value="{{ $data->server5 }}" class="form-control">
@@ -132,8 +126,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label>Server 6</label>
-								<p>{{ SERVER6 }}</p>
+								<label>Server 6 ({{ SERVER6 }})</label>
 								<div class="row">
 									<div class="col-sm-12">
 										<input name="server6" type="text" value="{{ $data->server6 }}" class="form-control">
@@ -141,15 +134,30 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label>Server 7</label>
-								<p>{{ SERVER7 }}</p>
+								<label>Server 7 ({{ SERVER7 }})</label>
 								<div class="row">
 									<div class="col-sm-12">
 										<input name="server7" type="text" value="{{ $data->server7 }}" class="form-control">
 									</div>
 								</div>
 							</div>
-
+							<div class="form-group">
+								<label>Server 8 ({{ SERVER8 }})</label>
+								<div class="row">
+									<div class="col-sm-12">
+										<input name="server8" type="text" value="{{ $data->server8 }}" class="form-control">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label>Server 9 ({{ SERVER9 }})</label>
+								<div class="row">
+									<div class="col-sm-12">
+										<input name="server9" type="text" value="{{ $data->server9 }}" class="form-control">
+									</div>
+								</div>
+							</div>
+							
 						</div>
 					</div>
 				</div>
