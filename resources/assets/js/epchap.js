@@ -48,7 +48,7 @@ function epchap(s) {
     },
     error: function(xhr)
     {
-      $('.online').html('Mời bạn tải lại trang');
+      $('.online').html('<img src="/img/error.jpg" alt="anime error">');
       return false;
     }
   });
