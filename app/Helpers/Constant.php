@@ -31,7 +31,7 @@ define('MOBILE', 1);
 define('PC', 2);
 define('TABLET', 3);
 // cache: 1: cache, 2: non cache
-define('CACHE', 2);
+define('CACHE', 1);
 // lang
 define('VI', 'vi');
 define('EN', 'en');
