@@ -141,7 +141,8 @@ class CachingMiddleware
                 $this->{$method}($content, $placeholder, $replace) :
                 $content;
         }
-
+        // minify response html
+        $content = $this->optimizeHtml($content);
         return $content;
     }
 
@@ -162,6 +163,43 @@ class CachingMiddleware
         }
 
         return $response;
+    }
+
+    private function optimizeHtml($content)
+    {
+        // if site then minify
+        preg_match('/([a-z]*)@/i', $this->request->route()->getActionName(), $matches);
+        $controllerName = $matches[1];
+        if($controllerName == 'SiteController') {
+            if(strpos($content,'<pre>') !== false)
+            {
+                $replace = array(
+                    // '/<!--[^\[](.*?)[^\]]-->/s' => '',
+                    '/<!--[^\[](.*?)[^\]]-->(<!--history-->)/s' => '',
+                    "/<\?php/"                  => '<?php ',
+                    "/\r/"                      => '',
+                    "/>\n</"                    => '><',
+                    "/>\s+\n</"                 => '><',
+                    "/>\n\s+</"                 => '><',
+                    "/>\s</"                    => '><',
+                );
+            } else {
+                $replace = array(
+                    // '/<!--[^\[](.*?)[^\]]-->/s' => '',
+                    '/<!--[^\[](.*?)[^\]]-->(<!--history-->)/s' => '',
+                    "/<\?php/"                  => '<?php ',
+                    "/\n([\S])/"                => '$1',
+                    "/\r/"                      => '',
+                    "/\n/"                      => '',
+                    "/\t/"                      => '',
+                    "/ +/"                      => ' ',
+                    "/>\s</"                    => '><',
+                );
+            }
+            $content = preg_replace(array_keys($replace), array_values($replace), $content);
+            ini_set('zlib.output_compression', 'On'); // If you like to enable GZip, too!
+        }
+        return $content;
     }
 
     private function historyFromCookie() {
