@@ -1064,6 +1064,9 @@ class SiteController extends Controller
             $ratingCount = $post->rating_count + 1;
             DB::table('posts')->where('id', $id)->update(['rating_value' => $ratingValue, 'rating_count' => $ratingCount]);
             $res = ['ratingValue' => $ratingValue, 'ratingCount' => $ratingCount];
+            // cache of this post must clear
+            $cacheName = '/' . $post->slug;
+            CommonMethod::forgetCache($cacheName);
         }
         return response()->json($res);
     }
