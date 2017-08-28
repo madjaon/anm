@@ -29,9 +29,9 @@
 							<div class="col-sm-8">
 							<?php 
 								$sitemapType = array(
-										'1' => 'Trang chủ/Trang lẻ/Thể loại/Tác giả/Seri/Quốc gia/Tình trạng hoàn thành (sitemap1.xml.gz)',
-										'2' => 'Danh sách truyện (sitemap2.xml.gz)',
-										'3' => 'Danh sách chương (sitemap3.xml.gz ...)'
+										'1' => 'Trang chủ/Trang lẻ (page)/Thể loại/Hãng phim/Seri/Quốc gia/Tình trạng hoàn thành/Ds theo năm (sitemap1.xml.gz)',
+										'2' => 'Danh sách post (sitemap2.xml.gz)',
+										'3' => 'Danh sách ep/chap (sitemap3.xml.gz ...)'
 									);
 							?>
 							{!! Form::select('type', $sitemapType, old('type'), array('class' =>'form-control')) !!}

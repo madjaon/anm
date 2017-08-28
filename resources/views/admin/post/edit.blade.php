@@ -8,8 +8,8 @@
 	<div class="col-xs-12">
 		<a href="{{ route('admin.post.index') }}" class="btn btn-success btn-sm">Danh sách post</a>
 		<a href="{{ route('admin.post.create') }}" class="btn btn-primary btn-sm">Thêm post</a>
-		<a href="{{ route('admin.postep.index') }}?post_id={{ $data->id }}&post_name={{ $data->name }}&post_slug={{ $data->slug }}" class="btn btn-success btn-sm">Chap</a>
-		<a href="{{ route('admin.postep.create') }}?post_id={{ $data->id }}&post_name={{ $data->name }}&post_slug={{ $data->slug }}" class="btn btn-primary btn-sm">Thêm chap</a>
+		<a href="{{ route('admin.postep.index') }}?post_id={{ $data->id }}&post_name={{ $data->name }}&post_slug={{ $data->slug }}" class="btn btn-success btn-sm">Episode</a>
+		<a href="{{ route('admin.postep.create') }}?post_id={{ $data->id }}&post_name={{ $data->name }}&post_slug={{ $data->slug }}" class="btn btn-primary btn-sm">Thêm Episode</a>
 	</div>
 </div>
 

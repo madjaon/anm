@@ -54,8 +54,8 @@
 						<td>{!! CommonMethod::startDateLabel($value->start_date) !!}</td>
 						<td><a id="status_{{ $value->id }}" onclick="updateStatus({{ $value->id }}, 'status')" style="cursor: pointer;" title="Click to change">{!! CommonOption::getStatus($value->status) !!}</a></td>
 						<td>
-							<a href="{{ route('admin.postep.index') }}?post_id={{ $value->id }}&post_name={{ $value->name }}&post_slug={{ $value->slug }}" class="btn btn-success btn-sm">Chap</a>
-							<a href="{{ route('admin.postep.create') }}?post_id={{ $value->id }}&post_name={{ $value->name }}&post_slug={{ $value->slug }}" class="btn btn-primary btn-sm">Thêm Chap</a>
+							<a href="{{ route('admin.postep.index') }}?post_id={{ $value->id }}&post_name={{ $value->name }}&post_slug={{ $value->slug }}" class="btn btn-success btn-sm">Episode</a>
+							<a href="{{ route('admin.postep.create') }}?post_id={{ $value->id }}&post_name={{ $value->name }}&post_slug={{ $value->slug }}" class="btn btn-primary btn-sm">Thêm Episode</a>
 							<a href="{{ CommonUrl::getUrl($value->slug) }}" class="btn btn-success btn-sm" target="_blank">Xem</a>
 							<a href="{{ route('admin.post.edit', $value->id) }}" class="btn btn-primary btn-sm">Sửa</a>
 							<form method="POST" action="{{ route('admin.post.destroy', $value->id) }}" style="display: inline-block;">
