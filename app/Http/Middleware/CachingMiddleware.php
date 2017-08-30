@@ -82,7 +82,7 @@ class CachingMiddleware
 
         $cacheRoute = collect();
         // allow controller & deny actions (in routes)
-        $cacheRoute->put('App\Http\Controllers\Site\SiteController', collect(['errorreporting','rating','contact']));
+        $cacheRoute->put('App\Http\Controllers\Site\SiteController', collect(['errorreporting','rating','contact', 'epchap', 'page2']));
 
         list($controller, $action) = explode('@', $this->request->route()->getActionName());
 
@@ -160,6 +160,15 @@ class CachingMiddleware
             $cookie = cookie()->forever(COOKIE_NAME, $this->request->getPathInfo());
 
             return $response->withCookie($cookie);
+        }
+
+        if($this->request->route()->getActionName() == 'App\Http\Controllers\Site\SiteController@page') {
+            $pageSlug = str_replace('/', '', $this->request->getPathInfo());
+            //update count view post
+            if(!request()->session()->has('posts-'.$pageSlug)) {
+                DB::table('posts')->where('slug', $pageSlug)->increment('view');
+                request()->session()->put('posts-'.$pageSlug, 1);
+            }
         }
 
         return $response;

@@ -539,12 +539,6 @@ class SiteController extends Controller
             ->first();
         if(isset($post)) {
 
-            //update count view post
-            if(!request()->session()->has('posts-'.$post->id)) {
-                DB::table('posts')->whereId($post->id)->increment('view');
-                request()->session()->put('posts-'.$post->id, 1);
-            }
-
             $post->patterns = CommonMethod::replaceText($post->patterns);
             $post->summary = CommonMethod::replaceText($post->summary);
             $post->description = CommonMethod::replaceText($post->description);
@@ -652,6 +646,25 @@ class SiteController extends Controller
     }
     public function page2($slug1, $slug2)
     {
+        // cache
+        if(CACHE == 1) {
+            // cache name
+            $cacheName = 'page2_'.$slug1.'_'.$slug2;
+            // get cache
+            if(Cache::has($cacheName)) {
+                $cacheData = Cache::get($cacheName);
+                
+                //update count view post
+                if(!request()->session()->has('posts-'.$cacheData['post']->id.'-'.$cacheData['data']->id)) {
+                    DB::table('posts')->whereId($cacheData['post']->id)->increment('view');
+                    request()->session()->put('posts-'.$cacheData['post']->id.'-'.$cacheData['data']->id, 1);
+                }
+
+                // return view
+                return view('site.post.epchap', $cacheData);
+            }
+        }
+
         // query
         // post
         $post = DB::table('posts')
@@ -728,8 +741,13 @@ class SiteController extends Controller
                 $data->firstServer = $serverArrayData[1];
                 $data->fs = $serverArrayData[2];
 
+                // cache
+                if(CACHE == 1) {
+                    Cache::put($cacheName, ['post' => $post, 'data' => $data], CACHETIME);
+                }
+
                 // return view
-                return response()->view('site.post.epchap', [
+                return view('site.post.epchap', [
                         'post' => $post, 
                         'data' => $data, 
                     ]);
@@ -1157,76 +1175,136 @@ class SiteController extends Controller
         // cache
         if(CACHE == 1) {
             // cache name
-            $cacheName = 'epchap_' . $post_id . '_' . $ep_id . '_' . $server;
+            $cacheName = 'epchap_'.$post_id;
             // get cache
             if(Cache::has($cacheName)) {
-                return Cache::get($cacheName);
+                $post = Cache::get($cacheName);
+            } else {
+                // post
+                $post = DB::table('posts')
+                    ->where('id', $post_id)
+                    ->where('status', ACTIVE)
+                    ->where('start_date', '<=', date('Y-m-d H:i:s'))
+                    ->first();
+                Cache::put($cacheName, $post, CACHETIME);
             }
-        }
-
-        // post
-        $post = DB::table('posts')
-            ->where('id', $post_id)
-            ->where('status', ACTIVE)
-            ->where('start_date', '<=', date('Y-m-d H:i:s'))
-            ->first();
-        if(isset($post)) {
-            $data = DB::table('post_eps')
-                ->where('id', $ep_id)
-                ->where('post_id', $post_id)
+        } else {
+            // post
+            $post = DB::table('posts')
+                ->where('id', $post_id)
                 ->where('status', ACTIVE)
                 ->where('start_date', '<=', date('Y-m-d H:i:s'))
                 ->first();
+        }
+        
+        if(isset($post)) {
+
+            // cache
+            if(CACHE == 1) {
+                // cache name
+                $cacheName = 'epchap_'.$post_id.'_'.$ep_id;
+                // get cache
+                if(Cache::has($cacheName)) {
+                    $data = Cache::get($cacheName);
+                } else {
+                    $data = DB::table('post_eps')
+                        ->where('id', $ep_id)
+                        ->where('post_id', $post_id)
+                        ->where('status', ACTIVE)
+                        ->where('start_date', '<=', date('Y-m-d H:i:s'))
+                        ->first();
+                    Cache::put($cacheName, $data, CACHETIME);
+                }
+            } else {
+                $data = DB::table('post_eps')
+                    ->where('id', $ep_id)
+                    ->where('post_id', $post_id)
+                    ->where('status', ACTIVE)
+                    ->where('start_date', '<=', date('Y-m-d H:i:s'))
+                    ->first();
+            }
+            
             if(isset($data)) {
                 // server
                 $serverArrayData = self::serverDataArray($data);
                 $firstServer = $serverArrayData[1];
                 $fs = $serverArrayData[2];
                 if(isset($server)) {
-                    $ds = 'server'.$server;
-                    if(in_array($server, [1,2,5,6,8,9])) {
-                        $sources = $data->$ds;
-                        $result = self::getFrame($sources);
-                    } elseif($server == 3) {
-                        $dataSources = CommonVideo::getLinkGooglePhoto($data->server3);
-                        $result = self::getJw($dataSources);
-                    } elseif($server == 4) {
-                        $sources = CommonVideo::getVideoYoutube($data->server4);
-                        $result = self::getJw($sources);
-                    } elseif($server == 7) {
-                        $sources = CommonVideo::getVideoVimeo($data->server7);
-                        $result = self::getJw($sources);
-                    } else {
-                        $sources = $firstServer;
-                        $result = self::getFrame($sources);
-                    }
+                    $result = self::getPlayer($data, $server, $firstServer);
                 } else {
-                    $ds = 'server'.$fs;
-                    if(in_array($fs, [1,2,5,6,8,9])) {
-                        $sources = $data->$ds;
-                        $result = self::getFrame($sources);
-                    } elseif($fs == 3) {
-                        $sources = CommonVideo::getLinkGooglePhoto($data->server3);
-                        $result = self::getJw($sources);
-                    } elseif($fs == 4) {
-                        $sources = CommonVideo::getVideoYoutube($data->server4);
-                        $result = self::getJw($sources);
-                    } elseif($fs == 7) {
-                        $sources = CommonVideo::getVideoVimeo($data->server7);
-                        $result = self::getJw($sources);
-                    } else {
-                        $sources = $firstServer;
-                        $result = self::getFrame($sources);
-                    }
-                }
-                if(CACHE == 1) {
-                    // Cache::put($cacheName, $result, 60);
-                    Cache::forever($cacheName, $result);
+                    $result = self::getPlayer($data, $fs, $firstServer);
                 }
                 return $result;
             }
         }
         return false;
+    }
+
+    private function getPlayer($data, $server, $firstServer)
+    {
+        $ds = 'server'.$server;
+        if(in_array($server, [1,2,5,6,8,9])) {
+            $sources = $data->$ds;
+            $result = self::getFrame($sources);
+        } elseif($server == 3) {
+            
+            // cache
+            if(CACHE == 1) {
+                // cache name
+                $cacheName = 'player_'.$server.'_'.$data->server3;
+                // get cache
+                if(Cache::has($cacheName)) {
+                    $sources = Cache::get($cacheName);
+                } else {
+                    $sources = CommonVideo::getLinkGooglePhoto($data->server3);
+                    Cache::put($cacheName, $sources, CACHETIME);
+                }
+            } else {
+                $sources = CommonVideo::getLinkGooglePhoto($data->server3);
+            }
+
+            $result = self::getJw($sources);
+        } elseif($server == 4) {
+            
+            // cache
+            if(CACHE == 1) {
+                // cache name
+                $cacheName = 'player_'.$server.'_'.$data->server4;
+                // get cache
+                if(Cache::has($cacheName)) {
+                    $sources = Cache::get($cacheName);
+                } else {
+                    $sources = CommonVideo::getVideoYoutube($data->server4);
+                    Cache::put($cacheName, $sources, CACHETIME);
+                }
+            } else {
+                $sources = CommonVideo::getVideoYoutube($data->server4);
+            }
+
+            $result = self::getJw($sources);
+        } elseif($server == 7) {
+            
+            // cache
+            if(CACHE == 1) {
+                // cache name
+                $cacheName = 'player_'.$server.'_'.$data->server7;
+                // get cache
+                if(Cache::has($cacheName)) {
+                    $sources = Cache::get($cacheName);
+                } else {
+                    $sources = CommonVideo::getVideoVimeo($data->server7);
+                    Cache::put($cacheName, $sources, CACHETIME);
+                }
+            } else {
+                $sources = CommonVideo::getVideoVimeo($data->server7);
+            }
+
+            $result = self::getJw($sources);
+        } else {
+            $sources = $firstServer;
+            $result = self::getFrame($sources);
+        }
+        return $result;
     }
 
     private function getFrame($sources)

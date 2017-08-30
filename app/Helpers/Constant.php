@@ -32,6 +32,8 @@ define('PC', 2);
 define('TABLET', 3);
 // cache: 1: cache, 2: non cache
 define('CACHE', 1);
+// cache minutes
+define('CACHETIME', 60);
 // lang
 define('VI', 'vi');
 define('EN', 'en');
