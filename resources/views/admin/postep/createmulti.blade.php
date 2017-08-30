@@ -29,7 +29,7 @@
 						<div class="col-sm-8">
 							<div class="form-group">
 								<label>Số tập hiện tại <span style="color: red;">(*)</span></label>
-								<p>Tập số mấy? 1, 2... (hoặc 1-1, 1-2...)</p>
+								<p>Tập số mấy? 1,2... (hoặc 1-1,1-2...)</p>
 								<p>Cách nhau bởi dấu phẩy</p>
 								<div class="row">
 									<div class="col-sm-12">
