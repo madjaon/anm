@@ -1,12 +1,12 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Thêm post chap')
+@section('title', 'Thêm ep')
 
 @section('content')
 
 <div class="row margin-bottom">
 	<div class="col-xs-12">
-		<a href="{{ route('admin.postep.index') }}?post_id={{ $request->post_id }}&post_name={{ $request->post_name }}&post_slug={{ $request->post_slug }}" class="btn btn-success btn-sm">Danh sách post chaps</a>
+		<a href="{{ route('admin.postep.index') }}?post_id={{ $request->post_id }}&post_name={{ $request->post_name }}&post_slug={{ $request->post_slug }}" class="btn btn-success btn-sm">Danh sách eps</a>
 	</div>
 </div>
 
@@ -16,7 +16,7 @@
 			<form action="{{ route('admin.postep.store') }}" method="POST">
 				{!! csrf_field() !!}
 				<div class="box-header">
-					<h3 class="box-title">Thêm post chap</h3>
+					<h3 class="box-title">Thêm ep</h3>
 					<p></p>
 					<p style="font-weight: bold;">ID post: {{ $request->post_id }} - <span style="color: red; font-weight: bold;">{{ $request->post_name }}</span> - <a href="{{ CommonUrl::getUrl($request->post_slug) }}" target="_blank">Xem</a> | <a href="{{ route('admin.post.edit', $request->post_id) }}">Sửa</a></p>
 					<input type="hidden" name="post_id" value="{{ $request->post_id }}">

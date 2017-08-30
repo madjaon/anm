@@ -1,14 +1,14 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Post chap')
+@section('title', 'Episode')
 
 @section('content')
 
 <div class="row margin-bottom">
 	<div class="col-xs-12">
 		<a href="{{ route('admin.post.index') }}" class="btn btn-success btn-sm">Danh sách post</a>
-		<a href="{{ route('admin.postep.index') }}?post_id={{ $request->post_id }}&post_name={{ $request->post_name }}&post_slug={{ $request->post_slug }}" class="btn btn-success btn-sm">Danh sách post chap</a>
-		<a href="{{ route('admin.postep.create') }}?post_id={{ $request->post_id }}&post_name={{ $request->post_name }}&post_slug={{ $request->post_slug }}" class="btn btn-primary btn-sm">Thêm post chap</a>
+		<a href="{{ route('admin.postep.index') }}?post_id={{ $request->post_id }}&post_name={{ $request->post_name }}&post_slug={{ $request->post_slug }}" class="btn btn-success btn-sm">Danh sách eps</a>
+		<a href="{{ route('admin.postep.create') }}?post_id={{ $request->post_id }}&post_name={{ $request->post_name }}&post_slug={{ $request->post_slug }}" class="btn btn-primary btn-sm">Thêm ep</a>
 		<a onclick="actionSelected(3);" class="btn btn-danger btn-sm" id="loadMsg3">Xóa mục đã chọn</a>
 		<a onclick="actionSelected(1);" class="btn btn-default btn-sm" id="loadMsg1">Đổi Status mục đã chọn</a>
 		<a onclick="callupdate();" class="btn btn-success btn-sm" id="loadMsg">Update Position</a>
@@ -19,7 +19,7 @@
 	<div class="col-xs-12">
 		<div class="box">
 			<div class="box-header">
-				<h3 class="box-title">Post chap</h3><i> - Total: {{ $data->total() }}</i>
+				<h3 class="box-title">Episode</h3><i> - Total: {{ $data->total() }}</i>
 				<p></p>
 				<p style="font-weight: bold;">ID post: {{ $request->post_id }} - <span style="color: red; font-weight: bold;">{{ $request->post_name }}</span> - <a href="{{ CommonUrl::getUrl($request->post_slug) }}" target="_blank">Xem</a> | <a href="{{ route('admin.post.edit', $request->post_id) }}">Sửa</a></p>
 			</div>
