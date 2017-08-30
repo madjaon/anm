@@ -885,6 +885,7 @@ class SiteController extends Controller
         if($currentPostId != null) {
             $data = $data->where('id', '!=', $currentPostId);
         }
+        $data = $data->orderBy('start_date', 'desc');
         return $data;
     }
     // element: tag or type / id: id of tag or type
@@ -895,7 +896,8 @@ class SiteController extends Controller
             ->select('posts.id', 'posts.name', 'posts.slug',  'posts.name2', 'posts.image', 'posts.type', 'posts.kind', 'posts.view', 'posts.year', 'posts.episode')
             ->where('post_'.$element.'_relations.'.$element.'_id', $id)
             ->where('posts.status', ACTIVE)
-            ->where('posts.start_date', '<=', date('Y-m-d H:i:s'));
+            ->where('posts.start_date', '<=', date('Y-m-d H:i:s'))
+            ->orderBy('start_date', 'desc');
         return $data;
     }
     // element: tag or type / id: id of post
