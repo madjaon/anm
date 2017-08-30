@@ -108,7 +108,8 @@ class PostEpController extends Controller
             PostEp::find($data->id)->update(['position' => $data->epchap]);
         }
         Cache::flush();
-        return redirect()->route('admin.postep.index', ['post_id' => $request->post_id, 'post_name' => $request->post_name, 'post_slug' => $request->post_slug])->with('success', 'Thêm thành công');
+        // return redirect()->route('admin.postep.index', ['post_id' => $request->post_id, 'post_name' => $request->post_name, 'post_slug' => $request->post_slug])->with('success', 'Thêm thành công');
+        return redirect()->route('admin.postep.create', ['post_id' => $request->post_id, 'post_name' => $request->post_name, 'post_slug' => $request->post_slug])->with('success', 'Thêm thành công');
     }
 
     /**
