@@ -32,10 +32,12 @@
 						<td>{{ CommonOption::getRole($value->role_id) }}</td>
 						<td><a id="status_{{ $value->id }}" onclick="updateStatus({{ $value->id }}, 'status')" style="cursor: pointer;" title="Click to change">{!! CommonOption::getStatus($value->status) !!}</a></td>
 						<td>
-							@if(Auth::guard('admin')->user()->id == 1)
+							@if(Auth::guard('admin')->user()->role_id == ADMIN)
+								@if(Auth::guard('admin')->user()->id == 1 || $value->id == Auth::guard('admin')->user()->id)
 								<a href="{{ route('admin.account.password', $value->id) }}" class="btn btn-success">Đổi mật khẩu</a>
 								<a href="{{ route('admin.account.edit', $value->id) }}" class="btn btn-primary">Sửa</a>
-								@if(Auth::guard('admin')->user()->id == 1 && $value->id != Auth::guard('admin')->user()->id)
+								@endif
+								@if($value->id != 1 && $value->id != Auth::guard('admin')->user()->id)
 								<form method="POST" action="{{ route('admin.account.destroy', $value->id) }}" style="display: inline-block;">
 									{{ method_field('DELETE') }}
 									{{ csrf_field() }}
