@@ -15,7 +15,7 @@
             <li><a href="{{ route('admin.ad.index') }}"><i class="fa fa-picture-o"></i> <span>Quảng cáo</span></a></li>
             <li><a href="{{ route('admin.contact.index') }}"><i class="fa fa-phone"></i> <span>Liên hệ</span><small class="label pull-right bg-yellow">{{ CommonQuery::contactUnRead() }}</small></a></li>
             <!-- <li><a href="{{-- route('admin.user.index') --}}"><i class="fa fa-user"></i> <span>Người dùng</span></a></li> -->
-            <!-- <li><a href="{{-- route('admin.crawler2.index') --}}"><i class="fa fa-bug"></i> <span>Crawler2</span></a></li> -->
+            <li><a href="{{ route('admin.crawler3.index') }}"><i class="fa fa-bug"></i> <span>Crawler3</span></a></li>
             @endif
             <li class="header">CONFIG</li>
             <!-- <li><a href="{{-- route('admin.menu.index') --}}"><i class="fa fa-navicon"></i> <span>Quản lý menu</span></a></li> -->
