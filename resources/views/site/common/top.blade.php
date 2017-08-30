@@ -11,7 +11,7 @@
     <div class="row">
       <div class="col-8">
         <a href="{!! url('/') !!}" class="d-flex justify-content-start align-items-center py-2 logo" title="Phim On">
-          <img src="{!! url('img/logomobile.png') !!}" alt="Truyen On" class="mr-2 animated tada"><span class="pt-2 {!! $effect !!}">Phim On</span>
+          <img src="{!! url('img/logomobile.png') !!}" alt="PO" class="mr-2 animated tada"><span class="pt-2 {!! $effect !!}">Phim On</span>
         </a>  
       </div>
       <div class="col-4">
@@ -39,7 +39,7 @@
 <header class="mb-4">
   <nav class="navbar navbar-expand-sm py-1">
     <div class="container">
-      <a class="navbar-brand p-0 d-flex align-items-center" href="{!! url('/') !!}" title="Phim On"><img src="{!! url('img/logo.png') !!}" alt="Truyen On" class="mr-2 animated tada"><span class="{!! $effect !!}">Phim On</span></a>
+      <a class="navbar-brand p-0 d-flex align-items-center" href="{!! url('/') !!}" title="Phim On"><img src="{!! url('img/logo.png') !!}" alt="PO" class="mr-2 animated tada"><span class="{!! $effect !!}">Phim On</span></a>
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
           <li class="nav-item dropdown">
