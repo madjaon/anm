@@ -54,17 +54,17 @@ function epchap(s) {
   });
 }
 $(function () {
-  var prev = document.getElementById('prev').value;
-  var next = document.getElementById('next').value;
-  document.onkeydown = function(e) {
-    switch (e.keyCode) {
-      case 37:
-        window.location.href = prev;
-        break;
-      case 39:
-        window.location.href = next;
-        break;
-    }
-  };
+  // var prev = document.getElementById('prev').value;
+  // var next = document.getElementById('next').value;
+  // document.onkeydown = function(e) {
+  //   switch (e.keyCode) {
+  //     case 37:
+  //       window.location.href = prev;
+  //       break;
+  //     case 39:
+  //       window.location.href = next;
+  //       break;
+  //   }
+  // };
   epchap();
 })

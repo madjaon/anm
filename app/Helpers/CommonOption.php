@@ -278,4 +278,19 @@ class CommonOption
             );
         return $array[$key];
     }
+    // server
+    static function serverArray()
+    {
+        return array(
+                '1' => 'Server 1 - ' . SERVER1,
+                '2' => 'Server 2 - ' . SERVER2,
+                '3' => 'Server 3 - ' . SERVER3,
+                '4' => 'Server 4 - ' . SERVER4,
+                '5' => 'Server 5 - ' . SERVER5,
+                '6' => 'Server 6 - ' . SERVER6,
+                '7' => 'Server 7 - ' . SERVER7,
+                '8' => 'Server 8 - ' . SERVER8,
+                '9' => 'Server 9 - ' . SERVER9,
+            );
+    }
 }

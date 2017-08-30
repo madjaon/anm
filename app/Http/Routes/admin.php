@@ -29,6 +29,8 @@ Route::group(['middleware' => ['auth:admin']], function ($router) {
     Route::post('postseri/callupdate', 'PostSeriController@callupdate');
     Route::resource('postseri', 'PostSeriController');
     // post ep chap
+    Route::post('postep/createmultiaction', 'PostEpController@createmultiaction');
+    Route::get('postep/createmulti', 'PostEpController@createmulti');
     Route::post('postep/calldelete', 'PostEpController@calldelete');
     Route::post('postep/callupdatestatus', 'PostEpController@callupdatestatus');
     Route::post('postep/updateStatus', 'PostEpController@updateStatus');

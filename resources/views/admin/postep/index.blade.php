@@ -9,6 +9,7 @@
 		<a href="{{ route('admin.post.index') }}" class="btn btn-success btn-sm">Danh sách post</a>
 		<a href="{{ route('admin.postep.index') }}?post_id={{ $request->post_id }}&post_name={{ $request->post_name }}&post_slug={{ $request->post_slug }}" class="btn btn-success btn-sm">Danh sách eps</a>
 		<a href="{{ route('admin.postep.create') }}?post_id={{ $request->post_id }}&post_name={{ $request->post_name }}&post_slug={{ $request->post_slug }}" class="btn btn-primary btn-sm">Thêm ep</a>
+		<a href="{{ url('admin/postep/createmulti') }}?post_id={{ $request->post_id }}&post_name={{ $request->post_name }}&post_slug={{ $request->post_slug }}" class="btn btn-primary btn-sm">Thêm nhiều ep</a>
 		<a onclick="actionSelected(3);" class="btn btn-danger btn-sm" id="loadMsg3">Xóa mục đã chọn</a>
 		<a onclick="actionSelected(1);" class="btn btn-default btn-sm" id="loadMsg1">Đổi Status mục đã chọn</a>
 		<a onclick="callupdate();" class="btn btn-success btn-sm" id="loadMsg">Update Position</a>

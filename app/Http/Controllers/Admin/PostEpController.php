@@ -54,8 +54,8 @@ class PostEpController extends Controller
     {
         trimRequest($request);
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:255',
-            'slug' => 'required|max:255',
+            'name' => 'max:255',
+            'slug' => 'max:255',
             'post_id' => 'required',
             'epchap' => 'required|max:255',
             'server1' => 'max:500',
@@ -76,11 +76,19 @@ class PostEpController extends Controller
         if($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+        $epchap = CommonMethod::buildSlug($request->epchap);
+        if($request->name == '' || $request->slug == '') {
+            $name = 'Tập ' . $epchap;
+            $slug = CommonMethod::buildSlug($name);
+        } else {
+            $name = $request->name;
+            $slug = $request->slug;
+        }
         $data = PostEp::create([
-                'name' => $request->name,
-                'slug' => $request->slug,
+                'name' => $name,
+                'slug' => $slug,
                 'post_id' => $request->post_id,
-                'epchap' => $request->epchap,
+                'epchap' => $epchap,
                 'server1' => $request->server1,
                 'server2' => $request->server2,
                 'server3' => $request->server3,
@@ -105,7 +113,17 @@ class PostEpController extends Controller
         if(isset($data)) {
             Post::find($data->post_id)->update(['start_date' => date('Y-m-d H:i:s')]);
             // post ep position
-            PostEp::find($data->id)->update(['position' => $data->epchap]);
+            $postEpLatest = DB::table('post_eps')
+                ->select('position')
+                ->where('post_id', $data->post_id)
+                ->orderByRaw(DB::raw("position = '0', position desc"))
+                ->first();
+            if(isset($postEpLatest)) {
+                $pos = $postEpLatest->position + 1;
+            } else {
+                $pos = 1;
+            }
+            PostEp::find($data->id)->update(['position' => $pos]);
         }
         Cache::flush();
         // return redirect()->route('admin.postep.index', ['post_id' => $request->post_id, 'post_name' => $request->post_name, 'post_slug' => $request->post_slug])->with('success', 'Thêm thành công');
@@ -147,8 +165,8 @@ class PostEpController extends Controller
         trimRequest($request);
         $data = PostEp::find($id);
         $rules = [
-            'name' => 'required|max:255',
-            'slug' => 'required|max:255',
+            'name' => 'max:255',
+            'slug' => 'max:255',
             'post_id' => 'required',
             'epchap' => 'required|max:255',
             'server1' => 'max:500',
@@ -170,11 +188,19 @@ class PostEpController extends Controller
         if($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+        $epchap = CommonMethod::buildSlug($request->epchap);
+        if($request->name == '' || $request->slug == '') {
+            $name = 'Tập ' . $epchap;
+            $slug = CommonMethod::buildSlug($name);
+        } else {
+            $name = $request->name;
+            $slug = $request->slug;
+        }
         $data->update([
-                'name' => $request->name,
-                'slug' => $request->slug,
+                'name' => $name,
+                'slug' => $slug,
                 'post_id' => $request->post_id,
-                'epchap' => $request->epchap,
+                'epchap' => $epchap,
                 'server1' => $request->server1,
                 'server2' => $request->server2,
                 'server3' => $request->server3,
@@ -271,6 +297,93 @@ class PostEpController extends Controller
             return 1;
         }
         return 0;
+    }
+
+    public function createmulti(Request $request)
+    {
+        return view('admin.postep.createmulti', ['request' => $request]);
+    }
+
+    public function createmultiaction(Request $request)
+    {
+        trimRequest($request);
+        $validator = Validator::make($request->all(), [
+            'post_id' => 'required',
+            'epchap' => 'required',
+            'links' => 'required',
+            'servernumber' => 'required',
+        ]);
+        if($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $epchapArray = explode(',', $request->epchap);
+        $linksArray = explode(',', $request->links);
+        foreach($epchapArray as $key => $value) {
+            $link = trim($linksArray[$key]);
+            $value = trim($value);
+            $epchap = CommonMethod::buildSlug($value);
+            $name = 'Tập ' . $epchap;
+            $slug = CommonMethod::buildSlug($name);
+            $data = PostEp::create([
+                    'name' => $name,
+                    'slug' => $slug,
+                    'post_id' => $request->post_id,
+                    'epchap' => $epchap,
+                    'start_date' => date('Y-m-d H:i:s'),
+                ]);
+            if(isset($data)) {
+                Post::find($data->post_id)->update(['start_date' => date('Y-m-d H:i:s')]);
+                // post ep position
+                $postEpLatest = DB::table('post_eps')
+                    ->select('position')
+                    ->where('post_id', $data->post_id)
+                    ->orderByRaw(DB::raw("position = '0', position desc"))
+                    ->first();
+                if(isset($postEpLatest)) {
+                    $pos = $postEpLatest->position + 1;
+                } else {
+                    $pos = 1;
+                }
+                // server data
+                switch ($request->servernumber) {
+                    case '1':
+                        $updateData = ['position' => $pos, 'server1' => $link];
+                        break;
+                    case '2':
+                        $updateData = ['position' => $pos, 'server2' => $link];
+                        break;
+                    case '3':
+                        $updateData = ['position' => $pos, 'server3' => $link];
+                        break;
+                    case '4':
+                        $updateData = ['position' => $pos, 'server4' => $link];
+                        break;
+                    case '5':
+                        $updateData = ['position' => $pos, 'server5' => $link];
+                        break;
+                    case '6':
+                        $updateData = ['position' => $pos, 'server6' => $link];
+                        break;
+                    case '7':
+                        $updateData = ['position' => $pos, 'server7' => $link];
+                        break;
+                    case '8':
+                        $updateData = ['position' => $pos, 'server8' => $link];
+                        break;
+                    case '9':
+                        $updateData = ['position' => $pos, 'server9' => $link];
+                        break;
+                    
+                    default:
+                        $updateData = ['position' => $pos];
+                        break;
+                }
+                PostEp::find($data->id)->update($updateData);
+            }
+        }
+        Cache::flush();
+        return redirect()->route('admin.postep.index', ['post_id' => $request->post_id, 'post_name' => $request->post_name, 'post_slug' => $request->post_slug])->with('success', 'Thêm thành công');
     }
 
 }

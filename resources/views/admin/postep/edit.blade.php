@@ -8,6 +8,7 @@
 	<div class="col-xs-12">
 		<a href="{{ route('admin.postep.index') }}?post_id={{ $request->post_id }}&post_name={{ $request->post_name }}&post_slug={{ $request->post_slug }}" class="btn btn-success btn-sm">Danh sách eps</a>
 		<a href="{{ route('admin.postep.create') }}?post_id={{ $request->post_id }}&post_name={{ $request->post_name }}&post_slug={{ $request->post_slug }}" class="btn btn-primary btn-sm">Thêm ep</a>
+		<a href="{{ url('admin/postep/createmulti') }}?post_id={{ $request->post_id }}&post_name={{ $request->post_name }}&post_slug={{ $request->post_slug }}" class="btn btn-primary btn-sm">Thêm nhiều ep</a>
 	</div>
 </div>
 
@@ -30,7 +31,8 @@
 					<div class="row">
 						<div class="col-sm-8">
 							<div class="form-group">
-								<label>Name <span style="color: red;">(*)</span></label>
+								<label>Name</label>
+								<p>Có thể để trống. (tự động thêm theo số tập hiện tại. Tập 1...)</p>
 								<div class="row">
 									<div class="col-sm-12">
 										<input name="name" type="text" value="{{ $data->name }}" class="form-control" onkeyup="convert_to_slug(this.value);">
@@ -38,7 +40,8 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label>Slug <span style="color: red;">(*)</span></label>
+								<label>Slug</label>
+								<p>Có thể để trống. (tự động thêm theo số tập hiện tại. tap-1...)</p>
 								<div class="row">
 									<div class="col-sm-12">
 										<input name="slug" type="text" value="{{ $data->slug }}" class="form-control">
@@ -79,6 +82,7 @@
 							</div>
 							<div class="form-group">
 								<label>Số tập hiện tại <span style="color: red;">(*)</span></label>
+								<p>Tập số mấy? 1, 2... (hoặc 1-1, 1-2...)</p>
 								<div class="row">
 									<div class="col-sm-12">
 										<input name="epchap" type="text" value="{{ $data->epchap }}" class="form-control">
