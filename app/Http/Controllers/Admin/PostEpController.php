@@ -111,7 +111,7 @@ class PostEpController extends Controller
                 'lang' => $request->lang,
             ]);
         if(isset($data)) {
-            Post::find($data->post_id)->update(['start_date' => date('Y-m-d H:i:s')]);
+            // Post::find($data->post_id)->update(['start_date' => date('Y-m-d H:i:s')]);
             // post ep position
             $postEpLatest = DB::table('post_eps')
                 ->select('position')
@@ -333,7 +333,7 @@ class PostEpController extends Controller
                     'start_date' => date('Y-m-d H:i:s'),
                 ]);
             if(isset($data)) {
-                Post::find($data->post_id)->update(['start_date' => date('Y-m-d H:i:s')]);
+                // Post::find($data->post_id)->update(['start_date' => date('Y-m-d H:i:s')]);
                 // post ep position
                 $postEpLatest = DB::table('post_eps')
                     ->select('position')

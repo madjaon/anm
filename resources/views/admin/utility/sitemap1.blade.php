@@ -19,7 +19,19 @@
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>{{ url('hang-phim') }}</loc>
+        <loc>{{ CommonUrl::getUrlStudio() }}</loc>
+        <lastmod>{{ date('Y-m-d') }}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>{{ CommonUrl::getUrlPostMovie() }}</loc>
+        <lastmod>{{ date('Y-m-d') }}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>{{ CommonUrl::getUrlPostTV() }}</loc>
         <lastmod>{{ date('Y-m-d') }}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>

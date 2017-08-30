@@ -70,9 +70,11 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkList" data-toggle="hover" aria-haspopup="true" aria-expanded="false">Danh sách</a>
             <div class="dropdown-menu animated fadeInDownNew" aria-labelledby="navbarDropdownMenuLinkList">
+              <a class="dropdown-item" href="{!! CommonUrl::getUrlPostTV() !!}" title="Danh sách TV Series">TV Series</a>
+              <a class="dropdown-item" href="{!! CommonUrl::getUrlPostMovie() !!}" title="Danh sách Movie">Movie</a>
               <a class="dropdown-item" href="{!! CommonUrl::getUrlPostKind('da-hoan-thanh') !!}" title="Danh sách phim đã hoàn thành">Phim đã hoàn thành</a>
               <a class="dropdown-item" href="{!! CommonUrl::getUrlPostKind('con-tiep-tuc') !!}" title="Danh sách phim còn tiếp tục">Phim còn tiếp tục</a>
-              <a class="dropdown-item" href="{!! url('hang-phim') !!}" title="Danh sách hãng phim">Hãng phim</a>
+              <a class="dropdown-item" href="{!! CommonUrl::getUrlStudio() !!}" title="Danh sách hãng phim">Hãng phim</a>
             </div>
           </li>
         </ul>

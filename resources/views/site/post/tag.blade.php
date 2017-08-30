@@ -18,7 +18,7 @@
 
 <?php
   $breadcrumb = array(
-    ['name' => 'Danh sách hãng phim', 'link' => url('hang-phim')],
+    ['name' => 'Danh sách hãng phim', 'link' => CommonUrl::getUrlStudio()],
     ['name' => $h1, 'link' => '']
   );
 ?>

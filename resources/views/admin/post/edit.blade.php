@@ -10,6 +10,7 @@
 		<a href="{{ route('admin.post.create') }}" class="btn btn-primary btn-sm">Thêm post</a>
 		<a href="{{ route('admin.postep.index') }}?post_id={{ $data->id }}&post_name={{ $data->name }}&post_slug={{ $data->slug }}" class="btn btn-success btn-sm">Danh sách eps</a>
 		<a href="{{ route('admin.postep.create') }}?post_id={{ $data->id }}&post_name={{ $data->name }}&post_slug={{ $data->slug }}" class="btn btn-primary btn-sm">Thêm ep</a>
+		<a href="{{ url('admin/postep/createmulti') }}?post_id={{ $data->id }}&post_name={{ $data->name }}&post_slug={{ $data->slug }}" class="btn btn-primary btn-sm">Thêm nhiều ep</a>
 	</div>
 </div>
 

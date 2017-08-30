@@ -421,6 +421,78 @@ class SiteController extends Controller
         }
         return response()->view('errors.404', [], 404);
     }
+    public function listmovie(Request $request)
+    {
+        trimRequest($request);
+        // check page
+        $page = ($request->page)?$request->page:1;
+        
+        // query
+        $data = DB::table('posts')
+            ->select('id', 'name', 'slug', 'name2', 'image', 'type', 'kind', 'view', 'year', 'episode')
+            ->where('type', POST_MOVIE)
+            ->where('status', ACTIVE)
+            ->where('start_date', '<=', date('Y-m-d H:i:s'))
+            ->orderBy('start_date', 'desc')
+            ->paginate(PAGINATE);
+        // posts
+        if($data->total() > 0) {
+            // auto meta for seo
+            $seo = new \stdClass();
+            $seo->h1 = 'Danh sách Movie';
+            if($page > 1) {
+                $seo->meta_title = 'Danh sách Movie' . ' trang ' . $page;
+            } else {
+                $seo->meta_title = 'Danh sách Movie';
+            }
+            $seo->meta_keyword = 'Danh sách Movie';
+            $seo->meta_description = 'Danh sách Movie';
+            $seo->meta_image = '/img/img600x315.jpg';
+
+            // $authors = $this->getTagsByPosts($data);
+            $authors = null;
+
+            // return view
+            return view('site.post.box', ['data' => $data, 'seo' => $seo, 'authors' => $authors]);
+        }
+        return response()->view('errors.404', [], 404);
+    }
+    public function listtv(Request $request)
+    {
+        trimRequest($request);
+        // check page
+        $page = ($request->page)?$request->page:1;
+        
+        // query
+        $data = DB::table('posts')
+            ->select('id', 'name', 'slug', 'name2', 'image', 'type', 'kind', 'view', 'year', 'episode')
+            ->where('type', POST_TV)
+            ->where('status', ACTIVE)
+            ->where('start_date', '<=', date('Y-m-d H:i:s'))
+            ->orderBy('start_date', 'desc')
+            ->paginate(PAGINATE);
+        // posts
+        if($data->total() > 0) {
+            // auto meta for seo
+            $seo = new \stdClass();
+            $seo->h1 = 'Danh sách TV Series';
+            if($page > 1) {
+                $seo->meta_title = 'Danh sách TV Series' . ' trang ' . $page;
+            } else {
+                $seo->meta_title = 'Danh sách TV Series';
+            }
+            $seo->meta_keyword = 'Danh sách TV Series';
+            $seo->meta_description = 'Danh sách TV Series';
+            $seo->meta_image = '/img/img600x315.jpg';
+
+            // $authors = $this->getTagsByPosts($data);
+            $authors = null;
+
+            // return view
+            return view('site.post.box', ['data' => $data, 'seo' => $seo, 'authors' => $authors]);
+        }
+        return response()->view('errors.404', [], 404);
+    }
     public function page($slug)
     {
         CommonMethod::forgetCache('/lien-he');
@@ -583,7 +655,7 @@ class SiteController extends Controller
         // query
         // post
         $post = DB::table('posts')
-            ->select('id', 'name', 'slug', 'name2')
+            ->select('id', 'name', 'slug', 'name2', 'image', 'type', 'kind', 'view', 'year', 'episode')
             ->where('slug', $slug1)
             ->where('status', ACTIVE)
             ->where('start_date', '<=', date('Y-m-d H:i:s'))
@@ -607,12 +679,12 @@ class SiteController extends Controller
                 // auto meta post for seo
                 // $postName = ucwords(mb_strtolower($post->name));
                 $postName = mb_convert_case($post->name, MB_CASE_TITLE, "UTF-8");
-                $data->h1 = $postName . ' - ' . $data->name;
+                $data->h1 = $postName . ' ('.$post->year.') - ' . $data->name;
                 if(empty($data->meta_title)) {
-                    $data->meta_title = $postName.' - '.$data->name;
+                    $data->meta_title = $postName.' ('.$post->year.') - '.$data->name;
                 }
                 if(empty($data->meta_keyword)) {
-                    $data->meta_keyword = $postName.' - '.$data->name;
+                    $data->meta_keyword = $postName.' '.$data->name.','.$postName.' '.$post->year;
                 }
                 if(empty($data->meta_description)) {
                     $data->meta_description = CommonMethod::limit_text(strip_tags($data->description), 200);

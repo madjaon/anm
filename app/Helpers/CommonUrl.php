@@ -73,5 +73,26 @@ class CommonUrl
         }
         return url('xem-anime-truoc-nam-'.$slug);
     }
+    static function getUrlStudio($withDomain = null)
+    {
+        if($withDomain != null) {
+           return '/hang-phim';    
+        }
+        return url('hang-phim');
+    }
+    static function getUrlPostMovie($withDomain = null)
+    {
+        if($withDomain != null) {
+           return '/danh-sach-movie';    
+        }
+        return url('danh-sach-movie');
+    }
+    static function getUrlPostTV($withDomain = null)
+    {
+        if($withDomain != null) {
+           return '/danh-sach-tv-series';    
+        }
+        return url('danh-sach-tv-series');
+    }
 
 }

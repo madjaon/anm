@@ -14,6 +14,8 @@ Route::get('livesearch', 'SiteController@livesearch');
 Route::get('tim-kiem', ['uses' => 'SiteController@search', 'as' => 'site.search']);
 Route::get('/', 'SiteController@index');
 Route::get('hang-phim', 'SiteController@author');
+Route::get('danh-sach-movie', 'SiteController@listmovie');
+Route::get('danh-sach-tv-series', 'SiteController@listtv');
 Route::get('tag/{slug}', 'SiteController@tag');
 Route::get('the-loai/{slug}', 'SiteController@type');
 Route::get('seri/{slug}', 'SiteController@seri');
