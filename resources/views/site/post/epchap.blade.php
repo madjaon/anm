@@ -24,7 +24,7 @@
     <div class="text-center mb-3 d-flex-sm justify-content-center align-items-center">
       <div class="d-block d-sm-inline-block">
         <strong class="mr-2">Server</strong>
-        {!! Form::select(null, $data->serverArray, null, array('class' =>'custom-select custom-select-sm m-2', 'style'=>'width:110px;', 'onchange'=>'epchap(this.value);')) !!}
+        {!! Form::select(null, $data->serverArray, $data->fs, array('class' =>'custom-select custom-select-sm m-2', 'style'=>'width:110px;', 'onchange'=>'epchap(this.value);')) !!}
       </div>
 
       @if(isset($data->epPrev))

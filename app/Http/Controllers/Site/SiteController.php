@@ -723,9 +723,10 @@ class SiteController extends Controller
                 // END PREV & NEXT EPCHAP
 
                 // server
-                $serverArrayData = self::serverArray($data);
+                $serverArrayData = self::serverDataArray($data);
                 $data->serverArray = $serverArrayData[0];
                 $data->firstServer = $serverArrayData[1];
+                $data->fs = $serverArrayData[2];
 
                 // return view
                 return response()->view('site.post.epchap', [
@@ -1178,7 +1179,7 @@ class SiteController extends Controller
                 ->first();
             if(isset($data)) {
                 // server
-                $serverArrayData = self::serverArray($data);
+                $serverArrayData = self::serverDataArray($data);
                 $firstServer = $serverArrayData[1];
                 $fs = $serverArrayData[2];
                 if(isset($server)) {
@@ -1219,7 +1220,8 @@ class SiteController extends Controller
                     }
                 }
                 if(CACHE == 1) {
-                    Cache::put($cacheName, $result, 60);
+                    // Cache::put($cacheName, $result, 60);
+                    Cache::forever($cacheName, $result);
                 }
                 return $result;
             }
@@ -1248,7 +1250,7 @@ class SiteController extends Controller
     }
 
     // data: epchap data
-    private function serverArray($data)
+    private function serverDataArray($data)
     {
         $serverArray = [];
         $firstServer = null;
