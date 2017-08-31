@@ -42,6 +42,20 @@ class SiteController extends Controller
 
         // view
         // $data2 = $this->getPosts('view')->take(PAGINATE_HOT)->get();
+
+        // home page seo default
+        if(empty($seo->meta_title)) {
+            $seo->meta_title = 'Anime Vietsub Online';
+        }
+        if(empty($seo->meta_keyword)) {
+            $seo->meta_keyword = 'anime vietsub,anime vietsub online,anime phu de tieng viet,anime hd,anime full hd,anime 720p,anime 1080p,anime2k,2kanime,anime 2k, 2k anime';
+        }
+        if(empty($seo->meta_description)) {
+            $seo->meta_description = 'Xem anime vietsub online full HD, Trang xem phim hoạt hình Nhật Bản phụ đề tiếng việt.';
+        }
+        if(empty($seo->meta_image)) {
+            $seo->meta_image = '/img/img600x315.jpg';
+        }
         
         // return view
         return view('site.index', ['data' => $data, 'seo' => $seo]);
@@ -158,11 +172,11 @@ class SiteController extends Controller
                     }
                 }
                 if(empty($type->meta_keyword)) {
-                    $typeNameNoLatin = CommonMethod::convert_string_vi_to_en($typeName);
-                    $type->meta_keyword = 'xem anime '.$type->name.',xem anime '.$type->name2.'xem anime '.$typeNameNoLatin;
+                    // $typeNameNoLatin = CommonMethod::convert_string_vi_to_en($typeName);
+                    $type->meta_keyword = 'xem anime '.$type->name.',xem anime '.$type->name2.' vietsub';
                 }
                 if(empty($type->meta_description)) {
-                    $type->meta_description = CommonMethod::limit_text(strip_tags($type->description), 200);
+                    $type->meta_description = CommonMethod::limit_text(strip_tags($type->description), 260);
                 }
                 if(empty($type->meta_image)) {
                     $type->meta_image = '/img/img600x315.jpg';
@@ -548,16 +562,16 @@ class SiteController extends Controller
             $post->h1 = $postName;
             $postNameNoLatin = CommonMethod::convert_string_vi_to_en($postName);
             if(empty($post->meta_title)) {
-                $post->meta_title = 'Xem Anime '.$postName.' Vietsub Full Trọn Bộ';
+                $post->meta_title = 'Xem Anime '.$postName.' Vietsub Full';
             }
             if(empty($post->meta_keyword)) {
                 $post->meta_keyword = 'xem anime '.$postName.' vietsub, xem anime '.$postNameNoLatin.' vietsub';
             }
             if(empty($post->meta_description)) {
                 if(!empty($post->description)) {
-                    $post->meta_description = CommonMethod::limit_text(strip_tags($post->description), 200);
+                    $post->meta_description = CommonMethod::limit_text(strip_tags($post->description), 260);
                 } else {
-                    $post->meta_description = 'Xem anime '.$postName.' vietsub online full trọn bộ. Xem anime'.$post->name2.' vietsub';
+                    $post->meta_description = 'Xem anime '.$postName.' vietsub online full trọn bộ. Xem anime '.$post->name2.' vietsub';
                 }
             }
             if(empty($post->meta_image)) {
@@ -704,7 +718,7 @@ class SiteController extends Controller
                 }
                 if(empty($data->meta_description)) {
                     if(!empty($data->description)) {
-                        $data->meta_description = CommonMethod::limit_text(strip_tags($data->description), 200);
+                        $data->meta_description = CommonMethod::limit_text(strip_tags($data->description), 260);
                     } else {
                         $data->meta_description = 'Xem anime '.$postName.' vietsub tập '.$data->epchap.'. Xem '.$postName.' '.$post->year.' '.$data->name;
                     }
