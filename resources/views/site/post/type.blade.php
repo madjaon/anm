@@ -29,7 +29,7 @@
 
 @if($type->patterns)<div class="box description p-3 mb-3">{!! $type->patterns !!}</div>@endif
 @if($type->summary)<div class="box description p-3 mb-3">{!! $type->summary !!}</div>@endif
-@if($type->description)<div class="box description p-3 mb-3">{!! $type->description !!}</div>@endif
+@if($type->description)<div class="box description p-3 mb-3 d-sm-flex align-items-sm-center"><span class="badge badge-dark mr-3">{{ $type->name2 }}</span>{!! $type->description !!}</div>@endif
 
 @include('site.post.grid', array('data' => $data))
 
