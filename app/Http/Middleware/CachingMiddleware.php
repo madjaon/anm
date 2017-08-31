@@ -156,6 +156,8 @@ class CachingMiddleware
         $response = $response->setContent($this->replaceDynamicContent($response->content()));
 
         if($this->request->route()->getActionName() == 'App\Http\Controllers\Site\SiteController@page2') {
+            $this->incrementView($this->request->getPathInfo());
+
             // set cookie epchap reading, hien tai chi luu 1 record vao cookie
             $cookie = cookie()->forever(COOKIE_NAME, $this->request->getPathInfo());
 
@@ -163,15 +165,20 @@ class CachingMiddleware
         }
 
         if($this->request->route()->getActionName() == 'App\Http\Controllers\Site\SiteController@page') {
-            $pageSlug = str_replace('/', '', $this->request->getPathInfo());
-            //update count view post
-            if(!request()->session()->has('posts-'.$pageSlug)) {
-                DB::table('posts')->where('slug', $pageSlug)->increment('view');
-                request()->session()->put('posts-'.$pageSlug, 1);
-            }
+            $this->incrementView($this->request->getPathInfo());
         }
 
         return $response;
+    }
+
+    private function incrementView($path)
+    {
+        $paths = explode('/', $path);
+        //update count view post
+        if(!request()->session()->has('posts-'.$path)) {
+            DB::table('posts')->where('slug', $paths[1])->increment('view');
+            request()->session()->put('posts-'.$path, 1);
+        }
     }
 
     private function optimizeHtml($content)

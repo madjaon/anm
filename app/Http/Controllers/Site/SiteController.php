@@ -670,13 +670,6 @@ class SiteController extends Controller
             // get cache
             if(Cache::has($cacheName)) {
                 $cacheData = Cache::get($cacheName);
-                
-                //update count view post
-                if(!request()->session()->has('posts-'.$cacheData['post']->id.'-'.$cacheData['data']->id)) {
-                    DB::table('posts')->whereId($cacheData['post']->id)->increment('view');
-                    request()->session()->put('posts-'.$cacheData['post']->id.'-'.$cacheData['data']->id, 1);
-                }
-
                 // return view
                 return view('site.post.epchap', $cacheData);
             }
@@ -699,12 +692,6 @@ class SiteController extends Controller
                 ->where('start_date', '<=', date('Y-m-d H:i:s'))
                 ->first();
             if(isset($data)) {
-
-                //update count view post
-                if(!request()->session()->has('posts-'.$post->id.'-'.$data->id)) {
-                    DB::table('posts')->whereId($post->id)->increment('view');
-                    request()->session()->put('posts-'.$post->id.'-'.$data->id, 1);
-                }
 
                 // auto meta post for seo
                 // $postName = ucwords(mb_strtolower($post->name));
