@@ -13,8 +13,8 @@
         $badgeText = 'Full ' . $value->episode;
       }
     ?>
-    <div class="col-6 col-sm-3 col-five">
-      <figure class="figure text-center grid-item">
+    <div class="col-6 col-sm-3 col-five mb-2">
+      <figure class="figure text-center grid-item h-100">
         <a href="{{ $url }}" title="{{ $value->name }}" class="d-block">
           <img src="{{ url($image) }}" class="figure-img img-fluid" alt="{{ $value->name }}">
           <span class="badge badge-{{ $badge }}">{{ $badgeText }}</span>

@@ -48,11 +48,12 @@
 // Color system
 //
 
-$box-color: rgba(0,0,0,.25) !default;
-$dark-disabled: #373a3c !default;
+$boxcolor: rgba(0,0,0,.25) !default;
+$darkdisabled: #373a3c !default;
 $dark333: #333 !default;
 $dark: rgba(0,0,0,.97) !default;
-$color-1a: #1a1a1a !default;
+$dark1a: #1a1a1a !default;
+$dark23: #232323 !default;
 
 $white:  #fff !default;
 $gray-100: #f8f9fa !default;
@@ -164,7 +165,7 @@ $sizes: (
 //
 // Settings for the `<body>` element.
 
-$body-bg:       $color-1a !default;
+$body-bg:       $dark1a !default;
 $body-color:    $white !default;
 
 // Links
@@ -512,7 +513,7 @@ $dropdown-box-shadow:            0 .5rem 1rem rgba($black,.175) !default;
 
 $dropdown-link-color:            #b4bcc2 !default;
 $dropdown-link-hover-color:      $white !default;
-$dropdown-link-hover-bg:         $color-1a !default;
+$dropdown-link-hover-bg:         $dark1a !default;
 
 $dropdown-link-active-color:     $component-active-color !default;
 $dropdown-link-active-bg:        $component-active-bg !default;
@@ -610,7 +611,7 @@ $pagination-active-bg:                 $dark333 !default;
 $pagination-active-border-color:       transparent !default;
 
 $pagination-disabled-color:            $gray-600 !default;
-$pagination-disabled-bg:               $dark-disabled !default;
+$pagination-disabled-bg:               $darkdisabled !default;
 $pagination-disabled-border-color:     transparent !default;
 
 

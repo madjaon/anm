@@ -156,20 +156,6 @@ header {
 
 // END NAV BAR
 
-// FIGURE
-
-.figure-caption {
-  font-size: .938rem;
-  a {
-    color: $gray-500;
-    &:hover {
-      color: $green;
-    }
-  }
-}
-
-// END FIGURE
-
 // FOOTER
 
 footer {
@@ -269,7 +255,7 @@ select.custom-select-sm {
 // BOX
 
 .box {
-  background: $box-color;
+  background: $boxcolor;
   color: $gray-600;
   h1 {
     color: $white;
@@ -313,6 +299,8 @@ select.custom-select-sm {
 }
 
 .grid-item {
+  background: $dark23;
+  border: 1px solid $dark333;
   a {
     position: relative;
     span {
@@ -327,6 +315,21 @@ select.custom-select-sm {
     }
   }
 }
+
+// FIGURE
+
+.figure-caption {
+  font-size: .938rem;
+  padding: 2px;
+  a {
+    color: $gray-500;
+    &:hover {
+      color: $green;
+    }
+  }
+}
+
+// END FIGURE
 
 // CONTENT
 
@@ -529,7 +532,7 @@ select.custom-select-sm {
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) {
   .online {
-    background: $box-color;
+    background: $boxcolor;
     width: 960px;
     height: 540px;
   }
