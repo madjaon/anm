@@ -36,6 +36,14 @@
 						</div>
 					</div>
 					<div class="form-group">
+						<label>Tên khác</label>
+						<div class="row">
+							<div class="col-sm-8">
+								<input name="name2" type="text" value="{{ old('name2') }}" class="form-control">
+							</div>
+						</div>
+					</div>
+					<div class="form-group" style="display: none;">
 						<label>Patterns</label>
 						<div class="row">
 							<div class="col-sm-8">

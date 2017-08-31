@@ -49,7 +49,7 @@
 								<td class="align-middle">
 									<a href="{{ url($value->slug) }}" title="{{ $value->name }}" target="_blank">{{ $value->name }}<i class="fa fa-external-link ml-2" aria-hidden="true"></i></a>
 									@if($value->kind == SLUG_POST_KIND_FULL)
-									<div class="d-block"><span class="badge badge-success">{!! CommonOption::getKindPost($value->kind) !!}</span></div>
+									<div class="d-block"><span class="badge badge-success">{{ CommonOption::getKindPost($value->kind) }}</span></div>
 									@endif
 								</td>
 								<td class="align-middle text-center">Chương {{ $dataEp[$key]->epchap }}</td>

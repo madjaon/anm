@@ -17,7 +17,7 @@
 <div class="row">
   <div class="col">
 
-	<h1 class="my-3">{!! $h1 !!}</h1>
+	<h1 class="my-3">{{ $h1 }}</h1>
 
 	@include('site.common.errors')
 

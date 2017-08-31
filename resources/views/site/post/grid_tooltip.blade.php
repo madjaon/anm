@@ -20,13 +20,13 @@
     ?>
     <div class="col-6 col-sm-3 col-five">
       <figure class="figure text-center grid-item">
-        <a href="{!! $url !!}" class="showTip L{!! $value->id !!}">
-          <img src="{!! url($image) !!}" class="figure-img img-fluid" alt="{!! $value->name !!}">
-          <span class="badge badge-{!! $badge !!}">{!! $badgeText !!}</span>
-          <span class="badge badge-danger">{!! CommonMethod::numberFormatDot($value->view) !!} lượt xem</span>
+        <a href="{{ $url }}" class="showTip L{{ $value->id }}">
+          <img src="{{ url($image) }}" class="figure-img img-fluid" alt="{{ $value->name }}">
+          <span class="badge badge-{{ $badge }}">{{ $badgeText }}</span>
+          <span class="badge badge-danger">{{ CommonMethod::numberFormatDot($value->view) }} lượt xem</span>
         </a>
         <figcaption class="figure-caption">
-          <a href="{!! $url !!}" title="{!! $value->name !!}">{!! $value->name !!}</a>
+          <a href="{{ $url }}" title="{{ $value->name }}">{{ $value->name }}</a>
         </figcaption>
       </figure>
     </div>
@@ -36,7 +36,7 @@
     dw_Tooltip.defaultProps = {
       supportTouch: true
     }
-    dw_Tooltip.content_vars = {!! $objL !!}
+    dw_Tooltip.content_vars = {{ $objL }}
   </script>
 </div>
 @else

@@ -4,7 +4,7 @@
 			{!! csrf_field() !!}
 			<div class="input-group" style="width: 150px; display:inline-block;">
 				<label>Từ khóa</label>
-				<input name="name" type="text" value="{{ $request->name }}" class="form-control" placeholder="Name">
+				<input name="name" type="text" value="{{ $request->name }}" class="form-control" placeholder="Name/ID">
 			</div>
 			<div class="input-group" style="width: 150px; display:inline-block;">
 				<label>Trạng thái</label>

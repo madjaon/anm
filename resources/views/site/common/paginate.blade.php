@@ -13,7 +13,7 @@
     </li>
     @else
     <li class="page-item">
-      <a class="page-link" href="{!! preg_replace('/(\?|&)page=1/', '', $paginator->url(1)) !!}" aria-label="First">
+      <a class="page-link" href="{{ preg_replace('/(\?|&)page=1/', '', $paginator->url(1)) }}" aria-label="First">
         <span aria-hidden="true">&laquo;</span>
         <span class="sr-only">First</span>
       </a>
@@ -39,11 +39,11 @@
       @if($from < $i && $i < $to)
           @if($paginator->currentPage() == $i)
           <li class="page-item active">
-              <a class="page-link" href="#">{!! $i !!} <span class="sr-only">(current)</span></a>
+              <a class="page-link" href="#">{{ $i }} <span class="sr-only">(current)</span></a>
           </li>
           @else
           <li class="page-item">
-              <a class="page-link" href="{!! $pageUrl !!}">{!! $i !!}</a>
+              <a class="page-link" href="{{ $pageUrl }}">{{ $i }}</a>
           </li>
           @endif
       @endif
@@ -57,7 +57,7 @@
     </li>
     @else
     <li class="page-item">
-      <a class="page-link" href="{!! $paginator->url($paginator->lastPage()) !!}" aria-label="Last">
+      <a class="page-link" href="{{ $paginator->url($paginator->lastPage()) }}" aria-label="Last">
         <span aria-hidden="true">&raquo;</span>
         <span class="sr-only">Last</span>
       </a>

@@ -9,7 +9,7 @@
   <body>
     <h1>myanimelist html string</h1>
     @if(Session::has('success'))
-      <p style="color:green;">{!! Session::get('success') !!}</p>
+      <p style="color:green;">{{ Session::get('success') }}</p>
     @endif
     <form action="{{ url('test/animeSteal') }}" method="post">
       {!! csrf_field() !!}

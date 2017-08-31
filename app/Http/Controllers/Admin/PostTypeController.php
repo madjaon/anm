@@ -42,6 +42,8 @@ class PostTypeController extends Controller
                 $slug = CommonMethod::buildSlug($request->name);
                 $query = $query->where('slug', 'like', '%'.$slug.'%');
                 $query = $query->orWhere('name', 'like', '%'.$request->name.'%');
+                $query = $query->orWhere('name2', 'like', '%'.$request->name.'%');
+                $query = $query->orWhere('id', $request->name);
             }
             if($request->status != '') {
                 $query = $query->where('status', $request->status);
@@ -76,6 +78,7 @@ class PostTypeController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'slug' => 'required|max:255|unique:post_types',
+            'name2' => 'max:255',
             'patterns' => 'max:255',
             'summary' => 'max:1000',
             'image' => 'max:255',
@@ -91,6 +94,7 @@ class PostTypeController extends Controller
         PostType::create([
                 'name' => $request->name,
                 'slug' => $request->slug,
+                'name2' => $request->name2,
                 'patterns' => $request->patterns,
                 'parent_id' => $request->parent_id,
                 'summary' => $request->summary,
@@ -153,6 +157,7 @@ class PostTypeController extends Controller
         $data = PostType::find($id);
         $rules = [
             'name' => 'required|max:255',
+            'name2' => 'max:255',
             'patterns' => 'max:255',
             'summary' => 'max:1000',
             'image' => 'max:255',
@@ -172,6 +177,7 @@ class PostTypeController extends Controller
         $data->update([
                 'name' => $request->name,
                 'slug' => $request->slug,
+                'name2' => $request->name2,
                 'patterns' => $request->patterns,
                 'parent_id' => $request->parent_id,
                 'summary' => $request->summary,

@@ -15,13 +15,13 @@
     ?>
     <div class="col-6 col-sm-3 col-five">
       <figure class="figure text-center grid-item">
-        <a href="{!! $url !!}" title="{!! $value->name !!}" class="d-block">
-          <img src="{!! url($image) !!}" class="figure-img img-fluid" alt="{!! $value->name !!}">
-          <span class="badge badge-{!! $badge !!}">{!! $badgeText !!}</span>
-          <span class="badge badge-danger">{!! $typePostName . '. ' . $value->year !!}</span>
+        <a href="{{ $url }}" title="{{ $value->name }}" class="d-block">
+          <img src="{{ url($image) }}" class="figure-img img-fluid" alt="{{ $value->name }}">
+          <span class="badge badge-{{ $badge }}">{{ $badgeText }}</span>
+          <span class="badge badge-danger">{{ $typePostName . '. ' . $value->year }}</span>
         </a>
         <figcaption class="figure-caption">
-          <a href="{!! $url !!}" title="{!! $value->name !!}">{!! $value->name !!}</a>
+          <a href="{{ $url }}" title="{{ $value->name }}">{{ $value->name }}</a>
         </figcaption>
       </figure>
     </div>

@@ -1,10 +1,10 @@
 <?php 
-  $h1 = htmlspecialchars($seo->h1);
-  $title = ($seo->meta_title!='')?htmlspecialchars($seo->meta_title):$h1;
+  $h1 = $seo->h1;
+  $title = ($seo->meta_title!='')?$seo->meta_title:$h1;
   $extendData = array(
-    'meta_title' => htmlspecialchars($seo->meta_title),
-    'meta_keyword' => htmlspecialchars($seo->meta_keyword),
-    'meta_description' => htmlspecialchars($seo->meta_description),
+    'meta_title' => $seo->meta_title,
+    'meta_keyword' => $seo->meta_keyword,
+    'meta_description' => $seo->meta_description,
     'meta_image' => $seo->meta_image,
     'pagePrev' => (isset($data) && $data->lastPage() > 1)?$data->previousPageUrl():null,
     'pageNext' => (isset($data) && $data->lastPage() > 1)?$data->nextPageUrl():null
@@ -24,7 +24,7 @@
 @include('site.common.breadcrumb', $breadcrumb)
 
 <div class="box-style mb-3">
-  <h1 class="d-inline-flex py-2">{!! $h1 !!}</h1>
+  <h1 class="d-inline-flex py-2">{{ $h1 }}</h1>
 </div>
 
 <p class="mb-3">Danh sách kết quả tìm kiếm theo tên phim hoặc tên hãng phim.</p>

@@ -61,14 +61,14 @@ class SiteController extends Controller
         if($data->total() > 0) {
             // auto meta for seo
             $seo = new \stdClass();
-            $seo->h1 = 'Danh sách hãng phim anime';
+            $seo->h1 = 'Danh Sách Hãng Phim Anime';
             if($page > 1) {
-                $seo->meta_title = 'Danh sách hãng phim anime'.' trang '.$page;
+                $seo->meta_title = 'Danh Sách Hãng Phim Anime'.' trang '.$page;
             } else {
-                $seo->meta_title = 'Danh sách hãng phim anime';
+                $seo->meta_title = 'Danh Sách Hãng Phim Anime';
             }
-            $seo->meta_keyword = 'hãng phim anime, hang phim anime';
-            $seo->meta_description = 'Danh sách các hãng phim anime';
+            $seo->meta_keyword = 'hãng phim anime, hang phim anime, studio anime';
+            $seo->meta_description = 'Danh sách hãng phim anime, studio sản xuất anime';
             $seo->meta_image = '/img/img600x315.jpg';
             
             // return view
@@ -101,9 +101,9 @@ class SiteController extends Controller
                 $tag->h1 = 'Hãng phim ' . $tagName;
                 if(empty($tag->meta_title)) {
                     if($page > 1) {
-                        $tag->meta_title = 'Xem anime hãng ' . $tagName.' trang '.$page;
+                        $tag->meta_title = 'Xem Anime Hãng ' . $tagName.' trang '.$page;
                     } else {
-                        $tag->meta_title = 'Xem anime hãng ' . $tagName;
+                        $tag->meta_title = 'Xem Anime Hãng ' . $tagName;
                     }
                 }
                 if(empty($tag->meta_keyword)) {
@@ -112,7 +112,7 @@ class SiteController extends Controller
                     $tag->meta_keyword = $tagName;
                 }
                 if(empty($tag->meta_description)) {
-                    $tag->meta_description = $tagName;
+                    $tag->meta_description = 'Danh sách phim anime vietsub của hãng '.$tagName;
                 }
                 if(empty($tag->meta_image)) {
                     $tag->meta_image = '/img/img600x315.jpg';
@@ -135,7 +135,7 @@ class SiteController extends Controller
         
         // query
         $type = DB::table('post_types')
-            ->select('id', 'name', 'slug', 'patterns', 'summary', 'description', 'image', 'meta_title', 'meta_keyword', 'meta_description', 'meta_image')
+            ->select('id', 'name', 'slug', 'name2','patterns', 'summary', 'description', 'image', 'meta_title', 'meta_keyword', 'meta_description', 'meta_image')
             ->where('status', ACTIVE)
             ->where('slug', $slug)
             ->first();
@@ -149,21 +149,20 @@ class SiteController extends Controller
                 // auto meta type for seo
                 // $typeName = ucwords(mb_strtolower($type->name));
                 $typeName = mb_convert_case($type->name, MB_CASE_TITLE, "UTF-8");
-                $type->h1 = 'Thể loại ' . $typeName;
+                $type->h1 = 'Thể Loại ' . $typeName;
                 if(empty($type->meta_title)) {
                     if($page > 1) {
-                        $type->meta_title = 'Xem anime thể loại ' . $typeName.' trang '.$page;
+                        $type->meta_title = 'Xem Anime Thể Loại ' . $typeName.' trang '.$page;
                     } else {
-                        $type->meta_title = 'Xem anime thể loại ' . $typeName;
+                        $type->meta_title = 'Xem Anime Thể Loại ' . $typeName;
                     }
                 }
                 if(empty($type->meta_keyword)) {
-                    // $typeNameNoLatin = CommonMethod::convert_string_vi_to_en($typeName);
-                    // $type->meta_keyword = $typeNameNoLatin.','.$typeName;
-                    $type->meta_keyword = $typeName;
+                    $typeNameNoLatin = CommonMethod::convert_string_vi_to_en($typeName);
+                    $type->meta_keyword = 'xem anime '.$type->name.',xem anime '.$type->name2.'xem anime '.$typeNameNoLatin;
                 }
                 if(empty($type->meta_description)) {
-                    $type->meta_description = $typeName;
+                    $type->meta_description = CommonMethod::limit_text(strip_tags($type->description), 200);
                 }
                 if(empty($type->meta_image)) {
                     $type->meta_image = '/img/img600x315.jpg';
@@ -200,21 +199,21 @@ class SiteController extends Controller
                 // auto meta seri for seo
                 // $seriName = ucwords(mb_strtolower($seri->name));
                 $seriName = mb_convert_case($seri->name, MB_CASE_TITLE, "UTF-8");
-                $seri->h1 = 'Seri anime ' . $seriName;
+                $seri->h1 = 'Seri Anime ' . $seriName . ' Vietsub';
                 if(empty($seri->meta_title)) {
                     if($page > 1) {
-                        $seri->meta_title = 'Seri anime ' . $seriName.' trang '.$page;
+                        $seri->meta_title = 'Seri Anime ' . $seriName.' trang '.$page;
                     } else {
-                        $seri->meta_title = 'Seri anime ' . $seriName;
+                        $seri->meta_title = 'Seri Anime ' . $seriName;
                     }
                 }
                 if(empty($seri->meta_keyword)) {
                     // $seriNameNoLatin = CommonMethod::convert_string_vi_to_en($seriName);
                     // $seri->meta_keyword = $seriNameNoLatin.','.$seriName;
-                    $seri->meta_keyword = $seriName;
+                    $seri->meta_keyword = $seriName.' vietsub';
                 }
                 if(empty($seri->meta_description)) {
-                    $seri->meta_description = $seriName;
+                    $seri->meta_description = 'Danh sách anime '.$seriName.' vietsub';
                 }
                 if(empty($seri->meta_image)) {
                     $seri->meta_image = '/img/img600x315.jpg';
@@ -251,14 +250,14 @@ class SiteController extends Controller
         if($data->total() > 0) {
             // auto meta for seo
             $seo = new \stdClass();
-            $seo->h1 = 'Danh sách anime ' . CommonOption::getNation($slug);
+            $seo->h1 = 'Danh Sách Anime ' . CommonOption::getNation($slug);
             if($page > 1) {
-                $seo->meta_title = 'Danh sách anime ' . CommonOption::getNation($slug) . 'hay nhất trang ' . $page;
+                $seo->meta_title = 'Danh Sách Anime ' . CommonOption::getNation($slug) . ' trang ' . $page;
             } else {
-                $seo->meta_title = 'Danh sách anime ' . CommonOption::getNation($slug) . 'hay nhất';
+                $seo->meta_title = 'Danh Sách Anime ' . CommonOption::getNation($slug);
             }
             $seo->meta_keyword = 'anime ' . CommonOption::getNation($slug);
-            $seo->meta_description = 'Danh sách anime ' . CommonOption::getNation($slug) . ' hay nhất';
+            $seo->meta_description = 'Danh sách anime ' . CommonOption::getNation($slug);
             $seo->meta_image = '/img/img600x315.jpg';
 
             // $authors = $this->getTagsByPosts($data);
@@ -291,14 +290,14 @@ class SiteController extends Controller
         if($data->total() > 0) {
             // auto meta for seo
             $seo = new \stdClass();
-            $seo->h1 = 'Danh sách anime ' . CommonOption::getKindPost($slug);
+            $seo->h1 = 'Danh Sách Anime ' . CommonOption::getKindPost($slug);
             if($page > 1) {
-                $seo->meta_title = 'Danh sách anime ' . CommonOption::getKindPost($slug) . ' trang ' . $page;
+                $seo->meta_title = $seo->h1 . ' trang ' . $page;
             } else {
-                $seo->meta_title = 'Danh sách anime ' . CommonOption::getKindPost($slug);
+                $seo->meta_title = $seo->h1;
             }
-            $seo->meta_keyword = 'Danh sách anime ' . CommonOption::getKindPost($slug);
-            $seo->meta_description = 'Danh sách anime ' . CommonOption::getKindPost($slug);
+            $seo->meta_keyword = $seo->h1;
+            $seo->meta_description = $seo->h1;
             $seo->meta_image = '/img/img600x315.jpg';
 
             // $authors = $this->getTagsByPosts($data);
@@ -331,14 +330,14 @@ class SiteController extends Controller
         if($data->total() > 0) {
             //auto meta year for seo
             $seo = new \stdClass();
-            $seo->h1 = 'Danh sách Anime năm ' .  $slug;
+            $seo->h1 = 'Danh Sách Anime Năm ' .  $slug;
             if($page > 1) {
-                $seo->meta_title = 'Xem Phim Anime vietsub năm ' . $slug . ' trang ' . $page;
+                $seo->meta_title = 'Xem Phim Anime Vietsub Năm ' . $slug . ' trang ' . $page;
             } else {
-                $seo->meta_title = 'Xem Phim Anime vietsub năm ' . $slug;
+                $seo->meta_title = 'Xem Phim Anime Vietsub Năm ' . $slug;
             }
-            $seo->meta_keyword = 'Xem Phim Anime vietsub ' . $slug . ', xem anime nam ' . $slug;
-            $seo->meta_description = 'Xem Phim Anime vietsub ' . $slug . ' hay nhất';
+            $seo->meta_keyword = 'xem phim anime vietsub ' . $slug . ', xem anime nam ' . $slug;
+            $seo->meta_description = 'Xem phim anime vietsub năm ' . $slug . ' hay nhất';
             $seo->meta_image = '/img/img600x315.jpg';
 
             //return view
@@ -368,14 +367,14 @@ class SiteController extends Controller
         if($data->total() > 0) {
             //auto meta year for seo
             $seo = new \stdClass();
-            $seo->h1 = 'Danh sách Anime trước năm ' .  $slug;
+            $seo->h1 = 'Danh Sách Anime Trước Năm ' .  $slug;
             if($page > 1) {
-                $seo->meta_title = 'Xem Phim Anime vietsub trước năm ' . $slug . ' trang ' . $page;
+                $seo->meta_title = 'Xem Phim Anime Vietsub Trước Năm ' . $slug . ' trang ' . $page;
             } else {
-                $seo->meta_title = 'Xem Phim Anime vietsub trước năm ' . $slug;
+                $seo->meta_title = 'Xem Phim Anime Vietsub Trước Năm ' . $slug;
             }
-            $seo->meta_keyword = 'Xem Phim Anime vietsub trước năm ' . $slug . ', Xem Phim Anime truoc nam ' . $slug;
-            $seo->meta_description = 'Xem Phim Anime vietsub trước năm ' . $slug . ' hay nhất';
+            $seo->meta_keyword = 'xem phim anime vietsub trước năm ' . $slug . ', xem anime truoc nam ' . $slug;
+            $seo->meta_description = 'Xem phim anime vietsub trước năm ' . $slug . ' hay nhất';
             $seo->meta_image = '/img/img600x315.jpg';
 
             //return view
@@ -406,14 +405,14 @@ class SiteController extends Controller
         if($data->total() > 0) {
             //auto meta year for seo
             $seo = new \stdClass();
-            $seo->h1 = 'Danh sách Anime ' . CommonOption::getSeason($slug1) . ' năm ' . CommonOption::getYear($slug2);
+            $seo->h1 = 'Danh Sách Anime ' . CommonOption::getSeason($slug1) . ' Năm ' . CommonOption::getYear($slug2);
             if($page > 1) {
-                $seo->meta_title = 'Xem Phim Anime vietsub ' . CommonOption::getSeason($slug1) . ' năm ' . CommonOption::getYear($slug2) . ' trang ' . $page;
+                $seo->meta_title = 'Xem Phim Anime Vietsub ' . CommonOption::getSeason($slug1) . ' Năm ' . CommonOption::getYear($slug2) . ' trang ' . $page;
             } else {
-                $seo->meta_title = 'Xem Phim Anime vietsub ' . CommonOption::getSeason($slug1) . ' năm ' . CommonOption::getYear($slug2);
+                $seo->meta_title = 'Xem Phim Anime Vietsub ' . CommonOption::getSeason($slug1) . ' Năm ' . CommonOption::getYear($slug2);
             }
-            $seo->meta_keyword = 'Xem Phim Anime vietsub ' . CommonOption::getSeason($slug1) . ' năm ' . CommonOption::getYear($slug2);
-            $seo->meta_description = 'Xem danh sách Phim Anime vietsub ' . CommonOption::getSeason($slug1) . ' năm ' . CommonOption::getYear($slug2) . ' hay nhất';
+            $seo->meta_keyword = 'xem phim anime vietsub ' . CommonOption::getSeason($slug1) . ' năm ' . CommonOption::getYear($slug2);
+            $seo->meta_description = 'Xem danh sách phim anime vietsub ' . CommonOption::getSeason($slug1) . ' năm ' . CommonOption::getYear($slug2) . ' hay nhất';
             $seo->meta_image = '/img/img600x315.jpg';
 
             //return view
@@ -439,14 +438,14 @@ class SiteController extends Controller
         if($data->total() > 0) {
             // auto meta for seo
             $seo = new \stdClass();
-            $seo->h1 = 'Danh sách Movie';
+            $seo->h1 = 'Danh Sách Anime Movie Vietsub';
             if($page > 1) {
-                $seo->meta_title = 'Danh sách Movie' . ' trang ' . $page;
+                $seo->meta_title = 'Danh Sách Anime Movie Vietsub' . ' trang ' . $page;
             } else {
-                $seo->meta_title = 'Danh sách Movie';
+                $seo->meta_title = 'Danh Sách Anime Movie Vietsub';
             }
-            $seo->meta_keyword = 'Danh sách Movie';
-            $seo->meta_description = 'Danh sách Movie';
+            $seo->meta_keyword = 'danh sách anime movie vietsub';
+            $seo->meta_description = 'Danh sách anime movie vietsub';
             $seo->meta_image = '/img/img600x315.jpg';
 
             // $authors = $this->getTagsByPosts($data);
@@ -475,14 +474,14 @@ class SiteController extends Controller
         if($data->total() > 0) {
             // auto meta for seo
             $seo = new \stdClass();
-            $seo->h1 = 'Danh sách TV Series';
+            $seo->h1 = 'Danh Sách Anime TV Series Vietsub';
             if($page > 1) {
-                $seo->meta_title = 'Danh sách TV Series' . ' trang ' . $page;
+                $seo->meta_title = 'Danh Sách Anime TV Series Vietsub' . ' trang ' . $page;
             } else {
-                $seo->meta_title = 'Danh sách TV Series';
+                $seo->meta_title = 'Danh Sách Anime TV Series Vietsub';
             }
-            $seo->meta_keyword = 'Danh sách TV Series';
-            $seo->meta_description = 'Danh sách TV Series';
+            $seo->meta_keyword = 'danh sách anime tv series vietsub';
+            $seo->meta_description = 'Danh sách anime tv series vietsub';
             $seo->meta_image = '/img/img600x315.jpg';
 
             // $authors = $this->getTagsByPosts($data);
@@ -549,13 +548,17 @@ class SiteController extends Controller
             $post->h1 = $postName;
             $postNameNoLatin = CommonMethod::convert_string_vi_to_en($postName);
             if(empty($post->meta_title)) {
-                $post->meta_title = 'Xem anime '.$postName;
+                $post->meta_title = 'Xem Anime '.$postName.' Vietsub Full Trọn Bộ';
             }
             if(empty($post->meta_keyword)) {
-                $post->meta_keyword = 'Xem anime '.$postName.', xem anime '.$postNameNoLatin;
+                $post->meta_keyword = 'xem anime '.$postName.' vietsub, xem anime '.$postNameNoLatin.' vietsub';
             }
             if(empty($post->meta_description)) {
-                $post->meta_description = CommonMethod::limit_text(strip_tags($post->description), 200);
+                if(!empty($post->description)) {
+                    $post->meta_description = CommonMethod::limit_text(strip_tags($post->description), 200);
+                } else {
+                    $post->meta_description = 'Xem anime '.$postName.' vietsub online full trọn bộ. Xem anime'.$post->name2.' vietsub';
+                }
             }
             if(empty($post->meta_image)) {
                 $post->meta_image = '/img/img600x315.jpg';
@@ -569,7 +572,7 @@ class SiteController extends Controller
 
             if($post->season != '' && $post->year > 0) {
                 // season + year
-                $post->seasonYearName = CommonOption::getSeason($post->season) . ' năm ' . $post->year;
+                $post->seasonYearName = CommonOption::getSeason($post->season) . ' Năm ' . $post->year;
             }
 
             // seri
@@ -694,13 +697,17 @@ class SiteController extends Controller
                 $postName = mb_convert_case($post->name, MB_CASE_TITLE, "UTF-8");
                 $data->h1 = $postName . ' ('.$post->year.') - ' . $data->name;
                 if(empty($data->meta_title)) {
-                    $data->meta_title = $postName.' ('.$post->year.') - '.$data->name;
+                    $data->meta_title = $data->h1;
                 }
                 if(empty($data->meta_keyword)) {
-                    $data->meta_keyword = $postName.' '.$data->name.','.$postName.' '.$post->year;
+                    $data->meta_keyword = $postName.' '.$data->name.','.$postName.' '.$post->year.' '.$data->name;
                 }
                 if(empty($data->meta_description)) {
-                    $data->meta_description = CommonMethod::limit_text(strip_tags($data->description), 200);
+                    if(!empty($data->description)) {
+                        $data->meta_description = CommonMethod::limit_text(strip_tags($data->description), 200);
+                    } else {
+                        $data->meta_description = 'Xem anime '.$postName.' vietsub tập '.$data->epchap.'. Xem '.$postName.' '.$post->year.' '.$data->name;
+                    }
                 }
                 if(empty($data->meta_image)) {
                     $data->meta_image = '/img/img600x315.jpg';

@@ -24,12 +24,12 @@
 @include('site.common.breadcrumb', $breadcrumb)
 
 <div class="box-style mb-3">
-  <h1 class="d-inline-flex py-2">{!! $h1 !!}</h1>
+  <h1 class="d-inline-flex py-2">{{ $h1 }}</h1>
 </div>
 
-@if($type->patterns)<div class="description mb-3">{!! $type->patterns !!}</div>@endif
-@if($type->summary)<div class="description mb-3">{!! $type->summary !!}</div>@endif
-@if($type->description)<div class="description mb-3">{!! $type->description !!}</div>@endif
+@if($type->patterns)<div class="box description p-3 mb-3">{!! $type->patterns !!}</div>@endif
+@if($type->summary)<div class="box description p-3 mb-3">{!! $type->summary !!}</div>@endif
+@if($type->description)<div class="box description p-3 mb-3">{!! $type->description !!}</div>@endif
 
 @include('site.post.grid', array('data' => $data))
 

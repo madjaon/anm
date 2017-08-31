@@ -24,7 +24,7 @@
 @include('site.common.breadcrumb', $breadcrumb)
 
 <div class="box-style mb-3">
-  <h1 class="d-inline-flex py-2">{!! $h1 !!}</h1>
+  <h1 class="d-inline-flex py-2">{{ $h1 }}</h1>
 </div>
 
 <p class="mb-3 d-none d-md-block">Tìm nhanh tên hãng phim, bạn ấn CTRL + F để sử dụng ô tìm kiếm.</p>
@@ -38,8 +38,8 @@
       <tbody>
         @foreach($data as $value)
         <tr>
-          <td class="align-middle px-3"><a href="{!! CommonUrl::getUrlPostTag($value->slug) !!}" title="{!! $value->name !!}">{!! $value->name !!}</a></td>
-          <td class="align-middle text-center"><a href="{!! CommonUrl::getUrlPostTag($value->slug) !!}" title="{!! $value->name !!}">Xem</a></td>
+          <td class="align-middle px-3"><a href="{{ CommonUrl::getUrlPostTag($value->slug) }}" title="{{ $value->name }}">{{ $value->name }}</a></td>
+          <td class="align-middle text-center"><a href="{{ CommonUrl::getUrlPostTag($value->slug) }}" title="{{ $value->name }}">Xem</a></td>
         </tr>
         @endforeach 
       </tbody>

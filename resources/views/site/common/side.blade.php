@@ -19,13 +19,13 @@
         }
       ?>
       <li class="media mb-3 pb-3 side-item">
-        <a href="{!! $url !!}" title="{!! $value->name !!}">
-          <img class="d-flex mr-3 img-fluid" src="{!! url($image) !!}" alt="{!! $value->name !!}">
+        <a href="{{ $url }}" title="{{ $value->name }}">
+          <img class="d-flex mr-3 img-fluid" src="{{ url($image) }}" alt="{{ $value->name }}">
         </a>
         <div class="media-body">
-          <h3 class="mt-0 mb-2 side-item-title"><a href="{!! $url !!}" title="{!! $value->name !!}">{!! $value->name !!}</a></h3>
+          <h3 class="mt-0 mb-2 side-item-title"><a href="{{ $url }}" title="{{ $value->name }}">{{ $value->name }}</a></h3>
           <div class="d-flex align-items-center">
-            <span class="badge badge-{!! $badge !!}">{!! $badgeText !!}</span>
+            <span class="badge badge-{{ $badge }}">{{ $badgeText }}</span>
           </div>
         </div>
       </li>

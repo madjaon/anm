@@ -30,10 +30,10 @@
 ?>
 @include('site.common.breadcrumb', $breadcrumb)
 
-<div class="row book mb-3" itemscope itemtype="{!! $schemaUrl !!}">
+<div class="row book mb-3" itemscope itemtype="{{ $schemaUrl }}">
   <div class="col-6 col-sm-3 mx-auto">
 
-    <img src="{!! url($image) !!}" class="img-fluid mb-3 w-100" alt="{!! $post->name !!}" itemprop="image">
+    <img src="{{ url($image) }}" class="img-fluid mb-3 w-100" alt="{{ $post->name }}" itemprop="image">
 
     <div class="social mb-3">
       <div class="fb-like" data-share="true" data-show-faces="false" data-layout="button_count"></div>
@@ -42,12 +42,12 @@
   </div>
   <div class="col-sm">
 
-    <meta itemprop="url" content="{!! url($post->slug) !!}">
+    <meta itemprop="url" content="{{ url($post->slug) }}">
 
-    <h1 class="mb-3" itemprop="name">{!! $h1 !!}</h1>
+    <h1 class="mb-3" itemprop="name">{{ $h1 }}</h1>
 
     @if(!empty($post->name2))
-      <div class="mb-3 text-muted">{!! $post->name2 !!}</div>
+      <div class="mb-3 text-muted">{{ $post->name2 }}</div>
     @endif
 
     <?php 
@@ -60,17 +60,17 @@
       }
     ?>
     <div class="book-info mb-3 d-flex align-items-center">
-      <span class="badge badge-{!! $badge !!}">{!! $badgeText !!}</span>
-      <span class="badge badge-secondary ml-2">{!! $post->typeName !!}</span>
+      <span class="badge badge-{{ $badge }}">{{ $badgeText }}</span>
+      <span class="badge badge-secondary ml-2">{{ $post->typeName }}</span>
     </div>
    
-    <div class="book-info mb-3"><span class="mr-1">Lượt xem:</span>{!! CommonMethod::numberFormatDot($post->view) !!}</div>
+    <div class="book-info mb-3"><span class="mr-1">Lượt xem:</span>{{ CommonMethod::numberFormatDot($post->view) }}</div>
 
     <div class="book-info mb-3">
       <div class="d-inline-block">
         <span class="mr-1">Năm:</span>
         @if($post->year > 0)
-          <a href="{!! CommonUrl::getUrlPostYear($post->year) !!}" title="{!! $post->year !!}" itemprop="copyrightYear">{!! $post->year !!}</a>
+          <a href="{{ CommonUrl::getUrlPostYear($post->year) }}" title="{{ $post->year }}" itemprop="copyrightYear">{{ $post->year }}</a>
         @else
           <em>Không rõ</em>
         @endif
@@ -78,7 +78,7 @@
       <div class="d-inline-block">
         <span class="ml-1 ml-sm-3 mr-1"><i class="fa fa-angle-right mr-2" aria-hidden="true"></i>Season:</span>
         @if(!empty($post->seasonYearName))
-          <a href="{!! CommonUrl::getUrlPostSeasonYear($post->season, $post->year) !!}" title="{!! $post->seasonYearName !!}">{!! $post->seasonYearName !!}</a>
+          <a href="{{ CommonUrl::getUrlPostSeasonYear($post->season, $post->year) }}" title="{{ $post->seasonYearName }}">{{ $post->seasonYearName }}</a>
         @else
           <em>Không rõ</em>
         @endif
@@ -86,7 +86,7 @@
       <div class="d-inline-block mt-3 mt-md-0">
         <span class="ml-md-3 mr-1"><i class="fa fa-angle-right mr-2 d-none d-md-inline-block" aria-hidden="true"></i>Quốc Gia:</span>
         @if(!empty($post->nation))
-          <a href="{!! CommonUrl::getUrlPostNation($post->nation) !!}" title="{!! $post->nationName !!}" itemprop="countryOfOrigin" itemscope itemtype="http://schema.org/Country"><span itemprop="name" content="{!! CommonOption::nationCode($post->nation) !!}">{!! $post->nationName !!}</span></a>
+          <a href="{{ CommonUrl::getUrlPostNation($post->nation) }}" title="{{ $post->nationName }}" itemprop="countryOfOrigin" itemscope itemtype="http://schema.org/Country"><span itemprop="name" content="{{ CommonOption::nationCode($post->nation) }}">{{ $post->nationName }}</span></a>
         @else 
           <em>Không rõ</em>
         @endif
@@ -96,7 +96,7 @@
     <div class="book-info mb-3"><span class="mr-1">Hãng sản xuất:</span>
       @if(!empty($post->tags))
         @foreach($post->tags as $key => $value)
-          <?php echo ($key > 0)?'<span class="mx-2">-</span>':''; ?><a href="{!! CommonUrl::getUrlPostTag($value->slug) !!}" title="{!! $value->name !!}" itemprop="productionCompany" itemscope itemtype="http://schema.org/Organization"><span itemprop="name">{!! $value->name !!}</span></a>
+          <?php echo ($key > 0)?'<span class="mx-2">-</span>':''; ?><a href="{{ CommonUrl::getUrlPostTag($value->slug) }}" title="{{ $value->name }}" itemprop="productionCompany" itemscope itemtype="http://schema.org/Organization"><span itemprop="name">{{ $value->name }}</span></a>
         @endforeach
       @else
         <em>Không rõ</em>
@@ -105,13 +105,13 @@
 
     <div class="book-info mb-3"><span class="mr-1">Thể Loại:</span>
       @foreach($post->types as $key => $value)
-        <a href="{!! CommonUrl::getUrlPostType($value->slug) !!}" title="{!! $value->name !!}" itemprop="genre" class="badge badge-dark mr-1 mb-2">{!! $value->name !!}</a>
+        <a href="{{ CommonUrl::getUrlPostType($value->slug) }}" title="{{ $value->name }}" itemprop="genre" class="badge badge-dark mr-1 mb-2">{{ $value->name }}</a>
       @endforeach
     </div>
 
     {{--<div class="book-info mb-3"><span class="mr-1">Nguồn:</span>
       @if(!empty($post->source))
-        {!! $post->source !!}
+        {{ $post->source }}
       @else 
         <em>Không rõ</em>
       @endif
@@ -121,16 +121,16 @@
       @if(($post->epFirst->id == $post->epLast->id) || $post->type != POST_TV)
         <div class="row">
           <div class="col-md-6">
-            <a class="btn btn-danger mb-3 w-100 book-full" href="{!! CommonUrl::getUrl2($post->slug, $post->epFirst->slug) !!}"><i class="fa fa-video-camera mr-2" aria-hidden="true"></i>Xem Ngay</a>
+            <a class="btn btn-danger mb-3 w-100 book-full" href="{{ CommonUrl::getUrl2($post->slug, $post->epFirst->slug) }}"><i class="fa fa-video-camera mr-2" aria-hidden="true"></i>Xem Ngay</a>
           </div>
         </div>
       @else
         <div class="row">
           <div class="col-md-6">
-            <a class="btn btn-info mb-3 w-100 book-first" href="{!! CommonUrl::getUrl2($post->slug, $post->epFirst->slug) !!}">Xem Từ Tập Đầu</a>
+            <a class="btn btn-info mb-3 w-100 book-first" href="{{ CommonUrl::getUrl2($post->slug, $post->epFirst->slug) }}">Xem Từ Tập Đầu</a>
           </div>
           <div class="col-md-6">
-            <a class="btn btn-danger mb-3 w-100 book-last" href="{!! CommonUrl::getUrl2($post->slug, $post->epLast->slug) !!}">Xem Tập Mới Nhất</a>
+            <a class="btn btn-danger mb-3 w-100 book-last" href="{{ CommonUrl::getUrl2($post->slug, $post->epLast->slug) }}">Xem Tập Mới Nhất</a>
           </div>
         </div>
       @endif
@@ -146,7 +146,7 @@
   <div class="col-12 my-3">
     <div class="d-block d-sm-flex justify-content-center align-items-center text-center">
       <div class="d-flex justify-content-center align-items-center mr-3 mb-0" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-        <em><span id="ratingValue" itemprop="ratingValue">{!! $ratingValue !!}</span> điểm / <span id="ratingCount" itemprop="ratingCount">{!! $post->rating_count !!}</span> lượt đánh giá</em>
+        <em><span id="ratingValue" itemprop="ratingValue">{{ $ratingValue }}</span> điểm / <span id="ratingCount" itemprop="ratingCount">{{ $post->rating_count }}</span> lượt đánh giá</em>
         <meta itemprop="bestRating" content="10">
         <meta itemprop="worstRating" content="1">
       </div>
@@ -174,12 +174,12 @@
           <label for="growing-rate10" title="Kiệt tác">10 stars</label>
         </fieldset>
         @push('starability')
-          <link rel="stylesheet" href="{!! asset('css/starability.css') !!}">
+          <link rel="stylesheet" href="{{ asset('css/starability.css') }}">
         @endpush
         @if(!isset($ratingCookie))
-          <input type="hidden" id="p" value="{!! $post->id !!}">
+          <input type="hidden" id="p" value="{{ $post->id }}">
           @push('book')
-            <script src="{!! asset('js/b.js') !!}"></script>
+            <script src="{{ asset('js/b.js') }}"></script>
           @endpush
         @endif
       </form>
@@ -195,20 +195,20 @@
   <div class="episodes mb-3">
     <h3 class="mb-3">Tập mới nhất</h3>
     @foreach($post->epsLastest as $value)
-      <a href="{!! CommonUrl::getUrl2($post->slug, $value->slug) !!}" title="{!! $value->name !!}" class="btn btn-info btn-sm mr-1 mb-2">{!! $value->name !!}</a>
+      <a href="{{ CommonUrl::getUrl2($post->slug, $value->slug) }}" title="{{ $value->name }}" class="btn btn-info btn-sm mr-1 mb-2">{{ $value->name }}</a>
     @endforeach
   </div>
   @endif
 
   @if(!empty($post->seriInfo))
     <div class="my-5">
-      <h3 class="seri mb-3"><a href="{!! CommonUrl::getUrlPostSeri($post->seriInfo->slug) !!}" title="Seri phim {!! $post->seriInfo->name !!}">Danh sách phim cùng Seri {!! $post->seriInfo->name !!}</a></h3>
+      <h3 class="seri mb-3"><a href="{{ CommonUrl::getUrlPostSeri($post->seriInfo->slug) }}" title="Seri phim {{ $post->seriInfo->name }}">Danh sách phim cùng Seri {{ $post->seriInfo->name }}</a></h3>
       @if(!empty($post->seriData))
       <blockquote class="blockquote">
         <ul class="list-unstyled">
           @foreach($post->seriData as $value)
             <li>
-              <a href="{!! url($value->slug) !!}" title="{!! $value->name !!}"><i class="fa fa-angle-right mr-2" aria-hidden="true"></i>{!! $value->name !!}<span class="badge badge-primary ml-2 align-middle">{!! $value->year !!}</span></a>
+              <a href="{{ url($value->slug) }}" title="{{ $value->name }}"><i class="fa fa-angle-right mr-2" aria-hidden="true"></i>{{ $value->name }}<span class="badge badge-primary ml-2 align-middle">{{ $value->year }}</span></a>
             </li>
           @endforeach
         </ul>
@@ -226,7 +226,7 @@
 @include('site.common.ad', ['posPc' => 17, 'posMobile' => 18])
   
 <div class="comment mb-5">
-  <div class="fb-comments" data-numposts="10" data-colorscheme="dark" data-width="100%" data-href="{!! url($post->slug) !!}"></div>
+  <div class="fb-comments" data-numposts="10" data-colorscheme="dark" data-width="100%" data-href="{{ url($post->slug) }}"></div>
 </div>
 
 @endsection

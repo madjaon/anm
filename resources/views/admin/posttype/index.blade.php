@@ -25,6 +25,7 @@
 						<th><input type="checkbox" id="checkall" onClick="toggle(this)"></th>
 						<th>Name</th>
 						<th>URL</th>
+						<th>Tên khác</th>
 						<!-- <th>Mục cha</th> -->
 						<!-- <th>Home</th> -->
 						<th>Status</th>
@@ -45,6 +46,7 @@
 						<td><input type="checkbox" class="id" name="id[]" value="{{ $value->id }}"></td>
 						<td>{{ $value->name }}</td>
 						<td>{{ $postTypeUrl }}</td>
+						<td>{{ $value->name2 }}</td>
 						<!-- <td>{{ CommonQuery::getFieldById('post_types', $value->parent_id, 'name') }}</td> -->
 						<!-- <td><a id="home_{{ $value->id }}" onclick="updateStatus({{ $value->id }}, 'home')" style="cursor: pointer;" title="Click to change">{!! CommonOption::getStatus($value->home) !!}</a></td> -->
 						<td><a id="status_{{ $value->id }}" onclick="updateStatus({{ $value->id }}, 'status')" style="cursor: pointer;" title="Click to change">{!! CommonOption::getStatus($value->status) !!}</a></td>
