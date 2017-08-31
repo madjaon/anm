@@ -15,7 +15,7 @@
   <meta name="title" content="{{ $meta_title }}">
   <meta name="keywords" content="{{ $meta_keyword }}">
   <meta name="description" content="{{ $meta_description }}">
-  <meta property="og:site_name" content="Phim On" />
+  <meta property="og:site_name" content="Anime 2K" />
   <meta property="og:url" content="{{ url()->current() }}" />
   <meta property="og:title" content="{{ $meta_title }}" />
   <meta property="og:description" content="{{ $meta_description }}" />
@@ -33,7 +33,7 @@
   
   <title>@yield('title')</title>
   
-  <link rel="alternate" hreflang="vi" href="{{ env('APP_URL', 'https://phimon.com') }}" />
+  <link rel="alternate" hreflang="vi" href="{{ env('APP_URL', 'https://anime2k.com') }}" />
 
   @if(isset($pagePrev))
     <link rel="prev" href="{{ preg_replace('/(\?|&)page=1/', '', $pagePrev) }}">
@@ -57,8 +57,8 @@
   <link rel="manifest" href="{{ url('img/manifest.json') }}">
   <link rel="mask-icon" href="{{ url('img/safari-pinned-tab.svg') }}" color="#5bbad5">
   <link rel="shortcut icon" href="{{ url('img/favicon.ico') }}">
-  <meta name="apple-mobile-web-app-title" content="Phim On">
-  <meta name="application-name" content="Phim On">
+  <meta name="apple-mobile-web-app-title" content="Anime 2K">
+  <meta name="application-name" content="Anime 2K">
   <meta name="msapplication-config" content="{{ url('img/browserconfig.xml') }}">
   <meta name="theme-color" content="#ffffff">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
