@@ -48,7 +48,7 @@
   @endif
 
   @if(!empty($configcode))
-    {{ $configcode }}
+    {!! $configcode !!}
   @endif
 
   <link rel="apple-touch-icon" sizes="180x180" href="{{ url('img/apple-touch-icon.png') }}">
