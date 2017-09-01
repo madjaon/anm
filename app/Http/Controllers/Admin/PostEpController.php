@@ -345,6 +345,10 @@ class PostEpController extends Controller
                 } else {
                     $pos = 1;
                 }
+                
+                // server openload: shortlink to embed link
+                $link = str_replace('openload.co/f/', 'openload.co/embed/', $link);
+
                 // server data
                 switch ($request->servernumber) {
                     case '1':
