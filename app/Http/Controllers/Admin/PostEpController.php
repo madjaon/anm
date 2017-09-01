@@ -325,13 +325,21 @@ class PostEpController extends Controller
             $epchap = CommonMethod::buildSlug($value);
             $name = 'Tập ' . $epchap;
             $slug = CommonMethod::buildSlug($name);
-            $data = PostEp::create([
+            // check neu da co tap phim nay roi thi ko can create nua
+            $data = PostEp::where('name', $name)
+                        ->where('slug', $slug)
+                        ->where('post_id', $request->post_id)
+                        ->where('epchap', $epchap)
+                        ->first();
+            if(!isset($data)) {
+                $data = PostEp::create([
                     'name' => $name,
                     'slug' => $slug,
                     'post_id' => $request->post_id,
                     'epchap' => $epchap,
                     'start_date' => date('Y-m-d H:i:s'),
                 ]);
+            }
             if(isset($data)) {
                 // Post::find($data->post_id)->update(['start_date' => date('Y-m-d H:i:s')]);
                 // post ep position
