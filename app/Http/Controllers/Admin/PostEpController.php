@@ -329,7 +329,6 @@ class PostEpController extends Controller
             $data = PostEp::where('name', $name)
                         ->where('slug', $slug)
                         ->where('post_id', $request->post_id)
-                        ->where('epchap', $epchap)
                         ->first();
             if(!isset($data)) {
                 $data = PostEp::create([
