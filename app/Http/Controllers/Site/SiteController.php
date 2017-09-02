@@ -725,7 +725,8 @@ class SiteController extends Controller
                 $epchapArray = array();
                 foreach($eps as $key => $value) {
                     $epchapUrl = url($post->slug . '/' . $value->slug);
-                    $epchapArray[$epchapUrl] = 'Tập ' . $value->epchap;
+                    // $epchapArray[$epchapUrl] = 'Tập ' . $value->epchap;
+                    $epchapArray[$epchapUrl] = $value->name;
                 }
                 $post->epchapArray = $epchapArray;
 
