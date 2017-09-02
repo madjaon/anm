@@ -338,19 +338,25 @@ class PostEpController extends Controller
                     'epchap' => $epchap,
                     'start_date' => date('Y-m-d H:i:s'),
                 ]);
+                // check neu la tao moi thi moi update position
+                $isCreate = true;
             }
             if(isset($data)) {
                 // Post::find($data->post_id)->update(['start_date' => date('Y-m-d H:i:s')]);
-                // post ep position
-                $postEpLatest = DB::table('post_eps')
-                    ->select('position')
-                    ->where('post_id', $data->post_id)
-                    ->orderByRaw(DB::raw("position = '0', position desc"))
-                    ->first();
-                if(isset($postEpLatest)) {
-                    $pos = $postEpLatest->position + 1;
-                } else {
-                    $pos = 1;
+
+                // neu tao moi thi tim posistion lon nhat de update
+                if(isset($isCreate)) {
+                    // post ep position
+                    $postEpLatest = DB::table('post_eps')
+                        ->select('position')
+                        ->where('post_id', $data->post_id)
+                        ->orderByRaw(DB::raw("position = '0', position desc"))
+                        ->first();
+                    if(isset($postEpLatest)) {
+                        $pos = $postEpLatest->position + 1;
+                    } else {
+                        $pos = 1;
+                    }
                 }
                 
                 // server openload: shortlink to embed link
@@ -359,37 +365,43 @@ class PostEpController extends Controller
                 // server data
                 switch ($request->servernumber) {
                     case '1':
-                        $updateData = ['position' => $pos, 'server1' => $link];
+                        $updateData = ['server1' => $link];
                         break;
                     case '2':
-                        $updateData = ['position' => $pos, 'server2' => $link];
+                        $updateData = ['server2' => $link];
                         break;
                     case '3':
-                        $updateData = ['position' => $pos, 'server3' => $link];
+                        $updateData = ['server3' => $link];
                         break;
                     case '4':
-                        $updateData = ['position' => $pos, 'server4' => $link];
+                        $updateData = ['server4' => $link];
                         break;
                     case '5':
-                        $updateData = ['position' => $pos, 'server5' => $link];
+                        $updateData = ['server5' => $link];
                         break;
                     case '6':
-                        $updateData = ['position' => $pos, 'server6' => $link];
+                        $updateData = ['server6' => $link];
                         break;
                     case '7':
-                        $updateData = ['position' => $pos, 'server7' => $link];
+                        $updateData = ['server7' => $link];
                         break;
                     case '8':
-                        $updateData = ['position' => $pos, 'server8' => $link];
+                        $updateData = ['server8' => $link];
                         break;
                     case '9':
-                        $updateData = ['position' => $pos, 'server9' => $link];
+                        $updateData = ['server9' => $link];
                         break;
                     
                     default:
-                        $updateData = ['position' => $pos];
+                        $updateData = [];
                         break;
                 }
+
+                // neu tao moi thi moi update position
+                if(isset($isCreate)) {
+                    $updateData = array_merge(['position' => $pos], $updateData);
+                }
+                
                 PostEp::find($data->id)->update($updateData);
             }
         }
