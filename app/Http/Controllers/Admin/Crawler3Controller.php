@@ -27,6 +27,7 @@ class Crawler3Controller extends Controller
             'https://openload.co/embed/',
             'https://streamango.com/embed/',
             'https://drive.google.com/file/d/',
+            'http://anime47.com/player/ytb.php?',
         );
     }
     
@@ -70,7 +71,13 @@ class Crawler3Controller extends Controller
                     if(strpos($htmlString, $linksource) !== false) {
                         $r = explode($linksource, $htmlString);
                         if(isset($r[1])) {
-                            $r = explode('/', $r[1]);
+                            $r = explode('"', $r[1]);
+                            $r[0] = str_replace('\\', '', $r[0]);
+                            if($key == 3) {
+                                $file_code = explode('=', $r[0]);
+                                $r[0] = $file_code[1];
+                                $linksource = 'https://thevideo.me/';
+                            }
                             $result .= $linksource . $r[0] . '<br>';
                         }
                     }
@@ -100,7 +107,13 @@ class Crawler3Controller extends Controller
             if(strpos($request->source, $linksource) !== false) {
                 $r = explode($linksource, $request->source);
                 if(isset($r[1])) {
-                    $r = explode('/', $r[1]);
+                    $r = explode('"', $r[1]);
+                    $r[0] = str_replace('\\', '', $r[0]);
+                    if($key == 3) {
+                        $file_code = explode('=', $r[0]);
+                        $r[0] = $file_code[1];
+                        $linksource = 'https://thevideo.me/';
+                    }
                     $result .= '<span id="span' . $key . '">' . $linksource . $r[0] . '</span><br>';
                 }
             }
@@ -153,6 +166,22 @@ class Crawler3Controller extends Controller
                           }
                         });
                     }
+                    const span3 = document.getElementById("span3");
+                    if(span3) {
+                        span3.onclick = function() {
+                          document.execCommand("copy");
+                        }
+                        span3.addEventListener("copy", function(event) {
+                          event.preventDefault();
+                          if (event.clipboardData) {
+                            event.clipboardData.setData("text/plain", span3.textContent);
+                            var result = event.clipboardData.getData("text");
+                            console.log(result);
+                            document.getElementById("result").innerHTML = result;
+                          }
+                        });
+                    }
+
                     </script>';
         
         $result .= '<a style="margin-top:50px;padding:3px;text-decoration:none;font-size:50px;display:block;text-align:center;background:rgba(0,0,0,.3);color:#fff;" href="javascript:history.go(-1);">Back</a><p><em>Click chuột trái vào từng dòng link để copy</em></p>';
