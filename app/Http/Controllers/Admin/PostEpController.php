@@ -87,19 +87,19 @@ class PostEpController extends Controller
 
         // replace link server
         if(strpos($request->server5, 'openload.co/f/') !== false) {
-            $server5 = str_replace('openload.co/f/', 'openload.co/embed/', $request->server5);
+            $request->server5 = str_replace('openload.co/f/', 'openload.co/embed/', $request->server5);
         }
         if(strpos($request->server8, 'openload.co/f/') !== false) {
-            $server8 = str_replace('openload.co/f/', 'openload.co/embed/', $request->server8);
+            $request->server8 = str_replace('openload.co/f/', 'openload.co/embed/', $request->server8);
         }
         // https://thevideo.me/embed-k7kmb6ha2fr5.html
-        if(strpos($request->server8, 'thevideo.me/') !== false) {
+        if(strpos($request->server8, 'thevideo.me/') !== false && strpos($request->server8, 'embed' === false)) {
             $dirname = dirname($request->server8);
             $basename = basename($request->server8);
-            $server8 = $dirname . '/embed-' . $basename . '.html';
+            $request->server8 = $dirname . '/embed-' . $basename . '.html';
         }
         if(strpos($request->server9, 'openload.co/f/') !== false) {
-            $server9 = str_replace('openload.co/f/', 'openload.co/embed/', $request->server9);
+            $request->server9 = str_replace('openload.co/f/', 'openload.co/embed/', $request->server9);
         }
         
         $data = PostEp::create([
@@ -111,11 +111,11 @@ class PostEpController extends Controller
                 'server2' => $request->server2,
                 'server3' => $request->server3,
                 'server4' => $request->server4,
-                'server5' => $server5,
+                'server5' => $request->server5,
                 'server6' => $request->server6,
                 'server7' => $request->server7,
-                'server8' => $server8,
-                'server9' => $server9,
+                'server8' => $request->server8,
+                'server9' => $request->server9,
                 // 'summary' => $request->summary,
                 // 'description' => $request->description,
                 'meta_title' => $request->meta_title,
@@ -217,19 +217,19 @@ class PostEpController extends Controller
 
         // replace link server
         if(strpos($request->server5, 'openload.co/f/') !== false) {
-            $server5 = str_replace('openload.co/f/', 'openload.co/embed/', $request->server5);
+            $request->server5 = str_replace('openload.co/f/', 'openload.co/embed/', $request->server5);
         }
         if(strpos($request->server8, 'openload.co/f/') !== false) {
-            $server8 = str_replace('openload.co/f/', 'openload.co/embed/', $request->server8);
+            $request->server8 = str_replace('openload.co/f/', 'openload.co/embed/', $request->server8);
         }
         // https://thevideo.me/embed-k7kmb6ha2fr5.html
-        if(strpos($request->server8, 'thevideo.me/') !== false) {
+        if(strpos($request->server8, 'thevideo.me/') !== false && strpos($request->server8, 'embed' === false)) {
             $dirname = dirname($request->server8);
             $basename = basename($request->server8);
-            $server8 = $dirname . '/embed-' . $basename . '.html';
+            $request->server8 = $dirname . '/embed-' . $basename . '.html';
         }
         if(strpos($request->server9, 'openload.co/f/') !== false) {
-            $server9 = str_replace('openload.co/f/', 'openload.co/embed/', $request->server9);
+            $request->server9 = str_replace('openload.co/f/', 'openload.co/embed/', $request->server9);
         }
 
         $data->update([
@@ -241,11 +241,11 @@ class PostEpController extends Controller
                 'server2' => $request->server2,
                 'server3' => $request->server3,
                 'server4' => $request->server4,
-                'server5' => $server5,
+                'server5' => $request->server5,
                 'server6' => $request->server6,
                 'server7' => $request->server7,
-                'server8' => $server8,
-                'server9' => $server9,
+                'server8' => $request->server8,
+                'server9' => $request->server9,
                 // 'summary' => $request->summary,
                 // 'description' => $request->description,
                 'meta_title' => $request->meta_title,
@@ -401,7 +401,7 @@ class PostEpController extends Controller
                     $link = str_replace('openload.co/f/', 'openload.co/embed/', $link);
                 }
                 // https://thevideo.me/embed-k7kmb6ha2fr5.html
-                if(strpos($link, 'thevideo.me/') !== false) {
+                if(strpos($link, 'thevideo.me/') !== false && strpos($link, 'embed') === false) {
                     $dirname = dirname($link);
                     $basename = basename($link);
                     $link = $dirname . '/embed-' . $basename . '.html';
