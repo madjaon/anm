@@ -20,11 +20,11 @@
     </div>
     <div class="row">
       <div class="col">
-        <form action="{{ route('site.search') }}" method="GET" class="form-inline my-3">
+        <form action="{{ route('site.search') }}" method="GET" class="form-inline my-3 search-form">
           <div class="input-group">
           <input name="s" type="text" value="" class="form-control search-input" placeholder="Tìm kiếm theo tên hoặc hãng phim" id="search" maxlength="255">
             <span class="input-group-btn">
-              <button class="btn btn-success" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+              <button class="btn search-button" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
             </span>
           </div>
         </form>
@@ -78,11 +78,11 @@
             </div>
           </li>
         </ul>
-        <form action="{{ route('site.search') }}" method="GET" class="form-inline my-2 my-lg-0">
+        <form action="{{ route('site.search') }}" method="GET" class="form-inline my-2 my-lg-0 search-form">
           <div class="input-group">
           <input name="s" type="text" value="" class="form-control search-input" placeholder="Tìm kiếm theo tên hoặc hãng phim" id="search" maxlength="255">
             <span class="input-group-btn">
-              <button class="btn btn-success" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+              <button class="btn search-button" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
             </span>
           </div>
         </form>

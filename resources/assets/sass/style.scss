@@ -47,16 +47,39 @@ body {
   input[type="text"],
   input[type="email"],
   textarea {
-    background-color: $dark333;
+    background-color: $color25;
     &:focus {
       background-color: $white;
     }
   }
 }
+
+.search-form {
+  border: 1px solid $color30;
+}
+
 .search-input {
   min-width: 300px;
-  background-color: $dark333;
+  background-color: $color12;
   font-size: .938rem;
+  &:focus {
+    background-color: $color12;
+    border-color: $green;
+    color: $white;
+  }
+}
+
+.search-button {
+  background: $color34;
+  border: 1px solid transparent;
+  i.fa {
+    color: $gray-600;
+  }
+  &:hover {
+    i.fa {
+      color: $gray-500;
+    }
+  }
 }
 
 .menumobile {
@@ -98,7 +121,7 @@ header {
 // NAV BAR
 
 .navbar {
-  background: $black;
+  background: $color23;
   .nav-link {
     font-family: 'Francois One', sans-serif;
     letter-spacing: 1px;
@@ -226,12 +249,12 @@ footer {
 .table-bordered {
   border: 1px solid transparent;
   thead th {
-    border-bottom: 1px solid $dark333 !important;
+    border-bottom: 1px solid $color25 !important;
   }
 }
 
 .table-bordered td, .table-bordered th {
-  border: 1px solid $dark333;
+  border: 1px solid $color25;
 }
 
 // ONLINE
@@ -271,7 +294,7 @@ select.custom-select-sm {
 // BOX STYLE
 
 .box-style {
-  border-bottom: 1px solid $dark333;
+  border-bottom: 1px solid $color25;
   .title,
   h1 {
     border-bottom: 1px solid $green;
@@ -289,7 +312,7 @@ select.custom-select-sm {
 // CARD LIST
 .card-item,
 .list-item {
-  border-bottom: 1px solid $dark23;
+  border-bottom: 1px solid $color23;
   &-title {
     font-weight: 600;
     font-size: 1.125rem;
@@ -300,8 +323,8 @@ select.custom-select-sm {
 }
 
 .grid-item {
-  background: $dark23;
-  border: 1px solid $dark333;
+  background: $color23;
+  border: 1px solid $color25;
   a {
     position: relative;
     span {
@@ -660,7 +683,7 @@ select.custom-select-sm {
   margin: 0 2px;
   width: 12px;
   height: 12px;
-  background-color: $dark333;
+  background-color: $color25;
 
   border-radius: 100%;
   display: inline-block;

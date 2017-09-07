@@ -195,12 +195,12 @@
   <div class="episodes mb-3">
     <h3 class="mb-3">Tập mới nhất</h3>
     @foreach($post->epsLastest as $value)
-      <a href="{{ CommonUrl::getUrl2($post->slug, $value->slug) }}" title="{{ $value->name }}" class="btn btn-info btn-sm mr-1 mb-2">{{ $value->name }}</a>
+      <a href="{{ CommonUrl::getUrl2($post->slug, $value->slug) }}" title="{{ $value->name }}" class="btn btn-dark btn-sm mr-1 mb-2">{{ $value->name }}</a>
     @endforeach
   </div>
   @endif
 
-  @if(!empty($post->seriInfo))
+  @if(isset($post->seriInfo))
     <div class="my-5">
       <h3 class="seri mb-3"><a href="{{ CommonUrl::getUrlPostSeri($post->seriInfo->slug) }}" title="Seri phim {{ $post->seriInfo->name }}">Danh sách phim cùng Seri {{ $post->seriInfo->name }}</a></h3>
       @if(!empty($post->seriData))

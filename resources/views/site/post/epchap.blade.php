@@ -73,7 +73,7 @@
       @if(!empty($post->epchapArray))
       <div class="episodes my-4">
         @foreach($post->epchapArray as $key => $value)
-          <a href="{{ $key }}" title="{{ $post->name }} - {{ $value }}" class="btn btn-info btn-sm mr-1 mb-2 <?php echo (CommonUrl::getUrl2($post->slug, $data->slug) == $key)?'disabled':'' ?>">{{ $value }}</a>
+          <a href="{{ $key }}" title="{{ $post->name }} - {{ $value }}" class="btn btn-dark btn-sm mr-1 mb-2 <?php echo (CommonUrl::getUrl2($post->slug, $data->slug) == $key)?'disabled':'' ?>">{{ $value }}</a>
         @endforeach
       </div>
       @endif
