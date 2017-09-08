@@ -200,10 +200,9 @@
   </div>
   @endif
 
-  @if(isset($post->seriInfo))
+  @if(!empty($post->seriData))
     <div class="my-5">
       <h3 class="seri mb-3"><a href="{{ CommonUrl::getUrlPostSeri($post->seriInfo->slug) }}" title="Seri phim {{ $post->seriInfo->name }}">Danh sách phim cùng Seri {{ $post->seriInfo->name }}</a></h3>
-      @if(!empty($post->seriData))
       <blockquote class="blockquote">
         <ul class="list-unstyled">
           @foreach($post->seriData as $value)
@@ -212,7 +211,6 @@
             </li>
           @endforeach
         </ul>
-      @endif
       </blockquote>
     </div>
   @endif
