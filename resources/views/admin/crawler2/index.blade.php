@@ -173,19 +173,19 @@
 									<div class="col-sm-6">
 										<div class="form-group">
 											<label>Links Chapters</label>
-											<p>Nếu nhiều, ngăn cách bởi dấu phẩy</p>
+											<p>Mỗi dòng 1 link</p>
 											<div class="row">
 												<div class="col-sm-12">
-												<textarea name="chap_links" class="form-control" rows="3">{{ old('chap_links') }}</textarea>
+												<textarea name="chap_links" class="form-control nowrap" rows="3">{{ old('chap_links') }}</textarea>
 												</div>
 											</div>
 										</div>
 										<div class="form-group">
 											<label>Slugs Chapters</label>
-											<p>Slug tương ứng với danh sách links bên trên. Nếu nhiều, ngăn cách bởi dấu phẩy</p>
+											<p>Slug tương ứng với danh sách links bên trên. Mỗi dòng 1 slug</p>
 											<div class="row">
 												<div class="col-sm-12">
-												<textarea name="chap_slugs" class="form-control" rows="3">{{ old('chap_slugs') }}</textarea>
+												<textarea name="chap_slugs" class="form-control nowrap" rows="3">{{ old('chap_slugs') }}</textarea>
 												</div>
 											</div>
 										</div>
@@ -255,7 +255,7 @@
 									<div class="col-sm-6">
 										<div class="form-group">
 											<label>Links Chapters</label>
-											<p>Nếu nhiều, ngăn cách bởi dấu phẩy</p>
+											<p>Mỗi dòng 1 link</p>
 											<div class="row">
 												<div class="col-sm-12">
 												<textarea name="chap_links" class="form-control" rows="3">{{ old('chap_links') }}</textarea>
@@ -274,7 +274,7 @@
 									<div class="col-sm-6">
 										<div class="form-group">
 											<label>Slugs Chapters</label>
-											<p>Slug tương ứng với danh sách links bên trên. Nếu nhiều, ngăn cách bởi dấu phẩy</p>
+											<p>Slug tương ứng với danh sách links bên trên. Mỗi dòng 1 slug</p>
 											<div class="row">
 												<div class="col-sm-12">
 												<textarea name="chap_slugs" class="form-control" rows="3">{{ old('chap_slugs') }}</textarea>

@@ -61,7 +61,7 @@ class Crawler3Controller extends Controller
         // linksource
         $linksources = self::linksource();
         // explode links
-        $links = explode(',', $request->links);
+        $links = explode("\r\n", $request->links);
         foreach($links as $link) {
             // steal form links
             $htmlString = CommonMethod::get_remote_data($link);
@@ -205,7 +205,7 @@ class Crawler3Controller extends Controller
         }
         $result = '';
         if(!empty($request->links)) {
-            $links = explode(',', $request->links);
+            $links = explode("\r\n", $request->links);
             foreach($links as $link) {
                 $urlNoParams = CommonMethod::removeParameters($link);
                 $urlArray = explode('/', $urlNoParams);

@@ -404,8 +404,8 @@ class Crawler2Controller extends Controller
         if(empty($request->chap_links) || empty($request->chap_slugs) || empty($request->source) || empty($request->title_pattern) || empty($request->description_pattern) || empty($request->post_id)) {
             return redirect()->route('admin.crawler2.index')->with('warning', 'Không đủ dữ liệu');
         }
-        $arrayLinks = explode(',', $request->chap_links);
-        $arraySlugs = explode(',', $request->chap_slugs);
+        $arrayLinks = explode("\r\n", $request->chap_links);
+        $arraySlugs = explode("\r\n", $request->chap_slugs);
         if(count($arrayLinks) == count($arraySlugs)) {
             // post ep latest de lay position
             $postEpLatest = CommonCrawler::getLatestEp($request->post_id);
@@ -464,8 +464,8 @@ class Crawler2Controller extends Controller
         if(empty($request->title_pattern) || empty($request->description_pattern)) {
             return redirect()->route('admin.crawler2.index')->with('warning', 'Không đủ dữ liệu');
         }
-        $arrayLinks = explode(',', $request->chap_links);
-        $arraySlugs = explode(',', $request->chap_slugs);
+        $arrayLinks = explode("\r\n", $request->chap_links);
+        $arraySlugs = explode("\r\n", $request->chap_slugs);
         if(count($arrayLinks) == count($arraySlugs)) {
             // post ep latest de lay position
             $postEpLatest = CommonCrawler::getLatestEp($request->post_id);

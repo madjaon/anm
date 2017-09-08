@@ -105,30 +105,30 @@
 											</div>
 											<div class="form-group">
 												<label>Links Posts</label>
-												<p>Nếu có nhiều links bài viết thì ngăn cách bởi dấu phẩy</p>
+												<p>Mỗi dòng 1 link</p>
 												<div class="row">
 													<div class="col-sm-12">
-													<textarea name="post_links" class="form-control crawpost" rows="3">{{ $post_links }}</textarea>
+													<textarea name="post_links" class="form-control crawpost nowrap" rows="3">{{ $post_links }}</textarea>
 													</div>
 												</div>
 											</div>
 											<div class="form-group">
 												<label>Slugs Posts</label>
-												<p>Slug tương ứng với danh sách link bài viết (phía trên). Nếu có nhiều thì ngăn cách bởi dấu phẩy</p>
+												<p>Slug tương ứng với danh sách link bài viết (phía trên). Mỗi dòng 1 slug</p>
 												<p>Chỉ tác dụng khi chọn Kiểu lưu Slug bài viết tương ứng</p>
 												<div class="row">
 													<div class="col-sm-12">
-													<textarea name="post_slugs" class="form-control crawpost" rows="3">{{ $post_slugs }}</textarea>
+													<textarea name="post_slugs" class="form-control crawpost nowrap" rows="3">{{ $post_slugs }}</textarea>
 													</div>
 												</div>
 											</div>
 											<div class="form-group">
 												<label>Titles Posts</label>
-												<p>Title tương ứng với danh sách link bài viết (phía trên). Nếu có nhiều thì ngăn cách bởi dấu phẩy</p>
+												<p>Title tương ứng với danh sách link bài viết (phía trên). Mỗi dòng 1 title</p>
 												<p>Chỉ tác dụng khi chọn Kiểu lưu title bài viết tương ứng</p>
 												<div class="row">
 													<div class="col-sm-12">
-													<textarea name="post_titles" class="form-control crawpost" rows="3">{{ $post_titles }}</textarea>
+													<textarea name="post_titles" class="form-control crawpost nowrap" rows="3">{{ $post_titles }}</textarea>
 													</div>
 												</div>
 											</div>

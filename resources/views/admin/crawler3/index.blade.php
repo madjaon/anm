@@ -32,10 +32,10 @@
 									<div class="box-body">
 										<div class="form-group">
 											<label>Links - Danh sách links nguồn</label>
-											<p>Cách nhau bởi dấu phẩy</p>
+											<p>Mỗi dòng 1 link</p>
 											<div class="row">
 												<div class="col-sm-12">
-													<textarea name="links" class="form-control" rows="5">{{ old('links') }}</textarea>
+													<textarea name="links" class="form-control nowrap" rows="5">{{ old('links') }}</textarea>
 												</div>
 											</div>
 										</div>
@@ -97,10 +97,10 @@
 									<div class="box-body">
 										<div class="form-group">
 											<label>Links - Danh sách đường dẫn</label>
-											<p>Cách nhau bởi dấu phẩy</p>
+											<p>Mỗi dòng 1 link</p>
 											<div class="row">
 												<div class="col-sm-12">
-													<textarea name="links" class="form-control" rows="5">{{ old('links') }}</textarea>
+													<textarea name="links" class="form-control nowrap" rows="5">{{ old('links') }}</textarea>
 												</div>
 											</div>
 										</div>

@@ -142,7 +142,7 @@ class CrawlerController extends Controller
         trimRequest($request);
         if($request->type == CRAW_POST) {
             if(!empty($request->post_links)) {
-                $links = explode(',', $request->post_links);
+                $links = explode("\r\n", $request->post_links);
                 $result = self::stealPost($request, $links);
             }
         } else if($request->type == CRAW_CATEGORY) {
@@ -234,13 +234,13 @@ class CrawlerController extends Controller
                 // Lấy tiêu đề
                 if($request->title_type == TITLETYPE2) {
                     if(!empty($request->post_slugs)) {
-                        $slugsForTitles = explode(',', $request->post_slugs);
+                        $slugsForTitles = explode("\r\n", $request->post_slugs);
                         $slugTitle = $slugsForTitles[$key];
                         $postName = trim(str_replace('-', ' ', $slugTitle));
                     }
                 } else if($request->title_type == TITLETYPE3) {
                     if(!empty($request->post_titles)) {
-                        $titles = explode(',', $request->post_titles);
+                        $titles = explode("\r\n", $request->post_titles);
                         $postName = trim($titles[$key]);
                     }
                 } else {
@@ -331,7 +331,7 @@ class CrawlerController extends Controller
                     $slug = CommonMethod::getSlugFromUrl($link);
                 } else if($request->slug_type == SLUGTYPE3) {
                     if(!empty($request->post_slugs)) {
-                        $slugs = explode(',', $request->post_slugs);
+                        $slugs = explode("\r\n", $request->post_slugs);
                         $slug = $slugs[$key];
                     } else {
                         $slug = CommonMethod::getSlugFromUrl($link);
