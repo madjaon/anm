@@ -49,7 +49,6 @@ define('INACTIVE', 2);
 define('POST_TV', 1);
 define('POST_MOVIE', 2);
 define('POST_OVA', 3);
-define('POST_ONA', 4);
 // menu top nam ngang
 define('MENUTYPE1', 1);
 // menu side
