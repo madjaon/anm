@@ -189,6 +189,26 @@ class Crawler3Controller extends Controller
         exit();
     }
 
+    public function steallinkvideo3(Request $request)
+    {
+        trimRequest($request);
+        $validator = Validator::make($request->all(), [
+            'items' => 'required',
+        ]);
+        if($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $data = (array) json_decode($request->items);
+        $rs = "";
+        foreach($data['items'] as $value) {
+            $rs .= "https://drive.google.com/file/d/".$value->id."/preview<br>";
+        }
+        echo $rs;
+        exit();
+
+    }
+
     public function stealimages(Request $request)
     {
         if(!app()->environment('local')) {

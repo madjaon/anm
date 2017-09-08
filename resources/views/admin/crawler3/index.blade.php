@@ -21,7 +21,8 @@
 			<div class="nav-tabs-custom">
 				<ul class="nav nav-tabs">
 					<li class="active"><a href="#tab1" data-toggle="tab">Steal Link video</a></li>
-					<li><a href="#tab2" data-toggle="tab">Extra</a></li>
+					<li><a href="#tab2" data-toggle="tab">Google Drive Link</a></li>
+					<li><a href="#tab3" data-toggle="tab">Extra</a></li>
 				</ul>
 				<div class="tab-content">
 					<div class="tab-pane active" id="tab1">
@@ -88,6 +89,49 @@
 					</div>
 					<!-- /.tab-pane -->
 					<div class="tab-pane" id="tab2">
+						<div class="row">
+							<div class="col-sm-6">
+								<form action="{{ url('admin/crawler3/steallinkvideo3') }}" method="POST">
+									{!! csrf_field() !!}
+									<div class="box-body">
+										<div class="form-group">
+											<label>Items</label>
+											<div class="row">
+												<div class="col-sm-12">
+													<textarea name="items" class="form-control nowrap" rows="5">{{ old('items') }}</textarea>
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="row">
+												<div class="col-sm-12">
+													<input type="submit" class="btn btn-primary" value="Lưu lại" />
+													<input type="reset" class="btn btn-default" value="Nhập lại" />
+												</div>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+							<div class="col-sm-6">
+								<ol>
+									<li>Lấy folderId từ link google drive (dạng link: https://drive.google.com/drive/folders/[folderId]) - thư mục chứa phim trên google drive</li>
+									<li>Truy cập: https://developers.google.com/drive/v2/reference/children/list#try-it</li>
+									<li>Ô orderBy nhập vào: title</li>
+									<li>Click Show standard parameters</li>
+									<li>Ô fields nhập vào: items</li>
+									<li>Click Hide standard parameters</li>
+									<li>Ô folderId nhập vào folderId (lấy từ link gdrive ở bước 1.)</li>
+									<li>Click nút Excute</li>
+									<li>Nếu kết quả phía dưới ra mã 200 thì thành công. Copy toàn bộ nội dung bên dưới (CTRL + A, CTRL + C)</li>
+									<li>Trở lại admin, dán nội dung vào ô Items</li>
+									<li>Click Lưu lại để lấy links (danh sách links này theo thứ tự sắp xếp theo tên file, giống trong google drive)</li>
+								</ol>
+							</div>
+						</div>
+					</div>
+					<!-- /.tab-pane -->
+					<div class="tab-pane" id="tab3">
 						@if(app()->environment('local'))
 						<div class="row">
 							<div class="col-sm-6">

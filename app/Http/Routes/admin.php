@@ -85,6 +85,7 @@ Route::group(['middleware' => ['auth:admin']], function ($router) {
     // Route::resource('crawler2', 'Crawler2Controller');
     // crawler 3 for anime
     Route::post('crawler3/stealimages', 'Crawler3Controller@stealimages');
+    Route::post('crawler3/steallinkvideo3', 'Crawler3Controller@steallinkvideo3');
     Route::post('crawler3/steallinkvideo2', 'Crawler3Controller@steallinkvideo2');
     Route::post('crawler3/steallinkvideo', 'Crawler3Controller@steallinkvideo');
     Route::resource('crawler3', 'Crawler3Controller');
