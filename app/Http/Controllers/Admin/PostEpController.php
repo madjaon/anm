@@ -97,7 +97,7 @@ class PostEpController extends Controller
             $request->server8 = str_replace('openload.co/f/', 'openload.co/embed/', $request->server8);
         }
         // https://thevideo.me/embed-k7kmb6ha2fr5.html
-        if(strpos($request->server8, 'thevideo.me/') !== false && strpos($request->server8, 'embed' === false)) {
+        if(strpos($request->server8, 'thevideo.me/') !== false && strpos($request->server8, 'embed') === false) {
             $dirname = dirname($request->server8);
             $basename = basename($request->server8);
             $request->server8 = $dirname . '/embed-' . $basename . '.html';
@@ -230,7 +230,7 @@ class PostEpController extends Controller
             $request->server8 = str_replace('openload.co/f/', 'openload.co/embed/', $request->server8);
         }
         // https://thevideo.me/embed-k7kmb6ha2fr5.html
-        if(strpos($request->server8, 'thevideo.me/') !== false && strpos($request->server8, 'embed' === false)) {
+        if(strpos($request->server8, 'thevideo.me/') !== false && strpos($request->server8, 'embed') === false) {
             $dirname = dirname($request->server8);
             $basename = basename($request->server8);
             $request->server8 = $dirname . '/embed-' . $basename . '.html';
