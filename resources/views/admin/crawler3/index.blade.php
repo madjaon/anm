@@ -141,6 +141,7 @@
 <script>
 	$(function () {
 		$("select[multiple] option").prop("selected", "selected");
+		$("textarea").val("");
 	})
 </script>
 
