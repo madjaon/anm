@@ -418,15 +418,16 @@ class CommonVideo
         }
         if(!empty($delimiter)) {
             $e = explode($delimiter, $link);
-            $id = explode('/', $e);
+            $id = explode('/', $e[1]);
             return $id[0];
         }
         return $link;
     }
 
     // https://drive.google.com/file/d/0B9bsV7azN_rwNjdqTTdjejdIVWc/preview
-    static function getGDriveEmbedLink($id)
+    static function getGDriveEmbedLink($link)
     {
+        $id = self::getGDriveIdFromShareLink($link);
         return 'https://drive.google.com/file/d/'.$id.'/preview';
     }
 }

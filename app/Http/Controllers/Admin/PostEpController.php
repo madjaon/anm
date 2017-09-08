@@ -360,8 +360,8 @@ class PostEpController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $epchapArray = explode(',', $request->epchap);
-        $linksArray = explode(',', $request->links);
+        $epchapArray = explode("\r\n", $request->epchap);
+        $linksArray = explode("\r\n", $request->links);
         foreach($epchapArray as $key => $value) {
             $link = trim($linksArray[$key]);
             $value = trim($value);

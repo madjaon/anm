@@ -30,16 +30,16 @@
 							<div class="form-group">
 								<label>Số tập hiện tại <span style="color: red;">(*)</span></label>
 								<p>Tập số mấy? 1,2... (hoặc 1-1,1-2...)</p>
-								<p>Cách nhau bởi dấu phẩy</p>
+								<p>Mỗi dòng 1 tập</p>
 								<div class="row">
 									<div class="col-sm-12">
-										<input name="epchap" type="text" value="{{ old('epchap') }}" class="form-control">
+										<textarea name="epchap" class="form-control" rows="5">{{ old('epchap') }}</textarea>
 									</div>
 								</div>
 							</div>
 							<div class="form-group">
 								<label>Links - Danh sách links phim tương ứng với số tập</label>
-								<p>Cách nhau bởi dấu phẩy</p>
+								<p>Mỗi dòng 1 link</p>
 								<div class="row">
 									<div class="col-sm-12">
 										<textarea name="links" class="form-control" rows="5">{{ old('links') }}</textarea>
