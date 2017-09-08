@@ -404,4 +404,29 @@ class CommonVideo
 
     // END FACEBOOK VIDEO
     
+    // GET ID DRIVE
+    // https://drive.google.com/open?id=0B9bsV7azN_rwNjdqTTdjejdIVWc
+    // https://drive.google.com/file/d/0B9bsV7azN_rwNjdqTTdjejdIVWc
+    // https://drive.google.com/file/d/0B9bsV7azN_rwNjdqTTdjejdIVWc/view?usp=sharing
+    static function getGDriveIdFromShareLink($link)
+    {
+        if(strpos($link, '/open?id=') !== false) {
+            $delimiter = '/open?id=';
+        }
+        if(strpos($link, '/file/d/') !== false) {
+            $delimiter = '/file/d/';
+        }
+        if(!empty($delimiter)) {
+            $e = explode($delimiter, $link);
+            $id = explode('/', $e);
+            return $id[0];
+        }
+        return $link;
+    }
+
+    // https://drive.google.com/file/d/0B9bsV7azN_rwNjdqTTdjejdIVWc/preview
+    static function getGDriveEmbedLink($id)
+    {
+        return 'https://drive.google.com/file/d/'.$id.'/preview';
+    }
 }

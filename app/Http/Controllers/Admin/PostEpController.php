@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Helpers\CommonMethod;
+use App\Helpers\CommonVideo;
 use App\Models\PostEp;
 use App\Models\Post;
 use DB;
@@ -86,6 +87,9 @@ class PostEpController extends Controller
         }
 
         // replace link server
+        if(strpos($request->server2, 'https://drive.google.com/') !== false) {
+            $request->server2 = CommonVideo::getGDriveEmbedLink($request->server2);
+        }
         if(strpos($request->server5, 'openload.co/f/') !== false) {
             $request->server5 = str_replace('openload.co/f/', 'openload.co/embed/', $request->server5);
         }
@@ -216,6 +220,9 @@ class PostEpController extends Controller
         }
 
         // replace link server
+        if(strpos($request->server2, 'https://drive.google.com/') !== false) {
+            $request->server2 = CommonVideo::getGDriveEmbedLink($request->server2);
+        }
         if(strpos($request->server5, 'openload.co/f/') !== false) {
             $request->server5 = str_replace('openload.co/f/', 'openload.co/embed/', $request->server5);
         }
@@ -395,8 +402,11 @@ class PostEpController extends Controller
                     }
                 }
                 
-                // server openload: shortlink to embed link
                 // replace link server
+                if(strpos($link, 'https://drive.google.com/') !== false) {
+                    $link = CommonVideo::getGDriveEmbedLink($link);
+                }
+                // server openload: shortlink to embed link
                 if(strpos($link, 'openload.co/f/') !== false) {
                     $link = str_replace('openload.co/f/', 'openload.co/embed/', $link);
                 }
