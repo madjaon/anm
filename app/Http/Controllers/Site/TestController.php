@@ -284,8 +284,8 @@ class TestController extends Controller
 
     public function changePostStartDate()
     {
-    	$id = 1886;
-    	Post::find($id)->update(['start_date' => '2016-12-31 12:00:00']);
+    	$id = 1887;
+    	Post::find($id)->update(['start_date' => '2013-12-31 13:00:00']);
     	dd('changed');
     }
 
