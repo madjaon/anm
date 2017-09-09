@@ -123,7 +123,7 @@
 									<li>Click Hide standard parameters</li>
 									<li>Ô folderId nhập vào folderId (lấy từ link gdrive ở bước 1.)</li>
 									<li>Click nút Excute</li>
-									<li>Nếu kết quả phía dưới ra mã 200 thì thành công. Copy toàn bộ nội dung bên dưới (CTRL + A, CTRL + C)</li>
+									<li>Nếu kết quả phía dưới ra mã 200 thì thành công (màu xanh lá cây). Copy toàn bộ nội dung bên dưới (CTRL + A, CTRL + C)</li>
 									<li>Trở lại admin, dán nội dung vào ô Items</li>
 									<li>Click Lưu lại để lấy links (danh sách links này theo thứ tự sắp xếp theo tên file, giống trong google drive)</li>
 								</ol>

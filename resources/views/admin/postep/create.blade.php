@@ -79,7 +79,7 @@
 							</div>
 							<div class="form-group">
 								<label>Số tập hiện tại <span style="color: red;">(*)</span></label>
-								<p>Tập số mấy? 1, 2... (hoặc 1-1, 1-2...)</p>
+								<p>Tập số mấy? 1, 2...</p>
 								<div class="row">
 									<div class="col-sm-12">
 										<input name="epchap" type="text" value="{{ old('epchap') }}" class="form-control">

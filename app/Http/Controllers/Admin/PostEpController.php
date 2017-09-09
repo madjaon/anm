@@ -352,7 +352,6 @@ class PostEpController extends Controller
         trimRequest($request);
         $validator = Validator::make($request->all(), [
             'post_id' => 'required',
-            'epchap' => 'required',
             'links' => 'required',
             'servernumber' => 'required',
         ]);
@@ -360,7 +359,19 @@ class PostEpController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $epchapArray = explode("\r\n", $request->epchap);
+        if(empty($request->epchap) && empty($request->totalepchap)) {
+            return redirect()->back()->with('warning', 'Chưa nhập Danh sách tập hoặc Số tập');
+        }
+
+        if(!empty($request->epchap)) {
+            $epchapArray = explode("\r\n", $request->epchap);
+        } else {
+            $epchapArray = [];
+            for($i = 1; $i <= $request->totalepchap; $i++) {
+                $epchapArray[] = $i;
+            }
+        }
+                
         $linksArray = explode("\r\n", $request->links);
         foreach($epchapArray as $key => $value) {
             $link = trim($linksArray[$key]);

@@ -28,21 +28,21 @@
 					<div class="row">
 						<div class="col-sm-8">
 							<div class="form-group">
-								<label>Số tập hiện tại <span style="color: red;">(*)</span></label>
-								<p>Tập số mấy? 1,2... (hoặc 1-1,1-2...)</p>
+								<label>Danh sách tập</label>
+								<p>Tập số mấy? 1,2... (hoặc 1-1,1-2...). Tương ứng với danh sách links</p>
 								<p>Mỗi dòng 1 tập</p>
 								<div class="row">
 									<div class="col-sm-12">
-										<textarea name="epchap" class="form-control" rows="5">{{ old('epchap') }}</textarea>
+										<textarea name="epchap" class="form-control nowrap" rows="5">{{ old('epchap') }}</textarea>
 									</div>
 								</div>
 							</div>
 							<div class="form-group">
-								<label>Links - Danh sách links phim tương ứng với số tập</label>
+								<label>Links - Danh sách links tương ứng với số tập</label>
 								<p>Mỗi dòng 1 link</p>
 								<div class="row">
 									<div class="col-sm-12">
-										<textarea name="links" class="form-control" rows="5">{{ old('links') }}</textarea>
+										<textarea name="links" class="form-control nowrap" rows="5">{{ old('links') }}</textarea>
 									</div>
 								</div>
 							</div>
@@ -53,8 +53,18 @@
 								<input type="reset" class="btn btn-default" value="Nhập lại" />
 							</div>
 							<div class="form-group">
+								<label>Số tập</label>
+								<p>Tự động tính từ tập 1 tới số tập đã nhập vào ô</p>
+								<p>Nhập ô này nếu để trống ô danh sách tập vì quá nhiều</p>
+								<div class="row">
+									<div class="col-sm-12">
+										<input type="text" name="totalepchap" class="form-control onlyNumber" value="{{ old('totalepchap') }}">
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
 								<label>Server</label>
-								<p>Server tương ứng với links phim</p>
+								<p>Server tương ứng với links</p>
 								<div class="row">
 									<div class="col-sm-12">
 									{!! Form::select('servernumber', CommonOption::serverArray(), old('servernumber'), array('class' => 'form-control')) !!}
