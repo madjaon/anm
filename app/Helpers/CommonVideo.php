@@ -108,7 +108,7 @@ class CommonVideo
                     parse_str($url, $data);
                     $dataURL = $data['url'];
                     unset($data['url']);
-                    // 37: 1080p, 22: 720p, 18: 360p
+                    // 37: 1080p, 22: 720p, 59: 480p, 18: 360p
                     // $return[$data['quality']."-".$data['itag']] = $dataURL.'&'.urldecode(http_build_query($data));
 
                     if($data['itag'] == '37') {
@@ -119,10 +119,15 @@ class CommonVideo
                         $v720p = $dataURL.'&'.urldecode(http_build_query($data));
                         $linkDownload[] = self::getJw($v720p, '720p');
                     }
+                    if($data['itag'] == '59') {
+                        $v480p = $dataURL.'&'.urldecode(http_build_query($data));
+                        $linkDownload[] = self::getJw($v720p, '480p');
+                    }
                     if($data['itag'] == '18') {
                         $v360p = $dataURL.'&'.urldecode(http_build_query($data));
                         $linkDownload[] = self::getJw($v360p, '360p');
                     }
+
                 }
             }
             return json_encode($linkDownload);
@@ -136,7 +141,7 @@ class CommonVideo
         $array = [
             '37' => '1080p',
             '22' => '720p',
-            '44' => '480p',
+            '59' => '480p',
             '18' => '360p',
         ];
         return $array[$itag];
@@ -405,29 +410,23 @@ class CommonVideo
     // END FACEBOOK VIDEO
     
     // GET ID DRIVE
-    // https://drive.google.com/open?id=0B9bsV7azN_rwNjdqTTdjejdIVWc
-    // https://drive.google.com/file/d/0B9bsV7azN_rwNjdqTTdjejdIVWc
-    // https://drive.google.com/file/d/0B9bsV7azN_rwNjdqTTdjejdIVWc/view?usp=sharing
-    static function getGDriveIdFromShareLink($link)
+    static function getDriveId($url)
     {
-        if(strpos($link, '/open?id=') !== false) {
-            $delimiter = '/open?id=';
+        preg_match('/(?:https?:\/\/)?(?:[\w\-]+\.)*(?:drive|docs)\.google\.com\/(?:(?:folderview|open|uc)\?(?:[\w\-\%]+=[\w\-\%]*&)*id=|(?:folder|file|document|presentation)\/d\/|spreadsheet\/ccc\?(?:[\w\-\%]+=[\w\-\%]*&)*key=)([\w\-]{28,})/i', $url , $match);
+        if(isset($match[1])) {
+            return $match[1];
         }
-        if(strpos($link, '/file/d/') !== false) {
-            $delimiter = '/file/d/';
-        }
-        if(!empty($delimiter)) {
-            $e = explode($delimiter, $link);
-            $id = explode('/', $e[1]);
-            return $id[0];
-        }
-        return $link;
+        return false;
     }
 
     // https://drive.google.com/file/d/0B9bsV7azN_rwNjdqTTdjejdIVWc/preview
     static function getGDriveEmbedLink($link)
     {
-        $id = self::getGDriveIdFromShareLink($link);
-        return 'https://drive.google.com/file/d/'.$id.'/preview';
+        $id = self::getDriveId($link);
+        if($id) {
+            return 'https://drive.google.com/file/d/'.$id.'/preview';    
+        }
+        return '';
     }
+
 }
